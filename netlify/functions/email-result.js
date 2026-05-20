@@ -131,13 +131,29 @@ async function sendResultMail({ to, result, resultUrl, expiresAt }) {
     },
   });
 
-  await transporter.sendMail({
+  const info = await transporter.sendMail({
     from: config.from,
+    envelope: {
+      from: config.user,
+      to,
+    },
     to,
+    replyTo: config.from,
     subject: `[동아대학교 도서관] ${result.shelfTitle || 'AI 추천 도서 결과'}`,
     text: mailText(result, resultUrl, expiresAt),
     html: mailHtml(result, resultUrl, expiresAt),
+    headers: {
+      'X-Auto-Response-Suppress': 'All',
+    },
   });
+
+  if (Array.isArray(info.rejected) && info.rejected.length) {
+    const error = new Error(`메일 서버가 수신자를 거절했습니다: ${info.rejected.join(', ')}`);
+    error.statusCode = 502;
+    throw error;
+  }
+
+  return info;
 }
 
 exports.handler = async function handler(event) {
@@ -158,7 +174,7 @@ exports.handler = async function handler(event) {
     if (saved.statusCode >= 400) return json(saved.statusCode, savedBody);
 
     const resultUrl = `${siteOrigin(event)}/?resultId=${encodeURIComponent(savedBody.id)}`;
-    await sendResultMail({
+    const mailInfo = await sendResultMail({
       to: email,
       result: body.result,
       resultUrl,
@@ -169,6 +185,7 @@ exports.handler = async function handler(event) {
       sent: true,
       resultUrl,
       expiresAt: savedBody.expiresAt,
+      accepted: Array.isArray(mailInfo.accepted) ? mailInfo.accepted.length : 0,
     });
   } catch (error) {
     return json(error.statusCode || 500, { error: error.message || '메일 발송에 실패했습니다.' });

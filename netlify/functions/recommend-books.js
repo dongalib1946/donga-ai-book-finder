@@ -15,7 +15,8 @@ const PURCHASE_REQUEST_URL = 'https://library.donga.ac.kr/libaray-services/using
 const FETCH_TIMEOUT_MS = Number.parseInt(process.env.FETCH_TIMEOUT_MS || '2500', 10);
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 const NOTICE_CACHE_TTL_MS = 20 * 60 * 1000;
-const INSTRUCTION_CACHE_TTL_MS = Number.parseInt(process.env.INSTRUCTION_CACHE_TTL_MS || String(60 * 1000), 10);
+const INSTRUCTION_CACHE_TTL_MS = Number.parseInt(process.env.INSTRUCTION_CACHE_TTL_MS || '0', 10);
+const INSTRUCTION_FETCH_TIMEOUT_MS = Math.max(3000, Number.parseInt(process.env.INSTRUCTION_FETCH_TIMEOUT_MS || '8000', 10) || 8000);
 const BESTSELLER_CACHE_TTL_MS = Number.parseInt(process.env.BESTSELLER_CACHE_TTL_MS || String(60 * 1000), 10);
 const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION_PAGE_LIMIT || '1', 10) || 1);
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
@@ -874,6 +875,7 @@ async function fetchLibraryInstructions(limit = 5) {
         'x-requested-with': 'XMLHttpRequest',
       },
       body,
+      timeoutMs: INSTRUCTION_FETCH_TIMEOUT_MS,
     });
     if (!res.ok) throw new Error(`Library instruction API failed ${res.status}`);
     const data = await res.json();
@@ -1288,7 +1290,7 @@ async function fetchAladinBestSellers(pool, limit = 6) {
     url.searchParams.set('ttbkey', ttbKey);
     url.searchParams.set('QueryType', 'Bestseller');
     url.searchParams.set('SearchTarget', 'Book');
-    url.searchParams.set('MaxResults', String(Math.min(10, Math.max(limit, 6))));
+    url.searchParams.set('MaxResults', String(Math.min(20, Math.max(limit * 3, 10))));
     url.searchParams.set('Cover', 'Big');
     url.searchParams.set('output', 'js');
     url.searchParams.set('Version', '20131101');

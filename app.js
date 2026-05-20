@@ -434,6 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try{
       const res = await fetch('/.netlify/functions/recommend-books', {
         method:'POST',
+        cache:'no-store',
         headers:{'content-type':'application/json'},
         body:JSON.stringify({ answers:answerPayload(), limit:6, popularLimit:5, seed:sessionSeed })
       });
