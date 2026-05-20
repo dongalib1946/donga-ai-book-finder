@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setError(els.resultError, '');
 
     try{
-      const res = await fetch('/.netlify/functions/recommend-books', {
+      const res = await fetch(`/.netlify/functions/recommend-books?_=${Date.now()}`, {
         method:'POST',
         cache:'no-store',
         headers:{'content-type':'application/json'},

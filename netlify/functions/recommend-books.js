@@ -15,7 +15,7 @@ const PURCHASE_REQUEST_URL = 'https://library.donga.ac.kr/libaray-services/using
 const FETCH_TIMEOUT_MS = Number.parseInt(process.env.FETCH_TIMEOUT_MS || '2500', 10);
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 const NOTICE_CACHE_TTL_MS = 20 * 60 * 1000;
-const INSTRUCTION_CACHE_TTL_MS = Number.parseInt(process.env.INSTRUCTION_CACHE_TTL_MS || '0', 10);
+const INSTRUCTION_CACHE_TTL_MS = 0;
 const INSTRUCTION_FETCH_TIMEOUT_MS = Math.max(3000, Number.parseInt(process.env.INSTRUCTION_FETCH_TIMEOUT_MS || '8000', 10) || 8000);
 const BESTSELLER_CACHE_TTL_MS = Number.parseInt(process.env.BESTSELLER_CACHE_TTL_MS || String(60 * 1000), 10);
 const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION_PAGE_LIMIT || '1', 10) || 1);
@@ -211,6 +211,9 @@ function json(statusCode, body, cacheControl = 'no-store') {
     headers: {
       'content-type': 'application/json; charset=utf-8',
       'cache-control': cacheControl,
+      'cdn-cache-control': 'no-store',
+      'netlify-cdn-cache-control': 'no-store',
+      expires: '0',
       'access-control-allow-origin': '*',
       'access-control-allow-methods': 'POST,OPTIONS',
       'access-control-allow-headers': 'content-type',
@@ -883,14 +886,11 @@ async function fetchLibraryInstructions(limit = 5) {
       .map(item => normalizeInstruction(item, range.monthKey))
       .filter(Boolean)
       .slice(0, limit);
-    const items = programs.length ? programs : fallbackInstructions(range, limit);
-    instructionCache = { savedAt: Date.now(), monthKey: range.monthKey, items };
-    return items;
+    instructionCache = { savedAt: Date.now(), monthKey: range.monthKey, items: programs };
+    return programs;
   } catch (error) {
     console.warn('[Library instructions]', error.message);
-    const items = fallbackInstructions(range, limit);
-    instructionCache = { savedAt: Date.now(), monthKey: range.monthKey, items };
-    return items;
+    return [];
   }
 }
 

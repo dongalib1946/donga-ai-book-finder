@@ -60,11 +60,13 @@ body::after{
   inset:0;
   z-index:0;
   background:
+    repeating-radial-gradient(ellipse at 50% 48%, rgba(27,86,145,.16) 0 2px, transparent 2px 86px),
+    repeating-radial-gradient(ellipse at 54% 50%, rgba(93,161,219,.1) 0 1px, transparent 1px 58px),
     radial-gradient(820px 540px at 16% 12%, rgba(72,150,216,.16), transparent 66%),
     radial-gradient(740px 520px at 90% 18%, rgba(154,209,255,.2), transparent 64%),
     radial-gradient(860px 620px at 54% 94%, rgba(98,178,236,.18), transparent 66%);
   mix-blend-mode:multiply;
-  opacity:.36;
+  opacity:.42;
 }
 [hidden]{display:none !important}
 button,a{font:inherit}
