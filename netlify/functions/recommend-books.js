@@ -811,8 +811,12 @@ function labeledAladinPart(label, value, minLength = 20) {
 function combineDescriptionParts(parts, maxLength = 1400) {
   const combined = [];
   parts.map(cleanText).filter(Boolean).forEach(text => {
-    const duplicate = combined.some(part => part.includes(text) || text.includes(part));
-    if (!duplicate) combined.push(text);
+    const duplicateIndex = combined.findIndex(part => part.includes(text) || text.includes(part));
+    if (duplicateIndex === -1) {
+      combined.push(text);
+    } else if (text.length > combined[duplicateIndex].length) {
+      combined[duplicateIndex] = text;
+    }
   });
 
   let result = '';
