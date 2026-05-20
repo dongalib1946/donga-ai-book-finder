@@ -1,14 +1,13 @@
-functionsDirectory = "/Users/Jay/Downloads/donga-door-to-book 2/netlify/functions"
+functionsDirectory = "netlify/functions"
 functionsDirectoryOrigin = "config-v1"
 headersOrigin = "config"
 plugins = []
 redirects = []
 
 [build]
-edge_functions = "/Users/Jay/Downloads/donga-door-to-book 2/netlify/edge-functions"
-publish = "/Users/Jay/Downloads/donga-door-to-book 2"
+publish = "."
 publishOrigin = "config"
-functions = "/Users/Jay/Downloads/donga-door-to-book 2/netlify/functions"
+functions = "netlify/functions"
 
   [build.environment]
 
