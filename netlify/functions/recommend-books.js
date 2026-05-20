@@ -1489,17 +1489,35 @@ function makeReason(book, answers) {
     .filter(Boolean)
     .slice(0, 3);
   const collection = book.collection ? `${book.collection} 컬렉션` : '도서관 컬렉션';
-  const sourceHint = book.description
-    ? '알라딘 책 소개에서도 같은 주제 단서가 확인되었습니다.'
-    : '알라딘 상세 소개는 제한적이지만 제목, 저자, 컬렉션 정보에서 관련 단서가 확인되었습니다.';
+  const labelText = labels.length ? labels.join(', ') : '현재 답변 흐름';
+  const choiceText = choices.length ? choices.join(', ') : '선택한 답변';
+  const hasDescription = cleanText(book.description).length >= 80;
+  const sourceText = hasDescription ? '알라딘 책 소개' : '제목과 서지 정보';
+  const title = book.title || '이 책';
+  const pick = templates => templates[stableNumber('reason', book.isbn || title, labelText, choiceText) % templates.length];
 
   if (labels.length && choices.length) {
-    return `응답 선택값(${choices.join(', ')})과 ${collection}의 서지 데이터를 함께 비교했습니다. 이 책은 ${labels.join(', ')} 키워드에서 높은 관련도를 보였고, ${sourceHint} 주제 일치도와 소장 정보의 안정성을 기준으로 우선 추천했습니다.`;
+    return pick([
+      `${choiceText} 쪽으로 기운 답변을 ${collection}의 후보들과 대조해 보니, ${title}은 ${labelText} 키워드가 가장 또렷하게 겹쳤습니다. ${sourceText}에서도 같은 방향의 단서가 보여 우선 추천했습니다.`,
+      `선택한 답변에서 반복된 관심사는 ${labelText}였습니다. 이 책은 ${collection} 안에서 그 관심사와 서지 정보가 잘 맞고, 설명 데이터도 함께 확인되어 추천 목록에 올렸습니다.`,
+      `${collection}에서 비슷한 후보를 비교했을 때 ${title}은 답변의 결론을 너무 넓게 잡지 않고 ${labelText}로 좁혀 보여줍니다. 지금 선택한 흐름을 이어 읽기에 무리가 적은 책입니다.`,
+      `답변의 중심이 ${choiceText}에 가까웠기 때문에, 관련 키워드와 도서 소개를 함께 보았습니다. 그 결과 ${title}은 ${labelText} 항목에서 안정적으로 맞아 떨어져 추천했습니다.`,
+      `이 추천은 단순 인기순이 아니라 답변 키워드와 ${collection}의 주제 정보를 함께 본 결과입니다. ${title}은 ${labelText}의 신호가 분명하고, ${sourceText}가 그 판단을 보완해 줍니다.`,
+    ]);
   }
   if (labels.length) {
-    return `${collection} 내 후보군을 비교한 결과, 이 책은 ${labels.join(', ')} 키워드와의 연관성이 높았습니다. ${sourceHint} 추천 순위는 주제 적합도, 도서 설명의 정보량, 컬렉션 신뢰도를 함께 반영했습니다.`;
+    return pick([
+      `${collection}의 후보군 중 ${title}은 ${labelText}와의 연결성이 비교적 분명했습니다. 도서 소개와 소장 정보를 함께 확인해 추천 우선순위를 높였습니다.`,
+      `${labelText} 키워드를 기준으로 보면 이 책은 제목, 분류, 소개 정보가 한 방향으로 모입니다. 그래서 오늘의 추천 목록에서 앞쪽에 배치했습니다.`,
+      `답변 정보가 아주 세밀하지는 않았지만, ${title}은 ${labelText} 주제와 맞닿은 단서가 충분했습니다. ${collection} 안에서 확인 가능한 책이라는 점도 함께 반영했습니다.`,
+      `이 책은 ${labelText}를 직접적으로 다루거나 그 주변을 넓혀 읽을 수 있는 후보입니다. 추천 점수에는 주제 적합도와 알라딘 소개 데이터의 정보량을 함께 반영했습니다.`,
+    ]);
   }
-  return `${collection}의 후보 도서를 비교한 결과, 이 책은 현재 답변 패턴과 가장 가까운 서지 정보를 가진 항목으로 분류되었습니다. 추천에는 제목, 저자, 컬렉션, 소장 링크의 유효성을 함께 반영했습니다.`;
+  return pick([
+    `${collection}의 후보를 넓게 비교한 결과, ${title}은 현재 답변 패턴과 가장 가까운 서지 정보를 가진 책으로 분류되었습니다. 제목, 저자, 소장 링크의 유효성을 함께 확인했습니다.`,
+    `뚜렷한 단일 키워드보다 전체 답변의 방향을 기준으로 골랐습니다. ${title}은 도서관 컬렉션 안에서 접근성이 좋고, 지금의 관심을 이어가기 좋은 후보입니다.`,
+    `이 책은 특정 태그 하나보다 여러 답변의 평균값에 가깝게 맞았습니다. 그래서 과하게 좁은 추천 대신, 다음 선택지를 열어두는 책으로 제안합니다.`,
+  ]);
 }
 
 function makeBookDescription(book) {
