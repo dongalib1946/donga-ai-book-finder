@@ -1683,9 +1683,8 @@ exports.handler = async function handler(event) {
       matchedTags: ['동아인의 선택', '인기도서'],
     })), popularCandidates, popularLimit);
 
-    const [notices, educationPrograms, aladinBestSellers] = await Promise.all([
+    const [notices, aladinBestSellers] = await Promise.all([
       fetchCommunityNotices(5),
-      fetchLibraryInstructions(5),
       fetchAladinBestSellers(pool, 6),
     ]);
 
@@ -1699,7 +1698,7 @@ exports.handler = async function handler(event) {
       popularItems,
       aladinBestSellers,
       notices,
-      educationPrograms,
+      educationPrograms: [],
       seed: clientSeed,
       aladinEnabled: Boolean(process.env.ALADIN_TTB_KEY),
       updatedAt: new Date().toISOString(),

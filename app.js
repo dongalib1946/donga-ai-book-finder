@@ -734,6 +734,21 @@ document.addEventListener('DOMContentLoaded', () => {
   function serviceUrl(){
     return window.location.origin + window.location.pathname;
   }
+  async function loadLibraryInstructions(){
+    if(!els.libraryInstructions) return;
+    try{
+      const res = await fetch(`/.netlify/functions/library-instructions?limit=5&_=${Date.now()}`, {
+        method:'GET',
+        cache:'no-store',
+        headers:{accept:'application/json'}
+      });
+      const data = await res.json().catch(()=>({}));
+      if(!res.ok) throw new Error(data.error || `이용교육 API 오류: ${res.status}`);
+      renderLibraryInstructions(data.items || []);
+    }catch(error){
+      renderLibraryInstructions([]);
+    }
+  }
   function setEmailStatus(message, isError = false){
     if(!els.emailStatus) return;
     els.emailStatus.textContent = message || '';
@@ -861,6 +876,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPopularBooks(data.popularItems || []);
     renderLibraryNews(data.notices || []);
     renderLibraryInstructions(data.educationPrograms || []);
+    loadLibraryInstructions();
     if(!(data.items || []).length){
       setError(els.resultError, '추천할 수 있는 도서를 찾지 못했습니다. 잠시 뒤 다시 시도해 주세요.');
     }

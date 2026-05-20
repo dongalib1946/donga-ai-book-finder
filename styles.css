@@ -1174,10 +1174,14 @@ h1,h2,h3,p{margin-top:0}
   border-radius:999px;
   background:rgba(8,116,71,.08);
 }
+.instruction-place,
+.instruction-teacher,
+.instruction-status{
+  display:none;
+}
 .instruction-status{
   justify-self:end;
   align-self:center;
-  display:grid;
   place-items:center;
   min-width:74px;
   min-height:42px;
