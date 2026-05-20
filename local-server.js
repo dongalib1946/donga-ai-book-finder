@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+process.env.AI_BOOK_FINDER_LOCAL_STORE = '1';
 const recommend = require('./netlify/functions/recommend-books.js');
 const questions = require('./netlify/functions/questions.js');
 const sharedResult = require('./netlify/functions/shared-result.js');

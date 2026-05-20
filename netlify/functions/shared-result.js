@@ -22,8 +22,8 @@ function json(statusCode, body) {
   };
 }
 
-function isNetlifyRuntime() {
-  return Boolean(process.env.NETLIFY || process.env.NETLIFY_DEV || process.env.NETLIFY_BLOBS_CONTEXT);
+function useLocalStore() {
+  return process.env.AI_BOOK_FINDER_LOCAL_STORE === '1';
 }
 
 function safeResultId(value) {
@@ -65,39 +65,39 @@ function compactResult(result) {
 }
 
 async function setEntry(id, payload) {
-  if (isNetlifyRuntime()) {
-    const store = getStore({ name: STORE_NAME, consistency: 'strong' });
-    await store.setJSON(id, payload);
+  if (useLocalStore()) {
+    await fs.mkdir(LOCAL_STORE_DIR, { recursive: true });
+    await fs.writeFile(path.join(LOCAL_STORE_DIR, `${id}.json`), JSON.stringify(payload), 'utf8');
     return;
   }
 
-  await fs.mkdir(LOCAL_STORE_DIR, { recursive: true });
-  await fs.writeFile(path.join(LOCAL_STORE_DIR, `${id}.json`), JSON.stringify(payload), 'utf8');
+  const store = getStore({ name: STORE_NAME, consistency: 'strong' });
+  await store.setJSON(id, payload);
 }
 
 async function getEntry(id) {
-  if (isNetlifyRuntime()) {
-    const store = getStore({ name: STORE_NAME, consistency: 'strong' });
-    return store.get(id, { type: 'json', consistency: 'strong' });
+  if (useLocalStore()) {
+    try {
+      const file = await fs.readFile(path.join(LOCAL_STORE_DIR, `${id}.json`), 'utf8');
+      return JSON.parse(file);
+    } catch (error) {
+      if (error.code === 'ENOENT') return null;
+      throw error;
+    }
   }
 
-  try {
-    const file = await fs.readFile(path.join(LOCAL_STORE_DIR, `${id}.json`), 'utf8');
-    return JSON.parse(file);
-  } catch (error) {
-    if (error.code === 'ENOENT') return null;
-    throw error;
-  }
+  const store = getStore({ name: STORE_NAME, consistency: 'strong' });
+  return store.get(id, { type: 'json', consistency: 'strong' });
 }
 
 async function deleteEntry(id) {
-  if (isNetlifyRuntime()) {
-    const store = getStore({ name: STORE_NAME, consistency: 'strong' });
-    await store.delete(id);
+  if (useLocalStore()) {
+    await fs.rm(path.join(LOCAL_STORE_DIR, `${id}.json`), { force: true });
     return;
   }
 
-  await fs.rm(path.join(LOCAL_STORE_DIR, `${id}.json`), { force: true });
+  const store = getStore({ name: STORE_NAME, consistency: 'strong' });
+  await store.delete(id);
 }
 
 async function createSharedResult(event) {
