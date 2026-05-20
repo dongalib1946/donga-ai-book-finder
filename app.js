@@ -78,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
     emailResultForm:document.getElementById('emailResultForm'),
     resultEmailLocal:document.getElementById('resultEmailLocal'),
     resultEmailDomain:document.getElementById('resultEmailDomain'),
-    resultEmailCustomDomain:document.getElementById('resultEmailCustomDomain'),
     sendEmailBtn:document.getElementById('sendEmailBtn'),
     emailStatus:document.getElementById('emailStatus'),
     errorBox:document.getElementById('errorBox'),
@@ -743,11 +742,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function resetEmailForm(){
     if(els.emailResultModal) els.emailResultModal.hidden = true;
     if(els.resultEmailLocal) els.resultEmailLocal.value = '';
-    if(els.resultEmailDomain) els.resultEmailDomain.value = '@dau.ac.kr';
-    if(els.resultEmailCustomDomain){
-      els.resultEmailCustomDomain.value = '';
-      els.resultEmailCustomDomain.hidden = true;
-    }
+    if(els.resultEmailDomain) els.resultEmailDomain.value = '@gmail.com';
     setEmailStatus('');
   }
   function openEmailModal(){
@@ -761,20 +756,11 @@ document.addEventListener('DOMContentLoaded', () => {
     els.emailResultModal.hidden = true;
     setEmailStatus('');
   }
-  function syncCustomEmailDomain(){
-    if(!els.resultEmailDomain || !els.resultEmailCustomDomain) return;
-    const custom = els.resultEmailDomain.value === 'custom';
-    els.resultEmailCustomDomain.hidden = !custom;
-    els.resultEmailCustomDomain.required = custom;
-    if(custom) els.resultEmailCustomDomain.focus();
-  }
   function composedEmail(){
     const local = els.resultEmailLocal ? els.resultEmailLocal.value.trim() : '';
     if(local.includes('@')) return local;
     const domainValue = els.resultEmailDomain ? els.resultEmailDomain.value : '';
-    const domain = domainValue === 'custom'
-      ? String(els.resultEmailCustomDomain && els.resultEmailCustomDomain.value || '').trim().replace(/^@/, '')
-      : domainValue.replace(/^@/, '');
+    const domain = domainValue.replace(/^@/, '');
     return local && domain ? `${local}@${domain}` : '';
   }
   async function sendResultEmail(event){
@@ -933,9 +919,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if(els.emailResultForm){
     els.emailResultForm.addEventListener('submit', sendResultEmail);
-  }
-  if(els.resultEmailDomain){
-    els.resultEmailDomain.addEventListener('change', syncCustomEmailDomain);
   }
   document.querySelectorAll('[data-email-close]').forEach(button=>{
     button.addEventListener('click', closeEmailModal);
