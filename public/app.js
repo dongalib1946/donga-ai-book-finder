@@ -559,7 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="tag-row">${tags}</div>
           <div class="book-actions">
             <a class="catalog-link" target="_blank" rel="noopener noreferrer">소장위치 확인</a>
-            <a class="aladin-book-link" target="_blank" rel="noopener noreferrer"><img src="img/aladin.png" alt="">알라딘</a>
+            <a class="aladin-book-link" target="_blank" rel="noopener noreferrer" aria-label="알라딘에서 보기"><img src="img/aladin.png" alt=""></a>
           </div>
         </div>
       `;

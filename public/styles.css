@@ -786,9 +786,9 @@ h1,h2,h3,p{margin-top:0}
 .book-actions{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
 .book-actions a{display:inline-flex; align-items:center; gap:7px; min-height:42px; padding:0 14px; border-radius:999px; color:#fff; font-weight:950; text-decoration:none}
 .catalog-link{background:linear-gradient(135deg, var(--aura-deep), var(--aura-warm))}
-.aladin-book-link{background:linear-gradient(135deg, #ee7326, #f2b426)}
+.aladin-book-link{min-width:42px; justify-content:center; padding:0 8px; background:transparent}
 .aladin-book-link[hidden]{display:none}
-.aladin-book-link img{width:20px; height:20px; object-fit:contain; border-radius:4px; background:#fff}
+.aladin-book-link img{width:34px; height:34px; object-fit:contain}
 .popular-section,.aladin-section{position:relative; margin-top:44px; padding:clamp(20px,3.5vw,34px); border:1px solid rgba(255,255,255,.68); border-radius:var(--radius); background:rgba(255,255,255,.72); box-shadow:0 16px 42px rgba(20,33,61,.09); overflow:hidden; backdrop-filter:blur(14px)}
 .aladin-section{
   background:
