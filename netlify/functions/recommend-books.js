@@ -780,7 +780,7 @@ async function lookupAladin(ttbKey, isbn) {
   url.searchParams.set('ItemId', isbn);
   url.searchParams.set('ItemIdType', isbn.length === 13 ? 'ISBN13' : 'ISBN');
   url.searchParams.set('Cover', 'Big');
-  url.searchParams.set('OptResult', 'fulldescription,fulldescription2');
+  url.searchParams.set('OptResult', 'fulldescription,fulldescription2,Toc,Story,authors');
   url.searchParams.set('output', 'js');
   url.searchParams.set('Version', '20131101');
 
@@ -792,20 +792,57 @@ async function lookupAladin(ttbKey, isbn) {
   return (data.item || [])[0] || null;
 }
 
+function collectTextValues(value) {
+  if (Array.isArray(value)) return value.flatMap(collectTextValues);
+  if (value && typeof value === 'object') return Object.values(value).flatMap(collectTextValues);
+  return value == null ? [] : [cleanText(value)];
+}
+
+function labeledAladinPart(label, value, minLength = 20) {
+  const text = collectTextValues(value)
+    .filter(Boolean)
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (text.length < minLength) return '';
+  return `${label}\n${text}`;
+}
+
+function combineDescriptionParts(parts, maxLength = 1400) {
+  const combined = [];
+  parts.map(cleanText).filter(Boolean).forEach(text => {
+    const duplicate = combined.some(part => part.includes(text) || text.includes(part));
+    if (!duplicate) combined.push(text);
+  });
+
+  let result = '';
+  for (const part of combined) {
+    const next = result ? `${result}\n\n${part}` : part;
+    if (next.length > maxLength) {
+      if (!result) return `${part.slice(0, maxLength).trim()}...`;
+      break;
+    }
+    result = next;
+  }
+  return result;
+}
+
 function aladinDescription(item) {
-  const candidates = [
+  const subInfo = item && item.subInfo ? item.subInfo : {};
+  const mainDescription = combineDescriptionParts([
     item && item.fullDescription2,
     item && item.fullDescription,
     item && item.description,
-  ]
-    .map(cleanText)
-    .filter(Boolean);
-  const parts = [];
-  candidates.forEach(text => {
-    const duplicate = parts.some(part => part.includes(text) || text.includes(part));
-    if (!duplicate) parts.push(text);
-  });
-  return parts.join('\n\n');
+  ], 900);
+
+  const supplementary = [
+    labeledAladinPart('책 소개 보강', subInfo.bookinfo || subInfo.bookInfo || subInfo.itemDescription),
+    labeledAladinPart('목차', subInfo.toc || subInfo.Toc, 30),
+    labeledAladinPart('책 속에서', subInfo.story || subInfo.Story, 30),
+    labeledAladinPart('저자 소개', subInfo.authors || subInfo.authorInfo, 40),
+  ];
+
+  return combineDescriptionParts([mainDescription, ...supplementary], 1400);
 }
 
 function largerAladinCover(url) {
