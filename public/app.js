@@ -656,14 +656,14 @@ document.addEventListener('DOMContentLoaded', () => {
       els.aladinBestSellers.appendChild(card);
     });
   }
-  function renderLibraryNews(items){
+  function renderLibraryNews(items, options = {}){
     if(!els.libraryNews) return;
     els.libraryNews.innerHTML = '';
     const notices = items || [];
     if(!notices.length){
       const empty = document.createElement('div');
       empty.className = 'news-empty';
-      empty.textContent = '도서관 최신 공지를 불러오지 못했습니다. 전체보기에서 커뮤니티 페이지를 확인해 주세요.';
+      empty.textContent = options.message || '도서관 최신 공지를 불러오지 못했습니다. 전체보기에서 커뮤니티 페이지를 확인해 주세요.';
       els.libraryNews.appendChild(empty);
       return;
     }
@@ -688,7 +688,10 @@ document.addEventListener('DOMContentLoaded', () => {
       els.libraryNews.appendChild(link);
     });
   }
-  async function refreshLibraryNews(){
+  async function refreshLibraryNews(currentItems = []){
+    if(!currentItems.length){
+      renderLibraryNews([], { message:'도서관 최신 공지를 확인하는 중입니다.' });
+    }
     try{
       const res = await fetch(`/.netlify/functions/library-news?limit=5&_=${Date.now()}`, {
         cache:'no-store',
@@ -700,9 +703,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if(notices.length){
         renderLibraryNews(notices);
         if(currentRecommendation) currentRecommendation = { ...currentRecommendation, notices };
+      }else if(!currentItems.length){
+        renderLibraryNews([]);
       }
     }catch(error){
       console.warn('Library news refresh failed', error);
+      if(!currentItems.length) renderLibraryNews([]);
     }
   }
   function serviceUrl(){
@@ -834,7 +840,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAladinBestSellers(data.aladinBestSellers || []);
     renderPopularBooks(data.popularItems || []);
     renderLibraryNews(data.notices || []);
-    refreshLibraryNews();
+    refreshLibraryNews(data.notices || []);
     if(!(data.items || []).length){
       setError(els.resultError, '추천할 수 있는 도서를 찾지 못했습니다. 잠시 뒤 다시 시도해 주세요.');
     }
