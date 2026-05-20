@@ -41,7 +41,3 @@ export default async function refreshLibraryNews() {
   console.log('[Library news refresh]', JSON.stringify(body));
   return response(200, body);
 }
-
-export const config = {
-  schedule: '*/5 * * * *',
-};

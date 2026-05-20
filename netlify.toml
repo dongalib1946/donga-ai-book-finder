@@ -30,6 +30,9 @@ included_files = ["netlify/data/*.json"]
 
   [functions."*"]
 
+  [functions."refresh-library-news"]
+    schedule = "*/5 * * * *"
+
 [[headers]]
 for = "/*"
 

@@ -29,6 +29,7 @@ exports.handler = async function handler(event) {
     if (snapshot) {
       return json(200, {
         version: 'library-news-v1',
+        strategy: 'scheduled-blob-v1',
         updatedAt: new Date().toISOString(),
         source: 'scheduled-snapshot',
         isLive: false,
@@ -42,6 +43,7 @@ exports.handler = async function handler(event) {
     const result = await fetchCommunityNoticeResult(limit, { fresh: true });
     return json(200, {
       version: 'library-news-v1',
+      strategy: 'scheduled-blob-v1',
       updatedAt: new Date().toISOString(),
       source: result.source,
       isLive: result.isLive,
