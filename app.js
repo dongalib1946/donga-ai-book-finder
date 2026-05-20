@@ -737,7 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadLibraryInstructions(){
     if(!els.libraryInstructions) return;
     try{
-      const res = await fetch(`/.netlify/functions/library-instructions?limit=5&_=${Date.now()}`, {
+      const res = await fetch(`/api/library-instructions?limit=5&_=${Date.now()}`, {
         method:'GET',
         cache:'no-store',
         headers:{accept:'application/json'}

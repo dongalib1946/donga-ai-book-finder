@@ -78,6 +78,17 @@ const server = http.createServer(async (req, res) => {
       });
       return send(res, result.statusCode, result.headers || {}, result.body || '');
     }
+    if (url.pathname === '/api/library-instructions') {
+      const result = await libraryInstructions.handler({
+        httpMethod: req.method,
+        headers: req.headers,
+        path: url.pathname,
+        rawUrl: url.toString(),
+        queryStringParameters: Object.fromEntries(url.searchParams.entries()),
+        body: '',
+      });
+      return send(res, result.statusCode, result.headers || {}, result.body || '');
+    }
     if (url.pathname === '/.netlify/functions/shared-result') {
       const body = req.method === 'POST' ? await readBody(req) : '';
       const result = await sharedResult.handler({
