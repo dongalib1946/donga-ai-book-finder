@@ -5,7 +5,7 @@
   "description": "Question based book recommendation service for Dong-A University Library.",
   "scripts": {
     "start": "node local-server.js",
-    "check": "node --check public/app.js && node --check local-server.js && node --check netlify/functions/questions.js && node --check netlify/functions/recommend-books.js && node --check netlify/functions/shared-result.js && node --check netlify/functions/email-result.js && node --check netlify/functions/library-news.js && node --check netlify/functions/library-news-snapshot.js && node --check netlify/functions/refresh-library-news-core.js && node --check netlify/functions/refresh-library-news-now.js && node --check netlify/functions/refresh-library-news.mjs"
+    "check": "node --check public/app.js && node --check local-server.js && node --check scripts/update-library-news-snapshot.js && node --check netlify/functions/questions.js && node --check netlify/functions/recommend-books.js && node --check netlify/functions/shared-result.js && node --check netlify/functions/email-result.js && node --check netlify/functions/library-news.js && node --check netlify/functions/library-news-snapshot.js && node --check netlify/functions/refresh-library-news-core.js && node --check netlify/functions/refresh-library-news-now.js && node --check netlify/functions/refresh-library-news.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "^10.7.8",

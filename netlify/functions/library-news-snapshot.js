@@ -1,5 +1,9 @@
+const fs = require('fs');
+const path = require('path');
+
 const STORE_NAME = 'library-news';
 const SNAPSHOT_KEY = 'latest.json';
+const BUNDLED_SNAPSHOT_PATH = path.join(__dirname, '..', 'data', 'library-news-snapshot.json');
 let blobsConnected = false;
 
 function loadBlobs() {
@@ -63,6 +67,12 @@ function normalizeSnapshot(snapshot, limit = 5) {
 }
 
 async function readNewsSnapshot(limit = 5) {
+  const blobSnapshot = await readBlobNewsSnapshot(limit);
+  if (blobSnapshot) return blobSnapshot;
+  return readBundledNewsSnapshot(limit);
+}
+
+async function readBlobNewsSnapshot(limit = 5) {
   try {
     const store = getNewsStore();
     if (!store) return null;
@@ -70,6 +80,17 @@ async function readNewsSnapshot(limit = 5) {
     return normalizeSnapshot(snapshot, limit);
   } catch (error) {
     console.warn('[Library news snapshot read]', error.message);
+    return null;
+  }
+}
+
+function readBundledNewsSnapshot(limit = 5) {
+  try {
+    if (!fs.existsSync(BUNDLED_SNAPSHOT_PATH)) return null;
+    const snapshot = JSON.parse(fs.readFileSync(BUNDLED_SNAPSHOT_PATH, 'utf8'));
+    return normalizeSnapshot(snapshot, limit);
+  } catch (error) {
+    console.warn('[Library news bundled snapshot read]', error.message);
     return null;
   }
 }

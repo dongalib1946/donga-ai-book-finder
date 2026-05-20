@@ -1,0 +1,48 @@
+{
+  "version": "library-news-v1",
+  "refreshedAt": "2026-05-20T14:09:15.046Z",
+  "collectedAt": "2026-05-20T14:09:15.046Z",
+  "source": "github-action:rss",
+  "notices": [
+    {
+      "title": "북크닉 추첨 당첨자 발표",
+      "url": "https://library.donga.ac.kr/blog/%eb%b6%81%ed%81%ac%eb%8b%89-%ec%b6%94%ec%b2%a8-%eb%8b%b9%ec%b2%a8%ec%9e%90-%eb%b0%9c%ed%91%9c/",
+      "author": "도서관",
+      "date": "2026.05.20",
+      "views": "",
+      "summary": ""
+    },
+    {
+      "title": "북스타그램 ‘랜덤가챠북’ 이벤트 안내",
+      "url": "https://library.donga.ac.kr/blog/%eb%b6%81%ec%8a%a4%ed%83%80%ea%b7%b8%eb%9e%a8-%eb%9e%9c%eb%8d%a4%ea%b0%80%ec%b1%a0%eb%b6%81-%ec%9d%b4%eb%b2%a4%ed%8a%b8-%ec%95%88%eb%82%b4/",
+      "author": "도서관",
+      "date": "2026.05.19",
+      "views": "",
+      "summary": ""
+    },
+    {
+      "title": "[학술DB] 윕스 서비스 일시 중단 안내 (5/22~25)",
+      "url": "https://library.donga.ac.kr/blog/%ed%95%99%ec%88%a0db-%ec%9c%95%ec%8a%a4-%ec%84%9c%eb%b9%84%ec%8a%a4-%ec%9d%bc%ec%8b%9c-%ec%a4%91%eb%8b%a8-%ec%95%88%eb%82%b4-5-2225/",
+      "author": "도서관",
+      "date": "2026.05.15",
+      "views": "",
+      "summary": ""
+    },
+    {
+      "title": "2026 전자정보 박람회 경품당첨자 발표",
+      "url": "https://library.donga.ac.kr/blog/2026-%ec%a0%84%ec%9e%90%ec%a0%95%eb%b3%b4-%eb%b0%95%eb%9e%8c%ed%9a%8c-%ea%b2%bd%ed%92%88%eb%8b%b9%ec%b2%a8%ec%9e%90-%eb%b0%9c%ed%91%9c/",
+      "author": "도서관",
+      "date": "2026.05.14",
+      "views": "",
+      "summary": ""
+    },
+    {
+      "title": "[월간 학술DB] ICPSR DB & KSDC DB (2026년 5월)",
+      "url": "https://library.donga.ac.kr/blog/%ec%9b%94%ea%b0%84-%ed%95%99%ec%88%a0db-icpsr-db-ksdc-db-2026%eb%85%84-5%ec%9b%94/",
+      "author": "도서관",
+      "date": "2026.05.14",
+      "views": "",
+      "summary": ""
+    }
+  ]
+}
