@@ -6,7 +6,6 @@ const recommend = require('./netlify/functions/recommend-books.js');
 const questions = require('./netlify/functions/questions.js');
 const sharedResult = require('./netlify/functions/shared-result.js');
 const emailResult = require('./netlify/functions/email-result.js');
-const libraryInstructions = require('./netlify/functions/library-instructions.js');
 
 const ROOT = __dirname;
 const PORT = Number(process.env.PORT || 8787);
@@ -63,28 +62,6 @@ const server = http.createServer(async (req, res) => {
         headers: req.headers,
         path: url.pathname,
         rawUrl: url.toString(),
-        body: '',
-      });
-      return send(res, result.statusCode, result.headers || {}, result.body || '');
-    }
-    if (url.pathname === '/.netlify/functions/library-instructions') {
-      const result = await libraryInstructions.handler({
-        httpMethod: req.method,
-        headers: req.headers,
-        path: url.pathname,
-        rawUrl: url.toString(),
-        queryStringParameters: Object.fromEntries(url.searchParams.entries()),
-        body: '',
-      });
-      return send(res, result.statusCode, result.headers || {}, result.body || '');
-    }
-    if (url.pathname === '/api/library-instructions') {
-      const result = await libraryInstructions.handler({
-        httpMethod: req.method,
-        headers: req.headers,
-        path: url.pathname,
-        rawUrl: url.toString(),
-        queryStringParameters: Object.fromEntries(url.searchParams.entries()),
         body: '',
       });
       return send(res, result.statusCode, result.headers || {}, result.body || '');

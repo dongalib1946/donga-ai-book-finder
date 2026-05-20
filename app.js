@@ -69,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
     aladinBestSellers:document.getElementById('aladinBestSellers'),
     popularBooks:document.getElementById('popularBooks'),
     libraryNews:document.getElementById('libraryNews'),
-    libraryInstructions:document.getElementById('libraryInstructions'),
     resultTitle:document.getElementById('resultTitle'),
     resultSummary:document.getElementById('resultSummary'),
     restartBtn:document.getElementById('restartBtn'),
@@ -682,72 +681,8 @@ document.addEventListener('DOMContentLoaded', () => {
       els.libraryNews.appendChild(link);
     });
   }
-  function instructionStatusText(program){
-    const status = String(program.status || '').trim();
-    const title = String(program.title || '');
-    if(status.includes('폐강') || status.includes('취소') || title.includes('폐강') || title.includes('취소')){
-      return `상태: ${status || '폐강'}`;
-    }
-    const registered = Number.parseInt(program.registered, 10);
-    const capacity = Number.parseInt(program.capacity, 10);
-    if(Number.isFinite(registered) && Number.isFinite(capacity) && capacity > 0){
-      return `신청인원: ${registered}명 / 정원 ${capacity}명`;
-    }
-    return status || '신청 가능';
-  }
-  function renderLibraryInstructions(items){
-    if(!els.libraryInstructions) return;
-    els.libraryInstructions.innerHTML = '';
-    const programs = items || [];
-    if(!programs.length){
-      const empty = document.createElement('div');
-      empty.className = 'instruction-empty';
-      empty.textContent = '이번달에 등록된 이용교육이 없습니다.';
-      els.libraryInstructions.appendChild(empty);
-      return;
-    }
-    programs.slice(0, 5).forEach(program=>{
-      const link = document.createElement('a');
-      link.className = 'instruction-card';
-      link.href = program.url || 'https://library.donga.ac.kr/research-support/library-instruction/library-instruction-request/';
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.innerHTML = `
-        <span class="instruction-copy">
-          <strong></strong>
-          <span class="instruction-meta">
-            <span class="instruction-date"></span>
-            <span class="instruction-place"></span>
-            <span class="instruction-teacher"></span>
-          </span>
-        </span>
-        <span class="instruction-status"></span>
-      `;
-      link.querySelector('strong').textContent = program.title || '도서관 이용교육';
-      link.querySelector('.instruction-date').textContent = [program.date, program.time].filter(Boolean).join(' ');
-      link.querySelector('.instruction-place').textContent = program.location || '장소 확인';
-      link.querySelector('.instruction-teacher').textContent = program.teacher ? `${program.teacher} 사서` : '도서관 교육';
-      link.querySelector('.instruction-status').textContent = instructionStatusText(program);
-      els.libraryInstructions.appendChild(link);
-    });
-  }
   function serviceUrl(){
     return window.location.origin + window.location.pathname;
-  }
-  async function loadLibraryInstructions(){
-    if(!els.libraryInstructions) return;
-    try{
-      const res = await fetch(`/.netlify/functions/library-instructions?limit=5&_=${Date.now()}`, {
-        method:'GET',
-        cache:'no-store',
-        headers:{accept:'application/json'}
-      });
-      const data = await res.json().catch(()=>({}));
-      if(!res.ok) throw new Error(data.error || `이용교육 API 오류: ${res.status}`);
-      renderLibraryInstructions(data.items || []);
-    }catch(error){
-      renderLibraryInstructions([]);
-    }
   }
   function setEmailStatus(message, isError = false){
     if(!els.emailStatus) return;
@@ -875,8 +810,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAladinBestSellers(data.aladinBestSellers || []);
     renderPopularBooks(data.popularItems || []);
     renderLibraryNews(data.notices || []);
-    renderLibraryInstructions(data.educationPrograms || []);
-    loadLibraryInstructions();
     if(!(data.items || []).length){
       setError(els.resultError, '추천할 수 있는 도서를 찾지 못했습니다. 잠시 뒤 다시 시도해 주세요.');
     }

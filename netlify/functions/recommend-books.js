@@ -9,14 +9,10 @@ const LIBRARY_POSTS_API_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/posts?p
 const LIBRARY_CATALOG_URL = 'https://library.donga.ac.kr/resource/library-catalog/';
 const LIBRARY_CATALOG_REST_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/pages/17';
 const LIBRARY_PAGES_REST_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/pages/';
-const LIBRARY_INSTRUCTION_URL = 'https://library.donga.ac.kr/research-support/library-instruction/library-instruction-request/';
-const LIBRARY_AJAX_URL = 'https://library.donga.ac.kr/wp-admin/admin-ajax.php';
 const PURCHASE_REQUEST_URL = 'https://library.donga.ac.kr/libaray-services/using-materials/purchase-request/#';
 const FETCH_TIMEOUT_MS = Number.parseInt(process.env.FETCH_TIMEOUT_MS || '2500', 10);
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 const NOTICE_CACHE_TTL_MS = 20 * 60 * 1000;
-const INSTRUCTION_CACHE_TTL_MS = 0;
-const INSTRUCTION_FETCH_TIMEOUT_MS = Math.max(1500, Number.parseInt(process.env.INSTRUCTION_FETCH_TIMEOUT_MS || '2500', 10) || 2500);
 const BESTSELLER_CACHE_TTL_MS = Number.parseInt(process.env.BESTSELLER_CACHE_TTL_MS || String(60 * 1000), 10);
 const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION_PAGE_LIMIT || '1', 10) || 1);
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
@@ -32,7 +28,6 @@ const MAIN_COLLECTION_CAPS = { popular: 2 };
 
 let poolCache = null;
 let noticeCache = null;
-let instructionCache = null;
 let bestSellerCache = null;
 let snapshotPoolCache = null;
 
@@ -112,33 +107,6 @@ const FALLBACK_NOTICES = [
     date: '2026.05.04',
     views: '',
     summary: '',
-  },
-];
-
-const FALLBACK_INSTRUCTIONS = [
-  {
-    ID: 36341,
-    post_title: '[승학] AI 시대 학과별 트렌드 분석 방법',
-    startday: '2026-05-20',
-    endday: '2026-05-20',
-    starttime: '12:00',
-    endtime: '12:40',
-    location_name: '한림도서관 한림도서관 정보활용교육실',
-    teacher: '김세훈',
-    register_number: '7',
-    full_number: '20',
-  },
-  {
-    ID: 36342,
-    post_title: '[부민] AI 시대 학과별 트렌드 분석 방법(폐강)',
-    startday: '2026-05-21',
-    endday: '2026-05-21',
-    starttime: '12:00',
-    endtime: '12:40',
-    location_name: '부민도서관 부민도서관 8층 이용자교육실',
-    teacher: '김세훈',
-    register_number: '0',
-    full_number: '0',
   },
 ];
 
@@ -751,148 +719,6 @@ async function fetchCommunityNotices(limit = 5) {
     const fallback = FALLBACK_NOTICES.slice(0, limit);
     noticeCache = { savedAt: Date.now(), items: fallback };
     return fallback;
-  }
-}
-
-function pad2(value) {
-  return String(value).padStart(2, '0');
-}
-
-function kstDateParts(date = new Date()) {
-  const parts = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Seoul',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).formatToParts(date).reduce((acc, part) => {
-    acc[part.type] = part.value;
-    return acc;
-  }, {});
-  return {
-    year: Number.parseInt(parts.year, 10),
-    month: Number.parseInt(parts.month, 10),
-    day: Number.parseInt(parts.day, 10),
-  };
-}
-
-function kstMonthRange() {
-  const { year, month, day } = kstDateParts();
-  const lastDay = new Date(Date.UTC(year, month, 0)).getUTCDate();
-  const monthText = pad2(month);
-  return {
-    today: `${year}-${monthText}-${pad2(day)}`,
-    monthEnd: `${year}-${monthText}-${pad2(lastDay)}`,
-    monthKey: `${year}-${monthText}`,
-  };
-}
-
-function compactLocation(value) {
-  const parts = cleanText(value).split(/\s+/).filter(Boolean);
-  return parts.filter((part, index) => index === 0 || part !== parts[index - 1]).join(' ');
-}
-
-function parseCount(value) {
-  const count = Number.parseInt(String(value || '').replace(/[^\d]/g, ''), 10);
-  return Number.isFinite(count) ? count : 0;
-}
-
-function instructionUrl(id) {
-  const url = new URL(LIBRARY_INSTRUCTION_URL);
-  if (id) url.searchParams.set('education_id', String(id));
-  return url.toString();
-}
-
-function normalizeInstruction(item, monthKey) {
-  const title = cleanText(item && item.post_title);
-  const date = cleanText(item && item.startday);
-  if (!title || !date || !date.startsWith(monthKey)) return null;
-
-  const capacity = parseCount(item.full_number || item.full || item.capacity);
-  const registered = parseCount(item.register_number || item.registered || item.registered_number);
-  const closed = /폐강|취소/.test(title);
-  const status = closed
-    ? '폐강'
-    : capacity > 0
-    ? (registered >= capacity ? '정원 마감' : `${registered}/${capacity} 신청`)
-    : '신청 가능';
-
-  return {
-    id: item.ID || item.education_id || '',
-    title,
-    date: date.replace(/-/g, '.'),
-    endDate: cleanText(item.endday).replace(/-/g, '.'),
-    time: [item.starttime, item.endtime].map(cleanText).filter(Boolean).join(' ~ '),
-    location: compactLocation(item.location_name || item.location || ''),
-    teacher: cleanText(item.teacher_name || item.teacher || ''),
-    registered,
-    capacity,
-    thumbnail: cleanText(item.thumb_url || ''),
-    status,
-    url: instructionUrl(item.ID || item.education_id),
-  };
-}
-
-function fallbackInstructions(range, limit) {
-  return FALLBACK_INSTRUCTIONS
-    .filter(item => item.startday >= range.today && item.startday <= range.monthEnd)
-    .map(item => normalizeInstruction(item, range.monthKey))
-    .filter(Boolean)
-    .slice(0, limit);
-}
-
-async function fetchLibraryInstructions(limit = 5) {
-  const range = kstMonthRange();
-  const startedAt = Date.now();
-  if (
-    instructionCache
-    && instructionCache.monthKey === range.monthKey
-    && Date.now() - instructionCache.savedAt < INSTRUCTION_CACHE_TTL_MS
-  ) {
-    return instructionCache.items.slice(0, limit);
-  }
-
-  try {
-    const body = new URLSearchParams({
-      action: 'lem_get_educations',
-      mod: 'list',
-      education_id: '',
-      startday: range.today,
-      endday: range.monthEnd,
-      order: 'ASC',
-      posts_per_page: '-1',
-      paged: '1',
-      location: '',
-    });
-    const ajaxUrl = new URL(LIBRARY_AJAX_URL);
-    ajaxUrl.searchParams.set('_', String(Date.now()));
-    const res = await fetchWithTimeout(ajaxUrl.toString(), {
-      method: 'POST',
-      headers: {
-        'user-agent': 'DongALibraryAIBookFinder/1.0',
-        accept: 'application/json,text/plain,*/*',
-        'cache-control': 'no-cache, no-store, max-age=0',
-        pragma: 'no-cache',
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
-        origin: 'https://library.donga.ac.kr',
-        referer: LIBRARY_INSTRUCTION_URL,
-        'x-requested-with': 'XMLHttpRequest',
-      },
-      body,
-      timeoutMs: INSTRUCTION_FETCH_TIMEOUT_MS,
-    });
-    if (!res.ok) throw new Error(`Library instruction API failed ${res.status}`);
-    const data = await res.json();
-    const programs = (Array.isArray(data.educations) ? data.educations : [])
-      .map(item => normalizeInstruction(item, range.monthKey))
-      .filter(Boolean)
-      .slice(0, limit);
-    console.info('[Library instructions] fetched', programs.length, `in ${Date.now() - startedAt}ms`);
-    instructionCache = { savedAt: Date.now(), monthKey: range.monthKey, items: programs };
-    return programs;
-  } catch (error) {
-    console.warn('[Library instructions]', error.message, `after ${Date.now() - startedAt}ms`);
-    return [];
   }
 }
 
@@ -1698,7 +1524,6 @@ exports.handler = async function handler(event) {
       popularItems,
       aladinBestSellers,
       notices,
-      educationPrograms: [],
       seed: clientSeed,
       aladinEnabled: Boolean(process.env.ALADIN_TTB_KEY),
       updatedAt: new Date().toISOString(),
