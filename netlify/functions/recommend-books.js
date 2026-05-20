@@ -4,15 +4,15 @@ const ALADIN_LOOKUP_URL = 'https://www.aladin.co.kr/ttb/api/ItemLookUp.aspx';
 const ALADIN_ITEM_LIST_URL = 'https://www.aladin.co.kr/ttb/api/ItemList.aspx';
 const ALADIN_SEARCH_URL = 'https://www.aladin.co.kr/search/wsearchresult.aspx';
 const ALADIN_PRODUCT_URL = 'https://www.aladin.co.kr/shop/wproduct.aspx';
-const LIBRARY_COMMUNITY_URL = 'https://library.donga.ac.kr/community/';
-const LIBRARY_POSTS_API_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/posts?per_page=5&_fields=id,link,title,date';
+const LIBRARY_COMMUNITY_URL = 'https://library.donga.ac.kr/community/notice/';
+const LIBRARY_POSTS_API_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/posts';
 const LIBRARY_CATALOG_URL = 'https://library.donga.ac.kr/resource/library-catalog/';
 const LIBRARY_CATALOG_REST_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/pages/17';
 const LIBRARY_PAGES_REST_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/pages/';
 const PURCHASE_REQUEST_URL = 'https://library.donga.ac.kr/libaray-services/using-materials/purchase-request/#';
 const FETCH_TIMEOUT_MS = Number.parseInt(process.env.FETCH_TIMEOUT_MS || '2500', 10);
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000;
-const NOTICE_CACHE_TTL_MS = 20 * 60 * 1000;
+const NOTICE_CACHE_TTL_MS = Math.max(0, Number.parseInt(process.env.NOTICE_CACHE_TTL_MS || String(60 * 1000), 10) || 0);
 const BESTSELLER_CACHE_TTL_MS = Number.parseInt(process.env.BESTSELLER_CACHE_TTL_MS || String(60 * 1000), 10);
 const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION_PAGE_LIMIT || '1', 10) || 1);
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
@@ -65,49 +65,6 @@ const FALLBACK_ENTRIES = [
   { isbn: '9788994478258', title: '왜 세계는 불평등한가 :탐욕스러운 1%가 99%의 삶을 파괴한다', author: '', publisher: '', tags: ['society', 'history', 'knowledge', 'deep'] },
   { isbn: '9788964061503', title: '미디어의 이해 :인간의 확장', author: 'Marshall McLuhan', publisher: '커뮤니케이션북스', tags: ['society', 'technology', 'knowledge', 'humanities'] },
   { isbn: '9791194530701', title: '괴테는 모든 것을 말했다', author: '鈴木悠衣', publisher: '리프', tags: ['literature', 'classic', 'deep', 'art'] },
-];
-
-const FALLBACK_NOTICES = [
-  {
-    title: '[학술DB] 윕스 서비스 일시 중단 안내 (5/22~25)',
-    url: 'https://library.donga.ac.kr/community/?pid=36426&ks=',
-    author: '도서관',
-    date: '2026.05.15',
-    views: '',
-    summary: '',
-  },
-  {
-    title: '2026 전자정보 박람회 경품당첨자 발표',
-    url: 'https://library.donga.ac.kr/community/?pid=36545&ks=',
-    author: '도서관',
-    date: '2026.05.14',
-    views: '',
-    summary: '',
-  },
-  {
-    title: '[월간 학술DB] ICPSR DB & KSDC DB (2026년 5월)',
-    url: 'https://library.donga.ac.kr/community/?pid=36571&ks=',
-    author: '도서관',
-    date: '2026.05.14',
-    views: '',
-    summary: '',
-  },
-  {
-    title: '2026학년도 도서관 히든교육 안내',
-    url: 'https://library.donga.ac.kr/community/?pid=36354&ks=',
-    author: '도서관',
-    date: '2026.05.06',
-    views: '',
-    summary: '',
-  },
-  {
-    title: '5월 온라인 학술DB 교육 안내',
-    url: 'https://library.donga.ac.kr/community/?pid=36285&ks=',
-    author: '도서관',
-    date: '2026.05.04',
-    views: '',
-    summary: '',
-  },
 ];
 
 const TAG_RULES = {
@@ -456,6 +413,14 @@ async function fetchWithTimeout(url, options = {}) {
   }
 }
 
+function libraryPostsApiUrl(limit = 5) {
+  const url = new URL(LIBRARY_POSTS_API_URL);
+  url.searchParams.set('per_page', String(Math.min(20, Math.max(1, limit))));
+  url.searchParams.set('_fields', 'id,link,title,date,modified');
+  url.searchParams.set('_', String(Date.now()));
+  return url.toString();
+}
+
 async function fetchText(url, options = {}) {
   const res = await fetchWithTimeout(url, {
     headers: {
@@ -475,6 +440,8 @@ async function fetchJson(url) {
       'user-agent': 'DongALibraryAIBookFinder/1.0',
       accept: 'application/json,text/plain,*/*',
       'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
+      'cache-control': 'no-cache',
+      pragma: 'no-cache',
     },
   });
   if (!res.ok) throw new Error(`Library JSON failed ${res.status}: ${url}`);
@@ -650,24 +617,13 @@ function extractCommunityNotices(html, limit) {
   return notices;
 }
 
-async function fetchCommunityNotices(limit = 5) {
-  if (noticeCache && Date.now() - noticeCache.savedAt < NOTICE_CACHE_TTL_MS) {
+async function fetchCommunityNotices(limit = 5, options = {}) {
+  if (!options.fresh && noticeCache && Date.now() - noticeCache.savedAt < NOTICE_CACHE_TTL_MS) {
     return noticeCache.items.slice(0, limit);
   }
 
   try {
-    const html = await fetchText(LIBRARY_COMMUNITY_URL);
-    const notices = extractCommunityNotices(html, limit);
-    if (notices.length) {
-      noticeCache = { savedAt: Date.now(), items: notices };
-      return notices;
-    }
-  } catch (error) {
-    console.warn('[Library notices HTML]', error.message);
-  }
-
-  try {
-    const posts = await fetchJson(LIBRARY_POSTS_API_URL);
+    const posts = await fetchJson(libraryPostsApiUrl(Math.max(limit, 8)));
     const notices = (Array.isArray(posts) ? posts : [])
       .map(post => ({
         title: cleanText(post && post.title && post.title.rendered),
@@ -685,6 +641,17 @@ async function fetchCommunityNotices(limit = 5) {
     }
   } catch (error) {
     console.warn('[Library notices API]', error.message);
+  }
+
+  try {
+    const html = await fetchText(LIBRARY_COMMUNITY_URL);
+    const notices = extractCommunityNotices(html, limit);
+    if (notices.length) {
+      noticeCache = { savedAt: Date.now(), items: notices };
+      return notices;
+    }
+  } catch (error) {
+    console.warn('[Library notices HTML]', error.message);
   }
 
   try {
@@ -716,9 +683,7 @@ async function fetchCommunityNotices(limit = 5) {
     return notices;
   } catch (error) {
     console.warn('[Library notices]', error.message);
-    const fallback = FALLBACK_NOTICES.slice(0, limit);
-    noticeCache = { savedAt: Date.now(), items: fallback };
-    return fallback;
+    return [];
   }
 }
 
@@ -1569,3 +1534,5 @@ exports.handler = async function handler(event) {
     });
   }
 };
+
+exports.fetchCommunityNotices = fetchCommunityNotices;

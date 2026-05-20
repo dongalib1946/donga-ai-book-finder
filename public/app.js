@@ -688,6 +688,23 @@ document.addEventListener('DOMContentLoaded', () => {
       els.libraryNews.appendChild(link);
     });
   }
+  async function refreshLibraryNews(){
+    try{
+      const res = await fetch(`/.netlify/functions/library-news?limit=5&_=${Date.now()}`, {
+        cache:'no-store',
+        headers:{ accept:'application/json' }
+      });
+      const data = await res.json().catch(()=>({}));
+      if(!res.ok) throw new Error(data.error || '도서관 소식을 불러오지 못했습니다.');
+      const notices = Array.isArray(data.notices) ? data.notices : [];
+      if(notices.length){
+        renderLibraryNews(notices);
+        if(currentRecommendation) currentRecommendation = { ...currentRecommendation, notices };
+      }
+    }catch(error){
+      console.warn('Library news refresh failed', error);
+    }
+  }
   function serviceUrl(){
     return window.location.origin + window.location.pathname;
   }
@@ -817,6 +834,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAladinBestSellers(data.aladinBestSellers || []);
     renderPopularBooks(data.popularItems || []);
     renderLibraryNews(data.notices || []);
+    refreshLibraryNews();
     if(!(data.items || []).length){
       setError(els.resultError, '추천할 수 있는 도서를 찾지 못했습니다. 잠시 뒤 다시 시도해 주세요.');
     }
