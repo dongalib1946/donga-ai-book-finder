@@ -8,6 +8,7 @@ const sharedResult = require('./netlify/functions/shared-result.js');
 const emailResult = require('./netlify/functions/email-result.js');
 
 const ROOT = __dirname;
+const PUBLIC_ROOT = path.join(ROOT, 'public');
 const PORT = Number(process.env.PORT || 8787);
 
 const TYPES = {
@@ -90,9 +91,9 @@ const server = http.createServer(async (req, res) => {
     }
 
     const requested = url.pathname === '/' ? '/index.html' : url.pathname;
-    const normalized = path.normalize(decodeURIComponent(requested)).replace(/^(\.\.[/\\])+/, '');
-    const filePath = path.join(ROOT, normalized);
-    if (!filePath.startsWith(ROOT)) {
+    const normalized = path.normalize(decodeURIComponent(requested)).replace(/^[/\\]+/, '');
+    const filePath = path.join(PUBLIC_ROOT, normalized);
+    if (!filePath.startsWith(`${PUBLIC_ROOT}${path.sep}`) && filePath !== PUBLIC_ROOT) {
       return send(res, 403, { 'content-type': 'text/plain; charset=utf-8' }, 'Forbidden');
     }
     if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {

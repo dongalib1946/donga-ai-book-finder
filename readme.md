@@ -5,11 +5,12 @@
 ## 실행
 
 ```powershell
+npm install
 $env:ALADIN_TTB_KEY="알라딘 TTB 키"
 npm start
 ```
 
-로컬 실행에는 별도 패키지 설치가 필요 없습니다. `ALADIN_TTB_KEY`가 없으면 도서관 목록 기반의 제한된 추천만 반환합니다.
+처음 실행할 때 의존성을 설치합니다. `ALADIN_TTB_KEY`가 없으면 도서관 목록 기반의 제한된 추천만 반환합니다.
 
 ## 배포 환경변수
 
@@ -21,9 +22,14 @@ npm start
 
 ## 구조
 
-- `index.html`: 질문 UI와 결과 화면
-- `app.js`: 프론트 상태 관리와 API 호출
+- `public/index.html`: 질문 UI와 결과 화면
+- `public/app.js`: 프론트 상태 관리와 API 호출
+- `public/img/`: 정적으로 공개되는 이미지
 - `netlify/data/questions.json`: 질문과 선택지 데이터
 - `netlify/functions/questions.js`: 질문 데이터 API
 - `netlify/functions/recommend-books.js`: 도서관 컬렉션 수집, 알라딘 ISBN 조회, 답변 기반 점수화
 - `local-server.js`: 로컬 테스트용 정적 파일 및 함수 서버
+
+## 데이터 공개 범위
+
+Netlify의 정적 공개 폴더는 `public/`입니다. `netlify/data/*.json`은 정적 파일로 배포하지 않고 Netlify Function 번들에만 포함해 API에서 읽습니다.

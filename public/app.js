@@ -622,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="aladin-state"></span>
           <div class="aladin-actions">
             <a class="library-action" target="_blank" rel="noopener noreferrer"></a>
-            <a class="aladin-link" target="_blank" rel="noopener noreferrer" aria-label="알라딘에서 보기"><img class="aladin-logo" src="netlify/img/aladin.png" alt=""></a>
+            <a class="aladin-link" target="_blank" rel="noopener noreferrer" aria-label="알라딘에서 보기"><img class="aladin-logo" src="img/aladin.png" alt=""></a>
           </div>
         </div>
       `;
