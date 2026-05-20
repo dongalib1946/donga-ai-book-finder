@@ -2,7 +2,7 @@ const { fetchCommunityNoticeResult } = require('./recommend-books.js');
 const { writeNewsSnapshot } = require('./library-news-snapshot.js');
 
 const SNAPSHOT_LIMIT = Math.min(10, Math.max(1, Number.parseInt(process.env.NEWS_SNAPSHOT_LIMIT || '5', 10) || 5));
-const SNAPSHOT_FETCH_TIMEOUT_MS = Math.max(3000, Number.parseInt(process.env.NEWS_SNAPSHOT_FETCH_TIMEOUT_MS || '10000', 10) || 10000);
+const SNAPSHOT_FETCH_TIMEOUT_MS = Math.max(2000, Number.parseInt(process.env.NEWS_SNAPSHOT_FETCH_TIMEOUT_MS || '4000', 10) || 4000);
 
 async function refreshLibraryNewsSnapshot() {
   const startedAt = Date.now();
