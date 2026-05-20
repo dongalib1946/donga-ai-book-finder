@@ -1,4 +1,5 @@
 const { fetchCommunityNoticeResult } = require('./recommend-books.js');
+const { connectNewsSnapshot, readNewsSnapshot, snapshotAgeSeconds } = require('./library-news-snapshot.js');
 
 function json(statusCode, body) {
   return {
@@ -21,8 +22,23 @@ exports.handler = async function handler(event) {
   if (event.httpMethod !== 'GET') return json(405, { error: 'Method not allowed' });
 
   try {
+    connectNewsSnapshot(event);
     const url = new URL(event.rawUrl || `http://localhost${event.path || '/.netlify/functions/library-news'}`);
     const limit = Math.min(10, Math.max(1, Number.parseInt(url.searchParams.get('limit') || '5', 10) || 5));
+    const snapshot = await readNewsSnapshot(limit);
+    if (snapshot) {
+      return json(200, {
+        version: 'library-news-v1',
+        updatedAt: new Date().toISOString(),
+        source: 'scheduled-snapshot',
+        isLive: false,
+        snapshotSource: snapshot.source,
+        refreshedAt: snapshot.refreshedAt,
+        snapshotAgeSeconds: snapshotAgeSeconds(snapshot),
+        notices: snapshot.notices,
+      });
+    }
+
     const result = await fetchCommunityNoticeResult(limit, { fresh: true });
     return json(200, {
       version: 'library-news-v1',

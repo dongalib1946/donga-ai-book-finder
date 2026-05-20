@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { connectNewsSnapshot, readNewsSnapshot } = require('./library-news-snapshot.js');
 
 const ALADIN_LOOKUP_URL = 'https://www.aladin.co.kr/ttb/api/ItemLookUp.aspx';
 const ALADIN_ITEM_LIST_URL = 'https://www.aladin.co.kr/ttb/api/ItemList.aspx';
@@ -707,13 +708,14 @@ function rememberNotices(notices, source) {
 }
 
 async function fetchCommunityNotices(limit = 5, options = {}) {
+  const timeoutMs = Math.max(500, Number.parseInt(options.timeoutMs || String(NOTICE_FETCH_TIMEOUT_MS), 10) || NOTICE_FETCH_TIMEOUT_MS);
   if (!options.fresh && noticeCache && Date.now() - noticeCache.savedAt < NOTICE_CACHE_TTL_MS) {
     lastNoticeSource = noticeCache.source ? `cache:${noticeCache.source}` : 'cache';
     return noticeCache.items.slice(0, limit);
   }
 
   try {
-    const feed = await fetchText(LIBRARY_FEED_URL, { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
+    const feed = await fetchText(LIBRARY_FEED_URL, { timeoutMs });
     const notices = extractFeedNotices(feed, limit);
     if (notices.length) {
       return rememberNotices(notices, 'rss');
@@ -728,7 +730,7 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
   }
 
   try {
-    const posts = await fetchJson(libraryPostsApiUrl(Math.max(limit, 8)), { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
+    const posts = await fetchJson(libraryPostsApiUrl(Math.max(limit, 8)), { timeoutMs });
     const notices = (Array.isArray(posts) ? posts : [])
       .map(post => ({
         title: cleanText(post && post.title && post.title.rendered),
@@ -748,7 +750,7 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
   }
 
   try {
-    const html = await fetchText(LIBRARY_COMMUNITY_URL, { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
+    const html = await fetchText(LIBRARY_COMMUNITY_URL, { timeoutMs });
     const notices = extractCommunityNotices(html, limit);
     if (notices.length) {
       return rememberNotices(notices, 'html');
@@ -758,6 +760,14 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
   }
 
   return [];
+}
+
+async function getCommunityNotices(limit = 5) {
+  const snapshot = await readNewsSnapshot(limit);
+  if (snapshot && snapshot.notices.length) {
+    return rememberNotices(snapshot.notices, 'scheduled-snapshot');
+  }
+  return fetchCommunityNotices(limit);
 }
 
 async function fetchCommunityNoticeResult(limit = 5, options = {}) {
@@ -1551,6 +1561,7 @@ exports.handler = async function handler(event) {
   if (event.httpMethod !== 'POST') return json(405, { error: 'Method not allowed' });
 
   try {
+    connectNewsSnapshot(event);
     const payload = JSON.parse(event.body || '{}');
     const answers = Array.isArray(payload.answers) ? payload.answers : [];
     const limit = Math.min(10, Math.max(3, Number.parseInt(payload.limit || '6', 10) || 6));
@@ -1592,7 +1603,7 @@ exports.handler = async function handler(event) {
     })), popularCandidates, popularLimit);
 
     const [notices, aladinBestSellers] = await Promise.all([
-      fetchCommunityNotices(5),
+      getCommunityNotices(5),
       fetchAladinBestSellers(pool, 6),
     ]);
 
