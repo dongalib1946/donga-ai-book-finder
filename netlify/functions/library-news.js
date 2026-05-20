@@ -1,4 +1,4 @@
-const { fetchCommunityNotices } = require('./recommend-books.js');
+const { fetchCommunityNoticeResult } = require('./recommend-books.js');
 
 function json(statusCode, body) {
   return {
@@ -23,11 +23,13 @@ exports.handler = async function handler(event) {
   try {
     const url = new URL(event.rawUrl || `http://localhost${event.path || '/.netlify/functions/library-news'}`);
     const limit = Math.min(10, Math.max(1, Number.parseInt(url.searchParams.get('limit') || '5', 10) || 5));
-    const notices = await fetchCommunityNotices(limit, { fresh: true });
+    const result = await fetchCommunityNoticeResult(limit, { fresh: true });
     return json(200, {
       version: 'library-news-v1',
       updatedAt: new Date().toISOString(),
-      notices,
+      source: result.source,
+      isLive: result.isLive,
+      notices: result.notices,
     });
   } catch (error) {
     return json(error.statusCode || 500, { error: error.message || '도서관 소식을 불러오지 못했습니다.' });

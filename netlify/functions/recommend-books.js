@@ -30,6 +30,7 @@ const MAIN_COLLECTION_CAPS = { popular: 2 };
 
 let poolCache = null;
 let noticeCache = null;
+let lastNoticeSource = '';
 let bestSellerCache = null;
 let snapshotPoolCache = null;
 
@@ -699,8 +700,15 @@ function extractFeedNotices(xml, limit) {
   return notices;
 }
 
+function rememberNotices(notices, source) {
+  lastNoticeSource = source;
+  noticeCache = { savedAt: Date.now(), items: notices, source };
+  return notices;
+}
+
 async function fetchCommunityNotices(limit = 5, options = {}) {
   if (!options.fresh && noticeCache && Date.now() - noticeCache.savedAt < NOTICE_CACHE_TTL_MS) {
+    lastNoticeSource = noticeCache.source ? `cache:${noticeCache.source}` : 'cache';
     return noticeCache.items.slice(0, limit);
   }
 
@@ -708,8 +716,7 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
     const feed = await fetchText(LIBRARY_FEED_URL, { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
     const notices = extractFeedNotices(feed, limit);
     if (notices.length) {
-      noticeCache = { savedAt: Date.now(), items: notices };
-      return notices;
+      return rememberNotices(notices, 'rss');
     }
   } catch (error) {
     console.warn('[Library notices feed]', error.message);
@@ -717,8 +724,7 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
 
   if (options.fastFallback !== false) {
     const fallback = FALLBACK_NOTICES.slice(0, limit);
-    noticeCache = { savedAt: Date.now(), items: fallback };
-    return fallback;
+    return rememberNotices(fallback, 'snapshot');
   }
 
   try {
@@ -735,8 +741,7 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
       .filter(notice => notice.title)
       .slice(0, limit);
     if (notices.length) {
-      noticeCache = { savedAt: Date.now(), items: notices };
-      return notices;
+      return rememberNotices(notices, 'api');
     }
   } catch (error) {
     console.warn('[Library notices API]', error.message);
@@ -746,14 +751,23 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
     const html = await fetchText(LIBRARY_COMMUNITY_URL, { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
     const notices = extractCommunityNotices(html, limit);
     if (notices.length) {
-      noticeCache = { savedAt: Date.now(), items: notices };
-      return notices;
+      return rememberNotices(notices, 'html');
     }
   } catch (error) {
     console.warn('[Library notices HTML]', error.message);
   }
 
   return [];
+}
+
+async function fetchCommunityNoticeResult(limit = 5, options = {}) {
+  lastNoticeSource = '';
+  const notices = await fetchCommunityNotices(limit, options);
+  return {
+    notices,
+    source: lastNoticeSource || 'empty',
+    isLive: ['rss', 'api', 'html'].includes(lastNoticeSource),
+  };
 }
 
 function stableNumber(...parts) {
@@ -1605,3 +1619,4 @@ exports.handler = async function handler(event) {
 };
 
 exports.fetchCommunityNotices = fetchCommunityNotices;
+exports.fetchCommunityNoticeResult = fetchCommunityNoticeResult;
