@@ -10,6 +10,8 @@ publishOrigin = "config"
 functions = "netlify/functions"
 
   [build.environment]
+    SECRETS_SCAN_OMIT_KEYS = "SMTP_HOST"
+    SECRETS_SCAN_OMIT_PATHS = "node_modules/**"
 
   [build.processing]
 
