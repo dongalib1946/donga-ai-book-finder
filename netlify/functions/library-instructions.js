@@ -1,6 +1,6 @@
 const LIBRARY_INSTRUCTION_URL = 'https://library.donga.ac.kr/research-support/library-instruction/library-instruction-request/';
 const LIBRARY_AJAX_URL = 'https://library.donga.ac.kr/wp-admin/admin-ajax.php';
-const FETCH_TIMEOUT_MS = Math.max(1500, Number.parseInt(process.env.INSTRUCTION_FETCH_TIMEOUT_MS || '2500', 10) || 2500);
+const FETCH_TIMEOUT_MS = Math.max(1500, Number.parseInt(process.env.INSTRUCTION_FETCH_TIMEOUT_MS || '6000', 10) || 6000);
 
 function json(statusCode, body) {
   return {
