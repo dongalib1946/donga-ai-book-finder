@@ -14,7 +14,7 @@ const PURCHASE_REQUEST_URL = 'https://library.donga.ac.kr/libaray-services/using
 const FETCH_TIMEOUT_MS = Number.parseInt(process.env.FETCH_TIMEOUT_MS || '2500', 10);
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 const NOTICE_CACHE_TTL_MS = Math.max(0, Number.parseInt(process.env.NOTICE_CACHE_TTL_MS || String(60 * 1000), 10) || 0);
-const NOTICE_FETCH_TIMEOUT_MS = Math.min(2500, Math.max(800, Number.parseInt(process.env.NOTICE_FETCH_TIMEOUT_MS || '1800', 10) || 1800));
+const NOTICE_FETCH_TIMEOUT_MS = Math.min(1200, Math.max(500, Number.parseInt(process.env.NOTICE_FETCH_TIMEOUT_MS || '900', 10) || 900));
 const BESTSELLER_CACHE_TTL_MS = Number.parseInt(process.env.BESTSELLER_CACHE_TTL_MS || String(60 * 1000), 10);
 const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION_PAGE_LIMIT || '1', 10) || 1);
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
@@ -67,6 +67,49 @@ const FALLBACK_ENTRIES = [
   { isbn: '9788994478258', title: '왜 세계는 불평등한가 :탐욕스러운 1%가 99%의 삶을 파괴한다', author: '', publisher: '', tags: ['society', 'history', 'knowledge', 'deep'] },
   { isbn: '9788964061503', title: '미디어의 이해 :인간의 확장', author: 'Marshall McLuhan', publisher: '커뮤니케이션북스', tags: ['society', 'technology', 'knowledge', 'humanities'] },
   { isbn: '9791194530701', title: '괴테는 모든 것을 말했다', author: '鈴木悠衣', publisher: '리프', tags: ['literature', 'classic', 'deep', 'art'] },
+];
+
+const FALLBACK_NOTICES = [
+  {
+    title: '북크닉 추첨 당첨자 발표',
+    url: 'https://library.donga.ac.kr/community/notice/?pid=36700&ks=',
+    author: '도서관',
+    date: '2026.05.20',
+    views: '',
+    summary: '',
+  },
+  {
+    title: '북스타그램 ‘랜덤가챠북’ 이벤트 안내',
+    url: 'https://library.donga.ac.kr/community/notice/?pid=36674&ks=',
+    author: '도서관',
+    date: '2026.05.19',
+    views: '',
+    summary: '',
+  },
+  {
+    title: '[학술DB] 윕스 서비스 일시 중단 안내 (5/22~25)',
+    url: 'https://library.donga.ac.kr/community/notice/?pid=36426&ks=',
+    author: '도서관',
+    date: '2026.05.15',
+    views: '',
+    summary: '',
+  },
+  {
+    title: '2026 전자정보 박람회 경품당첨자 발표',
+    url: 'https://library.donga.ac.kr/community/notice/?pid=36545&ks=',
+    author: '도서관',
+    date: '2026.05.14',
+    views: '',
+    summary: '',
+  },
+  {
+    title: '[월간 학술DB] ICPSR DB & KSDC DB (2026년 5월)',
+    url: 'https://library.donga.ac.kr/community/notice/?pid=36571&ks=',
+    author: '도서관',
+    date: '2026.05.14',
+    views: '',
+    summary: '',
+  },
 ];
 
 const TAG_RULES = {
@@ -670,6 +713,12 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
     }
   } catch (error) {
     console.warn('[Library notices feed]', error.message);
+  }
+
+  if (options.fastFallback !== false) {
+    const fallback = FALLBACK_NOTICES.slice(0, limit);
+    noticeCache = { savedAt: Date.now(), items: fallback };
+    return fallback;
   }
 
   try {
