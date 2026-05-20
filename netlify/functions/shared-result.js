@@ -26,6 +26,15 @@ function useLocalStore() {
   return process.env.AI_BOOK_FINDER_LOCAL_STORE === '1';
 }
 
+function storeOptions() {
+  const options = { name: STORE_NAME, consistency: 'strong' };
+  if (process.env.NETLIFY_SITE_ID && process.env.NETLIFY_AUTH_TOKEN) {
+    options.siteID = process.env.NETLIFY_SITE_ID;
+    options.token = process.env.NETLIFY_AUTH_TOKEN;
+  }
+  return options;
+}
+
 function safeResultId(value) {
   const id = String(value || '').trim();
   return /^[A-Za-z0-9_-]{8,64}$/.test(id) ? id : '';
@@ -71,7 +80,7 @@ async function setEntry(id, payload) {
     return;
   }
 
-  const store = getStore({ name: STORE_NAME, consistency: 'strong' });
+  const store = getStore(storeOptions());
   await store.setJSON(id, payload);
 }
 
@@ -86,7 +95,7 @@ async function getEntry(id) {
     }
   }
 
-  const store = getStore({ name: STORE_NAME, consistency: 'strong' });
+  const store = getStore(storeOptions());
   return store.get(id, { type: 'json', consistency: 'strong' });
 }
 
@@ -96,7 +105,7 @@ async function deleteEntry(id) {
     return;
   }
 
-  const store = getStore({ name: STORE_NAME, consistency: 'strong' });
+  const store = getStore(storeOptions());
   await store.delete(id);
 }
 
