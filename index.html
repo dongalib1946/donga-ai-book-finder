@@ -96,15 +96,6 @@
             <button class="btn email-toggle" id="emailResultBtn" type="button">결과 메일로 받기</button>
             <button class="btn accent" id="restartBtn" type="button">다시 추천받기</button>
           </div>
-          <form class="email-panel" id="emailResultForm" hidden>
-            <label for="resultEmail">받을 이메일</label>
-            <div class="email-row">
-              <input id="resultEmail" name="email" type="email" autocomplete="email" placeholder="name@example.com" required>
-              <button class="btn primary" id="sendEmailBtn" type="submit">보내기</button>
-            </div>
-            <p class="email-help">추천 결과 링크는 7일 동안 보관됩니다.</p>
-            <p class="email-status" id="emailStatus" aria-live="polite"></p>
-          </form>
         </div>
 
         <div class="section-title">
@@ -175,6 +166,35 @@
         <div class="error" id="resultError" aria-hidden="true"></div>
       </section>
     </main>
+
+    <div class="email-modal" id="emailResultModal" hidden role="dialog" aria-modal="true" aria-labelledby="emailModalTitle">
+      <button class="email-modal-backdrop" type="button" data-email-close aria-label="메일 입력창 닫기"></button>
+      <form class="email-dialog" id="emailResultForm">
+        <div class="email-dialog-head">
+          <h3 id="emailModalTitle">결과 메일로 받기</h3>
+          <button class="email-close" type="button" data-email-close aria-label="닫기">×</button>
+        </div>
+        <label for="resultEmailLocal">받을 이메일</label>
+        <div class="email-compose">
+          <input id="resultEmailLocal" name="emailLocal" type="text" autocomplete="email" placeholder="아이디" required>
+          <select id="resultEmailDomain" name="emailDomain" aria-label="이메일 도메인">
+            <option value="@dau.ac.kr">@dau.ac.kr</option>
+            <option value="@gmail.com">@gmail.com</option>
+            <option value="@naver.com">@naver.com</option>
+            <option value="@daum.net">@daum.net</option>
+            <option value="@hanmail.net">@hanmail.net</option>
+            <option value="custom">직접입력</option>
+          </select>
+        </div>
+        <input class="email-custom-domain" id="resultEmailCustomDomain" name="emailCustomDomain" type="text" placeholder="example.com" hidden>
+        <p class="email-help">추천 결과 링크는 7일 동안 보관됩니다.</p>
+        <p class="email-status" id="emailStatus" aria-live="polite"></p>
+        <div class="email-dialog-actions">
+          <button class="btn" type="button" data-email-close>취소</button>
+          <button class="btn primary" id="sendEmailBtn" type="submit">보내기</button>
+        </div>
+      </form>
+    </div>
   </div>
 </body>
 </html>

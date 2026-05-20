@@ -15,7 +15,7 @@ const PURCHASE_REQUEST_URL = 'https://library.donga.ac.kr/libaray-services/using
 const FETCH_TIMEOUT_MS = Number.parseInt(process.env.FETCH_TIMEOUT_MS || '2500', 10);
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 const NOTICE_CACHE_TTL_MS = 20 * 60 * 1000;
-const INSTRUCTION_CACHE_TTL_MS = 20 * 60 * 1000;
+const INSTRUCTION_CACHE_TTL_MS = Number.parseInt(process.env.INSTRUCTION_CACHE_TTL_MS || String(60 * 1000), 10);
 const BESTSELLER_CACHE_TTL_MS = Number.parseInt(process.env.BESTSELLER_CACHE_TTL_MS || String(60 * 1000), 10);
 const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION_PAGE_LIMIT || '1', 10) || 1);
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
@@ -296,7 +296,20 @@ function isExamPrepBook(book) {
   const titleText = cleanText(book && book.title);
   const categoryText = cleanText(book && book.categoryName);
   const authorPublisherText = [book && book.author, book && book.publisher].map(cleanText).join(' ');
+  const metaText = Array.isArray(book && book.meta) ? book.meta.map(cleanText).join(' ') : '';
+  const exclusionText = [
+    titleText,
+    categoryText,
+    authorPublisherText,
+    metaText,
+    cleanText(book && book.collection),
+    cleanText(book && book.description),
+  ].join(' ');
   const primaryText = [titleText, categoryText].join(' ');
+
+  if (/만화|웹툰|그래픽\s*노블|그래픽노블|코믹스|comic|comics|manga|cartoon/i.test(exclusionText)) {
+    return true;
+  }
 
   if (/수험서|자격증|공무원|국가고시|고등학교참고서|중학교참고서|초등참고서|취업\/수험서/i.test(categoryText)) {
     return true;
@@ -845,11 +858,15 @@ async function fetchLibraryInstructions(limit = 5) {
       paged: '1',
       location: '',
     });
-    const res = await fetchWithTimeout(LIBRARY_AJAX_URL, {
+    const ajaxUrl = new URL(LIBRARY_AJAX_URL);
+    ajaxUrl.searchParams.set('_', String(Date.now()));
+    const res = await fetchWithTimeout(ajaxUrl.toString(), {
       method: 'POST',
       headers: {
         'user-agent': 'DongALibraryAIBookFinder/1.0',
         accept: 'application/json,text/plain,*/*',
+        'cache-control': 'no-cache, no-store, max-age=0',
+        pragma: 'no-cache',
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
         'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
         origin: 'https://library.donga.ac.kr',

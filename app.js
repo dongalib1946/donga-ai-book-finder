@@ -74,8 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
     resultSummary:document.getElementById('resultSummary'),
     restartBtn:document.getElementById('restartBtn'),
     emailResultBtn:document.getElementById('emailResultBtn'),
+    emailResultModal:document.getElementById('emailResultModal'),
     emailResultForm:document.getElementById('emailResultForm'),
-    resultEmail:document.getElementById('resultEmail'),
+    resultEmailLocal:document.getElementById('resultEmailLocal'),
+    resultEmailDomain:document.getElementById('resultEmailDomain'),
+    resultEmailCustomDomain:document.getElementById('resultEmailCustomDomain'),
     sendEmailBtn:document.getElementById('sendEmailBtn'),
     emailStatus:document.getElementById('emailStatus'),
     errorBox:document.getElementById('errorBox'),
@@ -737,15 +740,41 @@ document.addEventListener('DOMContentLoaded', () => {
     els.emailStatus.classList.toggle('is-error', Boolean(isError));
   }
   function resetEmailForm(){
-    if(els.emailResultForm) els.emailResultForm.hidden = true;
-    if(els.resultEmail) els.resultEmail.value = '';
+    if(els.emailResultModal) els.emailResultModal.hidden = true;
+    if(els.resultEmailLocal) els.resultEmailLocal.value = '';
+    if(els.resultEmailDomain) els.resultEmailDomain.value = '@dau.ac.kr';
+    if(els.resultEmailCustomDomain){
+      els.resultEmailCustomDomain.value = '';
+      els.resultEmailCustomDomain.hidden = true;
+    }
     setEmailStatus('');
   }
-  function toggleEmailForm(){
-    if(!els.emailResultForm) return;
-    els.emailResultForm.hidden = !els.emailResultForm.hidden;
+  function openEmailModal(){
+    if(!els.emailResultModal) return;
+    els.emailResultModal.hidden = false;
     setEmailStatus('');
-    if(!els.emailResultForm.hidden && els.resultEmail) els.resultEmail.focus();
+    if(els.resultEmailLocal) els.resultEmailLocal.focus();
+  }
+  function closeEmailModal(){
+    if(!els.emailResultModal) return;
+    els.emailResultModal.hidden = true;
+    setEmailStatus('');
+  }
+  function syncCustomEmailDomain(){
+    if(!els.resultEmailDomain || !els.resultEmailCustomDomain) return;
+    const custom = els.resultEmailDomain.value === 'custom';
+    els.resultEmailCustomDomain.hidden = !custom;
+    els.resultEmailCustomDomain.required = custom;
+    if(custom) els.resultEmailCustomDomain.focus();
+  }
+  function composedEmail(){
+    const local = els.resultEmailLocal ? els.resultEmailLocal.value.trim() : '';
+    if(local.includes('@')) return local;
+    const domainValue = els.resultEmailDomain ? els.resultEmailDomain.value : '';
+    const domain = domainValue === 'custom'
+      ? String(els.resultEmailCustomDomain && els.resultEmailCustomDomain.value || '').trim().replace(/^@/, '')
+      : domainValue.replace(/^@/, '');
+    return local && domain ? `${local}@${domain}` : '';
   }
   async function sendResultEmail(event){
     event.preventDefault();
@@ -754,7 +783,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const email = els.resultEmail ? els.resultEmail.value.trim() : '';
+    const email = composedEmail();
     if(!email){
       setEmailStatus('이메일 주소를 입력해 주세요.', true);
       return;
@@ -899,11 +928,22 @@ document.addEventListener('DOMContentLoaded', () => {
     els.homeBtn.addEventListener('click', showStartView);
   }
   if(els.emailResultBtn){
-    els.emailResultBtn.addEventListener('click', toggleEmailForm);
+    els.emailResultBtn.addEventListener('click', openEmailModal);
   }
   if(els.emailResultForm){
     els.emailResultForm.addEventListener('submit', sendResultEmail);
   }
+  if(els.resultEmailDomain){
+    els.resultEmailDomain.addEventListener('change', syncCustomEmailDomain);
+  }
+  document.querySelectorAll('[data-email-close]').forEach(button=>{
+    button.addEventListener('click', closeEmailModal);
+  });
+  document.addEventListener('keydown', event=>{
+    if(event.key === 'Escape' && els.emailResultModal && !els.emailResultModal.hidden){
+      closeEmailModal();
+    }
+  });
   els.prevBtn.addEventListener('click', ()=>{
     if(state.index > 0){ state.index -= 1; renderQuestion(); }
   });
