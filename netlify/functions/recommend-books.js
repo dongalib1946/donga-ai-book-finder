@@ -14,7 +14,7 @@ const PURCHASE_REQUEST_URL = 'https://library.donga.ac.kr/libaray-services/using
 const FETCH_TIMEOUT_MS = Number.parseInt(process.env.FETCH_TIMEOUT_MS || '2500', 10);
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 const NOTICE_CACHE_TTL_MS = Math.max(0, Number.parseInt(process.env.NOTICE_CACHE_TTL_MS || String(60 * 1000), 10) || 0);
-const NOTICE_FETCH_TIMEOUT_MS = Math.max(5000, Number.parseInt(process.env.NOTICE_FETCH_TIMEOUT_MS || '9000', 10) || 9000);
+const NOTICE_FETCH_TIMEOUT_MS = Math.min(2500, Math.max(800, Number.parseInt(process.env.NOTICE_FETCH_TIMEOUT_MS || '1800', 10) || 1800));
 const BESTSELLER_CACHE_TTL_MS = Number.parseInt(process.env.BESTSELLER_CACHE_TTL_MS || String(60 * 1000), 10);
 const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION_PAGE_LIMIT || '1', 10) || 1);
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
@@ -662,6 +662,17 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
   }
 
   try {
+    const feed = await fetchText(LIBRARY_FEED_URL, { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
+    const notices = extractFeedNotices(feed, limit);
+    if (notices.length) {
+      noticeCache = { savedAt: Date.now(), items: notices };
+      return notices;
+    }
+  } catch (error) {
+    console.warn('[Library notices feed]', error.message);
+  }
+
+  try {
     const posts = await fetchJson(libraryPostsApiUrl(Math.max(limit, 8)), { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
     const notices = (Array.isArray(posts) ? posts : [])
       .map(post => ({
@@ -691,50 +702,6 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
     }
   } catch (error) {
     console.warn('[Library notices HTML]', error.message);
-  }
-
-  try {
-    const html = await fetchText(LIBRARY_COMMUNITY_URL, { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
-    const blocks = String(html || '').split(/<div\b[^>]*class=["'][^"']*\bboard-list-cell\b/i).slice(1);
-    const notices = [];
-    for (const rawBlock of blocks) {
-      const block = `<div class="board-list-cell${rawBlock}`;
-      if (/badge-list-notice/i.test(block)) continue;
-
-      const hrefMatch = block.match(/<a\b[^>]*href=["']([^"']+)["'][^>]*class=["'][^"']*\bbtn-board-list-item\b/i);
-      const title = fieldFromClass(block, 'txt').replace(/\s+N$/, '');
-      if (!hrefMatch || !title) continue;
-
-      const optionMatches = [...block.matchAll(/<div\b[^>]*class=["'][^"']*\bitem-option-cell\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)]
-        .map(match => cleanText(match[1]));
-      const summary = fieldFromClass(block, 'item-info');
-      notices.push({
-        title,
-        url: communityNoticeUrl(hrefMatch[1]),
-        author: optionMatches[0] || '',
-        date: optionMatches[1] || '',
-        views: optionMatches[2] || '',
-        summary,
-      });
-      if (notices.length >= limit) break;
-    }
-    if (notices.length) {
-      noticeCache = { savedAt: Date.now(), items: notices };
-      return notices;
-    }
-  } catch (error) {
-    console.warn('[Library notices]', error.message);
-  }
-
-  try {
-    const feed = await fetchText(LIBRARY_FEED_URL, { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
-    const notices = extractFeedNotices(feed, limit);
-    if (notices.length) {
-      noticeCache = { savedAt: Date.now(), items: notices };
-      return notices;
-    }
-  } catch (error) {
-    console.warn('[Library notices feed]', error.message);
   }
 
   return [];
