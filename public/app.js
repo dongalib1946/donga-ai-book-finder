@@ -536,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function descriptionText(book){
     const text = String(book.description || '').trim();
     if(text) return text;
-    return '알라딘 API에서 상세 책 소개가 제공되지 않은 도서입니다. 현재 화면에는 도서관 서지 정보와 추천 분석 결과를 우선 표시합니다.';
+    return '알라딘 API에서 상세 책 소개가 제공되지 않은 도서입니다. 도서관 서지 정보와 소장 위치를 확인해 보세요.';
   }
   function bookMeta(book){
     return [book.author, book.publisher, book.collection].filter(Boolean).join(' · ');
@@ -555,7 +555,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <h3 class="book-title"></h3>
           <div class="book-meta"></div>
           <p class="reason"></p>
-          <p class="description"></p>
           <div class="tag-row">${tags}</div>
           <div class="book-actions">
             <a class="catalog-link" target="_blank" rel="noopener noreferrer">소장위치 확인</a>
@@ -566,8 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.querySelector('.book-number').textContent = String(index + 1).padStart(2, '0');
       card.querySelector('.book-title').textContent = book.title || '제목 정보 없음';
       card.querySelector('.book-meta').textContent = bookMeta(book);
-      card.querySelector('.reason').textContent = book.reason || '응답 선택값과 도서관 컬렉션 데이터를 비교해 추천 후보로 분류했습니다.';
-      card.querySelector('.description').textContent = descriptionText(book);
+      card.querySelector('.reason').textContent = descriptionText(book);
       card.querySelector('.catalog-link').href = book.libraryCatalogUrl || book.link || '#';
       const aladinLink = card.querySelector('.aladin-book-link');
       if(book.link){
