@@ -6,6 +6,7 @@ const ALADIN_SEARCH_URL = 'https://www.aladin.co.kr/search/wsearchresult.aspx';
 const ALADIN_PRODUCT_URL = 'https://www.aladin.co.kr/shop/wproduct.aspx';
 const LIBRARY_COMMUNITY_URL = 'https://library.donga.ac.kr/community/notice/';
 const LIBRARY_POSTS_API_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/posts';
+const LIBRARY_FEED_URL = 'https://library.donga.ac.kr/feed/';
 const LIBRARY_CATALOG_URL = 'https://library.donga.ac.kr/resource/library-catalog/';
 const LIBRARY_CATALOG_REST_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/pages/17';
 const LIBRARY_PAGES_REST_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/pages/';
@@ -13,6 +14,7 @@ const PURCHASE_REQUEST_URL = 'https://library.donga.ac.kr/libaray-services/using
 const FETCH_TIMEOUT_MS = Number.parseInt(process.env.FETCH_TIMEOUT_MS || '2500', 10);
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 const NOTICE_CACHE_TTL_MS = Math.max(0, Number.parseInt(process.env.NOTICE_CACHE_TTL_MS || String(60 * 1000), 10) || 0);
+const NOTICE_FETCH_TIMEOUT_MS = Math.max(5000, Number.parseInt(process.env.NOTICE_FETCH_TIMEOUT_MS || '9000', 10) || 9000);
 const BESTSELLER_CACHE_TTL_MS = Number.parseInt(process.env.BESTSELLER_CACHE_TTL_MS || String(60 * 1000), 10);
 const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION_PAGE_LIMIT || '1', 10) || 1);
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
@@ -434,7 +436,7 @@ async function fetchText(url, options = {}) {
   return res.text();
 }
 
-async function fetchJson(url) {
+async function fetchJson(url, options = {}) {
   const res = await fetchWithTimeout(url, {
     headers: {
       'user-agent': 'DongALibraryAIBookFinder/1.0',
@@ -443,6 +445,7 @@ async function fetchJson(url) {
       'cache-control': 'no-cache',
       pragma: 'no-cache',
     },
+    timeoutMs: options.timeoutMs,
   });
   if (!res.ok) throw new Error(`Library JSON failed ${res.status}: ${url}`);
   return res.json();
@@ -589,6 +592,21 @@ function communityNoticeUrl(value) {
   return url.toString();
 }
 
+function formatNoticeDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  const parts = new Intl.DateTimeFormat('ko-KR', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date);
+  const year = parts.find(part => part.type === 'year')?.value || '';
+  const month = parts.find(part => part.type === 'month')?.value || '';
+  const day = parts.find(part => part.type === 'day')?.value || '';
+  return year && month && day ? `${year}.${month}.${day}` : '';
+}
+
 function extractCommunityNotices(html, limit) {
   const blocks = String(html || '').split(/<div\b[^>]*class=["'][^"']*\bboard-list-cell\b/i).slice(1);
   const notices = [];
@@ -617,13 +635,34 @@ function extractCommunityNotices(html, limit) {
   return notices;
 }
 
+function extractFeedNotices(xml, limit) {
+  const items = String(xml || '').split(/<item\b[^>]*>/i).slice(1);
+  const notices = [];
+  for (const item of items) {
+    const title = cleanText((item.match(/<title><!\[CDATA\[([\s\S]*?)\]\]><\/title>/i) || item.match(/<title>([\s\S]*?)<\/title>/i) || [])[1]);
+    const link = cleanText((item.match(/<link><!\[CDATA\[([\s\S]*?)\]\]><\/link>/i) || item.match(/<link>([\s\S]*?)<\/link>/i) || [])[1]);
+    const pubDate = cleanText((item.match(/<pubDate>([\s\S]*?)<\/pubDate>/i) || [])[1]);
+    if (!title || !link) continue;
+    notices.push({
+      title,
+      url: communityNoticeUrl(link),
+      author: '도서관',
+      date: formatNoticeDate(pubDate),
+      views: '',
+      summary: '',
+    });
+    if (notices.length >= limit) break;
+  }
+  return notices;
+}
+
 async function fetchCommunityNotices(limit = 5, options = {}) {
   if (!options.fresh && noticeCache && Date.now() - noticeCache.savedAt < NOTICE_CACHE_TTL_MS) {
     return noticeCache.items.slice(0, limit);
   }
 
   try {
-    const posts = await fetchJson(libraryPostsApiUrl(Math.max(limit, 8)));
+    const posts = await fetchJson(libraryPostsApiUrl(Math.max(limit, 8)), { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
     const notices = (Array.isArray(posts) ? posts : [])
       .map(post => ({
         title: cleanText(post && post.title && post.title.rendered),
@@ -644,7 +683,7 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
   }
 
   try {
-    const html = await fetchText(LIBRARY_COMMUNITY_URL);
+    const html = await fetchText(LIBRARY_COMMUNITY_URL, { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
     const notices = extractCommunityNotices(html, limit);
     if (notices.length) {
       noticeCache = { savedAt: Date.now(), items: notices };
@@ -655,7 +694,7 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
   }
 
   try {
-    const html = await fetchText(LIBRARY_COMMUNITY_URL);
+    const html = await fetchText(LIBRARY_COMMUNITY_URL, { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
     const blocks = String(html || '').split(/<div\b[^>]*class=["'][^"']*\bboard-list-cell\b/i).slice(1);
     const notices = [];
     for (const rawBlock of blocks) {
@@ -679,12 +718,26 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
       });
       if (notices.length >= limit) break;
     }
-    noticeCache = { savedAt: Date.now(), items: notices };
-    return notices;
+    if (notices.length) {
+      noticeCache = { savedAt: Date.now(), items: notices };
+      return notices;
+    }
   } catch (error) {
     console.warn('[Library notices]', error.message);
-    return [];
   }
+
+  try {
+    const feed = await fetchText(LIBRARY_FEED_URL, { timeoutMs: NOTICE_FETCH_TIMEOUT_MS });
+    const notices = extractFeedNotices(feed, limit);
+    if (notices.length) {
+      noticeCache = { savedAt: Date.now(), items: notices };
+      return notices;
+    }
+  } catch (error) {
+    console.warn('[Library notices feed]', error.message);
+  }
+
+  return [];
 }
 
 function stableNumber(...parts) {
