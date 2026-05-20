@@ -1,0 +1,122 @@
+[
+  {
+    "id": "mood",
+    "eyebrow": "마음의 온도",
+    "title": "오늘, 어떤 마음으로 책 앞에 섰나요?",
+    "help": "지금 마음에 가장 가까운 표정을 골라주세요.",
+    "choices": [
+      { "id": "tired", "emoji": "🌙", "label": "조금 지친 밤", "desc": "부드럽게 기대고 싶은 기분", "tags": ["comfort", "essay", "healing", "easy"] },
+      { "id": "curious", "emoji": "✨", "label": "반짝이는 호기심", "desc": "새로운 세계를 열고 싶은 기분", "tags": ["knowledge", "science", "society", "future"] },
+      { "id": "restless", "emoji": "🌊", "label": "흔들리는 생각", "desc": "복잡한 마음을 정리하고 싶은 기분", "tags": ["mind", "philosophy", "essay"] },
+      { "id": "bright", "emoji": "☀️", "label": "가볍게 환기", "desc": "조금 웃고, 조금 멀리 가고 싶은 기분", "tags": ["fun", "novel", "travel", "story"] }
+    ]
+  },
+  {
+    "id": "door",
+    "eyebrow": "탐색 방향",
+    "title": "AI가 어떤 방향으로 책을 찾아볼까요?",
+    "help": "오늘의 추천이 향할 주제를 정합니다.",
+    "choices": [
+      { "id": "inner", "emoji": "🫶", "label": "내 마음 안쪽", "desc": "감정, 관계, 나 자신을 들여다보기", "tags": ["comfort", "relationship", "mind", "psychology"] },
+      { "id": "world", "emoji": "🌏", "label": "넓은 세상", "desc": "사회, 역사, 사람들의 흐름 따라가기", "tags": ["society", "history", "humanities"] },
+      { "id": "future", "emoji": "🤖", "label": "다가올 미래", "desc": "AI, 과학, 기술의 변화 읽기", "tags": ["technology", "future", "science"] },
+      { "id": "story", "emoji": "📖", "label": "이야기의 방", "desc": "인물과 사건 속으로 깊이 들어가기", "tags": ["novel", "literature", "story", "mystery"] }
+    ]
+  },
+  {
+    "id": "after",
+    "eyebrow": "읽고 난 뒤",
+    "title": "마지막 장을 덮고 어떤 기분이 남았으면 하나요?",
+    "help": "책을 덮은 뒤 마음에 남았으면 하는 감각을 골라주세요.",
+    "choices": [
+      { "id": "warm", "emoji": "🍵", "label": "따뜻함", "desc": "괜찮다고 말해주는 여운", "tags": ["comfort", "healing", "essay"] },
+      { "id": "spark", "emoji": "🔥", "label": "다시 움직일 힘", "desc": "일상에 작은 추진력을 주는 여운", "tags": ["growth", "career", "challenge", "practical"] },
+      { "id": "clear", "emoji": "🧭", "label": "선명한 이해", "desc": "흩어진 생각이 정리되는 여운", "tags": ["knowledge", "humanities", "society", "work"] },
+      { "id": "deep", "emoji": "🌌", "label": "오래 남는 질문", "desc": "천천히 되새기게 되는 여운", "tags": ["deep", "classic", "philosophy", "history"] }
+    ]
+  },
+  {
+    "id": "rhythm",
+    "eyebrow": "독서의 리듬",
+    "title": "지금 당신에 맞는 읽기 속도는?",
+    "help": "오늘 읽고 싶은 호흡에 가까운 쪽을 골라주세요.",
+    "choices": [
+      { "id": "short", "emoji": "⚡", "label": "짧고 산뜻하게", "desc": "이동 중에도 끊어 읽기 좋은 책", "tags": ["easy", "short", "essay", "readable"] },
+      { "id": "weekend", "emoji": "🛋️", "label": "주말 한 권", "desc": "적당히 몰입하고 기분을 바꾸는 책", "tags": ["novel", "readable", "story"] },
+      { "id": "slow", "emoji": "🕯️", "label": "천천히 머물기", "desc": "문장과 생각을 오래 붙잡는 책", "tags": ["deep", "classic", "philosophy"] },
+      { "id": "useful", "emoji": "🛠️", "label": "바로 써먹기", "desc": "오늘의 생활과 일에 연결되는 책", "tags": ["practical", "career", "work", "growth"] }
+    ]
+  },
+  {
+    "id": "signal",
+    "eyebrow": "마지막 신호",
+    "title": "지금 가장 끌리는 한 단어를 골라주세요.",
+    "help": "오늘 가장 먼저 눈에 들어오는 단어를 골라주세요.",
+    "choices": [
+      { "id": "love", "emoji": "💌", "label": "사람", "desc": "관계, 마음, 사랑, 가족", "tags": ["relationship", "mind", "essay", "novel"] },
+      { "id": "change", "emoji": "🚪", "label": "변화", "desc": "성장, 전환, 새로운 시작", "tags": ["growth", "career", "identity", "challenge"] },
+      { "id": "sense", "emoji": "🎨", "label": "감각", "desc": "예술, 문학, 창작, 취향", "tags": ["art", "literature", "story", "essay"] },
+      { "id": "question", "emoji": "🔍", "label": "질문", "desc": "지식, 사회, 과학, 사유", "tags": ["knowledge", "science", "society", "deep"] }
+    ]
+  },
+  {
+    "id": "weather",
+    "eyebrow": "오늘의 날씨",
+    "title": "오늘 하루를 날씨로 말하면 무엇에 가까운가요?",
+    "help": "지금의 날씨와 닮은 마음을 골라주세요.",
+    "choices": [
+      { "id": "fog", "emoji": "🌫️", "label": "안개", "desc": "또렷하지 않아도 천천히 가고 싶은 날", "tags": ["mind", "essay", "comfort"] },
+      { "id": "rain", "emoji": "🌧️", "label": "비", "desc": "조용히 젖어드는 문장이 필요한 날", "tags": ["healing", "literature", "deep"] },
+      { "id": "wind", "emoji": "🍃", "label": "바람", "desc": "새로운 방향으로 흔들리고 싶은 날", "tags": ["future", "travel", "growth"] },
+      { "id": "stars", "emoji": "🌠", "label": "별빛", "desc": "멀고 낯선 것에 마음이 가는 날", "tags": ["science", "novel", "future", "story"] }
+    ]
+  },
+  {
+    "id": "sentence",
+    "eyebrow": "문장의 온도",
+    "title": "어떤 문장이 지금의 당신에게 와닿을까요?",
+    "help": "오늘 듣고 싶은 책의 목소리를 골라주세요.",
+    "choices": [
+      { "id": "soft", "emoji": "🤍", "label": "다정한 문장", "desc": "판단보다 이해가 먼저인 문장", "tags": ["comfort", "relationship", "essay"] },
+      { "id": "sharp", "emoji": "✒️", "label": "또렷한 문장", "desc": "핵심을 정확히 찌르는 문장", "tags": ["knowledge", "practical", "work"] },
+      { "id": "strange", "emoji": "🪞", "label": "낯선 문장", "desc": "익숙한 세계를 비틀어 보여주는 문장", "tags": ["art", "novel", "future"] },
+      { "id": "dense", "emoji": "📜", "label": "깊은 문장", "desc": "오래 곱씹게 되는 문장", "tags": ["deep", "classic", "philosophy"] }
+    ]
+  },
+  {
+    "id": "time",
+    "eyebrow": "시간",
+    "title": "당신은 어느 시간에 책이 필요하세요?",
+    "help": "책을 펼칠 장면을 떠올리며 골라주세요.",
+    "choices": [
+      { "id": "morning", "emoji": "🌅", "label": "아침의 책", "desc": "하루를 시작하게 하는 책", "tags": ["growth", "practical", "career"] },
+      { "id": "afternoon", "emoji": "☕", "label": "오후의 책", "desc": "잠깐 멈춰 생각을 환기하는 책", "tags": ["essay", "readable", "knowledge"] },
+      { "id": "night", "emoji": "🌘", "label": "밤의 책", "desc": "마음이 낮아지는 시간에 어울리는 책", "tags": ["comfort", "healing", "story"] },
+      { "id": "dawn", "emoji": "🪐", "label": "새벽의 책", "desc": "혼자 깊이 들어가는 시간의 책", "tags": ["deep", "philosophy", "literature"] }
+    ]
+  },
+  {
+    "id": "shelf",
+    "eyebrow": "추천 기준",
+    "title": "오늘 책을 고를 때 가장 중요하게 볼 기준은?",
+    "help": "AI가 추천 점수를 더 높게 둘 단서를 골라주세요.",
+    "choices": [
+      { "id": "window", "emoji": "🪟", "label": "세상 읽기", "desc": "사회와 흐름이 더 잘 보이는 책", "tags": ["society", "history", "knowledge"] },
+      { "id": "blanket", "emoji": "🧣", "label": "휴식과 회복", "desc": "몸과 마음을 편히 쉬게 하는 책", "tags": ["comfort", "healing", "essay"] },
+      { "id": "map", "emoji": "🗺️", "label": "다음 계획", "desc": "다음 걸음을 알려주는 책", "tags": ["career", "growth", "practical"] },
+      { "id": "theater", "emoji": "🎭", "label": "이야기 몰입", "desc": "이야기와 인물이 살아나는 책", "tags": ["novel", "story", "literature"] }
+    ]
+  },
+  {
+    "id": "trace",
+    "eyebrow": "남기고 싶은 흔적",
+    "title": "책 한 권이 오늘 남겼으면 하는 것은?",
+    "help": "마음에 남았으면 하는 흔적을 골라주세요.",
+    "choices": [
+      { "id": "line", "emoji": "🖍️", "label": "밑줄 하나", "desc": "오래 기억할 문장 하나", "tags": ["literature", "essay", "deep"] },
+      { "id": "plan", "emoji": "📌", "label": "작은 계획", "desc": "내일 해볼 수 있는 실천 하나", "tags": ["practical", "career", "growth"] },
+      { "id": "question", "emoji": "❔", "label": "새 질문", "desc": "생각의 방향을 바꾸는 질문 하나", "tags": ["knowledge", "philosophy", "science"] },
+      { "id": "scene", "emoji": "🎞️", "label": "장면 하나", "desc": "마음에 남는 이미지와 이야기", "tags": ["novel", "story", "art"] }
+    ]
+  }
+]

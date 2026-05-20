@@ -1,0 +1,14 @@
+{
+  "name": "donga-door-to-book",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Question based book recommendation service for Dong-A University Library.",
+  "scripts": {
+    "start": "node local-server.js",
+    "check": "node --check app.js && node --check local-server.js && node --check netlify/functions/questions.js && node --check netlify/functions/recommend-books.js && node --check netlify/functions/shared-result.js && node --check netlify/functions/email-result.js"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^10.7.8",
+    "nodemailer": "^8.0.7"
+  }
+}

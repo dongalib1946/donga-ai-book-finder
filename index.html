@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI가 찾아주는 오늘의 책 | 동아대학교 도서관</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <button class="brand" id="homeBtn" type="button" aria-label="처음 화면으로 돌아가기">
+        <img class="brand-logo" src="netlify/img/black logo.png" alt="동아대학교 도서관">
+      </button>
+      <span class="step-pill" id="stepPill">시작 전</span>
+    </header>
+
+    <main>
+      <section class="start-wrap" id="startView">
+        <div class="start-card aura-balanced">
+          <div class="start-ai-orbit" aria-hidden="true">
+            <img class="start-logo" src="netlify/img/ai.png" alt="">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p class="start-kicker">DONG-A Library AI Book Finder</p>
+          <h1 class="start-title">지금 당신에게 필요한 책을 찾아드릴게요.</h1>
+          <p class="start-copy">짧은 질문에 답하면, 오늘의 관심사에 어울리는 책을 추천합니다.</p>
+          <div class="start-actions">
+            <button class="btn primary" id="startBtn" type="button">AI 추천 시작</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="quiz-wrap" id="quizView" hidden>
+        <div class="stage aura-balanced">
+          <img class="stage-logo" src="netlify/img/search-icon-05.png" alt="">
+          <div class="progress">
+            <div class="progress-top">
+              <span id="stepText">1번째 질문</span>
+              <span>5문항</span>
+            </div>
+            <div class="bar" aria-hidden="true"><span id="progressBar"></span></div>
+          </div>
+
+          <p class="question-kicker" id="eyebrow"></p>
+          <h1 class="question-title" id="questionTitle"></h1>
+          <p class="question-help" id="questionHelp"></p>
+          <div class="choices" id="choices"></div>
+
+          <div class="controls">
+            <button class="btn" id="prevBtn" type="button">이전</button>
+          </div>
+          <div class="error" id="errorBox" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="loading" id="loadingView" aria-hidden="true">
+        <div class="loading-card">
+          <div class="analysis-orbit" aria-hidden="true">
+            <img class="loading-mark" src="netlify/img/ai.png" alt="">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <h2>AI가 분석하고 있어요.</h2>
+          <p>답변의 키워드와 책의 주제, 컬렉션 정보를 비교해 추천 후보를 정리하는 중입니다.</p>
+          <div class="analysis-panel" aria-hidden="true">
+            <div class="analysis-row">
+              <span>답변 키워드</span>
+              <b></b>
+            </div>
+            <div class="analysis-row">
+              <span>도서관 컬렉션</span>
+              <b></b>
+            </div>
+            <div class="analysis-row">
+              <span>추천 후보 정렬</span>
+              <b></b>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="results" id="resultsView" aria-hidden="true">
+        <div class="result-hero aura-balanced">
+          <img class="result-mark" src="netlify/img/ai.png" alt="">
+          <p class="result-label">AI 추천 결과</p>
+          <h2 id="resultTitle">오늘의 책 추천</h2>
+          <p id="resultSummary"></p>
+          <div class="result-actions">
+            <button class="btn email-toggle" id="emailResultBtn" type="button">결과 메일로 받기</button>
+            <button class="btn accent" id="restartBtn" type="button">다시 추천받기</button>
+          </div>
+          <form class="email-panel" id="emailResultForm" hidden>
+            <label for="resultEmail">받을 이메일</label>
+            <div class="email-row">
+              <input id="resultEmail" name="email" type="email" autocomplete="email" placeholder="name@example.com" required>
+              <button class="btn primary" id="sendEmailBtn" type="submit">보내기</button>
+            </div>
+            <p class="email-help">추천 결과 링크는 7일 동안 보관됩니다.</p>
+            <p class="email-status" id="emailStatus" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="section-title">
+          <span>01</span>
+          <h3>AI 추천도서</h3>
+        </div>
+        <div class="books" id="books"></div>
+
+        <section class="popular-section" aria-labelledby="popularTitle">
+          <div class="popular-head">
+            <span>02</span>
+            <h3 id="popularTitle">현재 동아인들이 가장 사랑하는 책</h3>
+            <p>함께 살펴볼 만한 동아대학교 도서관 인기도서입니다.</p>
+          </div>
+          <div class="popular-grid" id="popularBooks"></div>
+        </section>
+
+        <section class="aladin-section" aria-labelledby="aladinTitle">
+          <div class="popular-head">
+            <span>03</span>
+            <h3 id="aladinTitle">알라딘 서점 베스트 도서</h3>
+            <p>알라딘 베스트셀러를 기준으로 도서관 소장 여부를 함께 확인합니다.</p>
+          </div>
+          <div class="aladin-grid" id="aladinBestSellers"></div>
+        </section>
+
+        <section class="library-news-section" aria-labelledby="libraryNewsTitle">
+          <div class="library-news-head">
+            <span>04</span>
+            <div>
+              <h3 id="libraryNewsTitle">현재 도서관 소식</h3>
+            </div>
+            <a class="news-more" href="https://library.donga.ac.kr/community/" target="_blank" rel="noopener noreferrer">전체보기</a>
+          </div>
+          <div class="library-news-list" id="libraryNews"></div>
+        </section>
+
+        <section class="video-news-section" aria-labelledby="videoNewsTitle">
+          <div class="video-news-head">
+            <span>05</span>
+            <div>
+              <h3 id="videoNewsTitle">도서관 영상 소식</h3>
+              <p>동아대학교 도서관의 영상 콘텐츠를 함께 살펴보세요.</p>
+            </div>
+          </div>
+          <div class="video-embed-wrap">
+            <iframe
+              title="도서관 영상 소식"
+              src="https://dongatube.netlify.app/embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </section>
+
+        <section class="instruction-section" aria-labelledby="instructionTitle">
+          <div class="instruction-head">
+            <span>06</span>
+            <div>
+              <h3 id="instructionTitle">이번달 이용교육 신청</h3>
+              <p>도서관에서 진행하는 이번 달 이용교육 일정입니다.</p>
+            </div>
+            <a class="instruction-more" href="https://library.donga.ac.kr/research-support/library-instruction/library-instruction-request/" target="_blank" rel="noopener noreferrer">신청하기</a>
+          </div>
+          <div class="instruction-list" id="libraryInstructions"></div>
+        </section>
+        <div class="error" id="resultError" aria-hidden="true"></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
