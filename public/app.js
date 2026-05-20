@@ -536,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function descriptionText(book){
     const text = String(book.description || '').trim();
     if(text) return text;
-    return '도서 소개가 길게 제공되지 않은 책입니다. 대신 지금의 답변과 맞닿은 주제, 분위기, 도서관 컬렉션 정보를 바탕으로 추천 목록에 올렸습니다.';
+    return '알라딘 API에서 상세 책 소개가 제공되지 않은 도서입니다. 현재 화면에는 도서관 서지 정보와 추천 분석 결과를 우선 표시합니다.';
   }
   function bookMeta(book){
     return [book.author, book.publisher, book.collection].filter(Boolean).join(' · ');
@@ -557,15 +557,24 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="reason"></p>
           <p class="description"></p>
           <div class="tag-row">${tags}</div>
-          <a target="_blank" rel="noopener noreferrer">소장위치 확인</a>
+          <div class="book-actions">
+            <a class="catalog-link" target="_blank" rel="noopener noreferrer">소장위치 확인</a>
+            <a class="aladin-book-link" target="_blank" rel="noopener noreferrer"><img src="img/aladin.png" alt="">알라딘</a>
+          </div>
         </div>
       `;
       card.querySelector('.book-number').textContent = String(index + 1).padStart(2, '0');
       card.querySelector('.book-title').textContent = book.title || '제목 정보 없음';
       card.querySelector('.book-meta').textContent = bookMeta(book);
-      card.querySelector('.reason').textContent = book.reason || '선택한 감정과 어울리는 책입니다.';
+      card.querySelector('.reason').textContent = book.reason || '응답 선택값과 도서관 컬렉션 데이터를 비교해 추천 후보로 분류했습니다.';
       card.querySelector('.description').textContent = descriptionText(book);
-      card.querySelector('a').href = book.libraryCatalogUrl || book.link || '#';
+      card.querySelector('.catalog-link').href = book.libraryCatalogUrl || book.link || '#';
+      const aladinLink = card.querySelector('.aladin-book-link');
+      if(book.link){
+        aladinLink.href = book.link;
+      }else{
+        aladinLink.hidden = true;
+      }
       installCoverFallback(card.querySelector('img'), book);
       els.books.appendChild(card);
     });

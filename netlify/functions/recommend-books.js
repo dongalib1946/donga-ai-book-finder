@@ -780,6 +780,7 @@ async function lookupAladin(ttbKey, isbn) {
   url.searchParams.set('ItemId', isbn);
   url.searchParams.set('ItemIdType', isbn.length === 13 ? 'ISBN13' : 'ISBN');
   url.searchParams.set('Cover', 'Big');
+  url.searchParams.set('OptResult', 'fulldescription,fulldescription2');
   url.searchParams.set('output', 'js');
   url.searchParams.set('Version', '20131101');
 
@@ -789,6 +790,22 @@ async function lookupAladin(ttbKey, isbn) {
   const data = JSON.parse(raw);
   if (data.errorCode) return null;
   return (data.item || [])[0] || null;
+}
+
+function aladinDescription(item) {
+  const candidates = [
+    item && item.fullDescription2,
+    item && item.fullDescription,
+    item && item.description,
+  ]
+    .map(cleanText)
+    .filter(Boolean);
+  const parts = [];
+  candidates.forEach(text => {
+    const duplicate = parts.some(part => part.includes(text) || text.includes(part));
+    if (!duplicate) parts.push(text);
+  });
+  return parts.join('\n\n');
 }
 
 function largerAladinCover(url) {
@@ -1224,17 +1241,18 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
         item && item.author,
         item && item.publisher,
         item && item.categoryName,
-        item && item.description,
+        aladinDescription(item),
       ].join(' ');
       const enrichedScore = scoreText(text, tags);
       const matchedTags = [...new Set([...initial.matched, ...enrichedScore.matched])];
       const categoryBonus = item && item.categoryName ? 1.2 : 0;
-      const descriptionBonus = item && item.description ? Math.min(2.5, cleanText(item.description).length / 180) : 0;
+      const itemDescription = aladinDescription(item);
+      const descriptionBonus = itemDescription ? Math.min(2.5, itemDescription.length / 180) : 0;
       enriched.push({
         title: entry.title,
         author: cleanText(entry.author || (item && item.author) || ''),
         publisher: cleanText((item && item.publisher) || ''),
-        description: cleanText((item && item.description) || ''),
+        description: itemDescription,
         cover,
         coverFallbacks,
         link: (item && item.link) || aladinLink || '',
@@ -1360,7 +1378,7 @@ async function ensureAladinCover(book) {
       ...book,
       author: book.author || cleanText(item && item.author),
       publisher: book.publisher || cleanText(item && item.publisher),
-      description: book.description || cleanText(item && item.description),
+      description: book.description || aladinDescription(item),
       cover: covers[0] || '',
       coverFallbacks: covers.slice(1),
       link: book.link || (item && item.link) || (info && info.link) || '',
@@ -1430,28 +1448,24 @@ function makeReason(book, answers) {
     .filter(Boolean)
     .slice(0, 3);
   const collection = book.collection ? `${book.collection} 컬렉션` : '도서관 컬렉션';
-  const descriptionHint = book.description
-    ? '책 소개가 전하는 분위기까지 함께 살펴보니, 지금 선택한 마음의 방향과 자연스럽게 이어졌습니다.'
-    : '상세 소개가 길게 제공되지는 않았지만, 도서관 컬렉션과 제목, 주제의 단서가 답변과 맞닿아 있었습니다.';
+  const sourceHint = book.description
+    ? '알라딘 책 소개에서도 같은 주제 단서가 확인되었습니다.'
+    : '알라딘 상세 소개는 제한적이지만 제목, 저자, 컬렉션 정보에서 관련 단서가 확인되었습니다.';
 
   if (labels.length && choices.length) {
-    return `${choices.join(', ')} 쪽으로 기울어진 답변을 분석해보니 ${labels.join(', ')}의 결이 선명하게 남았습니다. ${collection}에서 찾은 이 책은 지금의 관심을 너무 빠르게 결론짓기보다, 한 걸음 옆에서 천천히 밝혀주는 쪽에 가깝습니다. ${descriptionHint}`;
+    return `응답 선택값(${choices.join(', ')})과 ${collection}의 서지 데이터를 함께 비교했습니다. 이 책은 ${labels.join(', ')} 키워드에서 높은 관련도를 보였고, ${sourceHint} 주제 일치도와 소장 정보의 안정성을 기준으로 우선 추천했습니다.`;
   }
   if (labels.length) {
-    return `${labels.join(', ')}의 단서가 두드러져 추천 목록에 올렸습니다. ${collection}에서 찾은 이 책은 오늘의 선택과 같은 방향을 바라보면서도, 예상보다 조금 넓은 장면을 열어줄 수 있는 책입니다.`;
+    return `${collection} 내 후보군을 비교한 결과, 이 책은 ${labels.join(', ')} 키워드와의 연관성이 높았습니다. ${sourceHint} 추천 순위는 주제 적합도, 도서 설명의 정보량, 컬렉션 신뢰도를 함께 반영했습니다.`;
   }
-  return `${collection}에서 오늘의 답변과 가장 자연스럽게 이어지는 책으로 골랐습니다. 익숙한 주제 안에서도 다른 시선을 건넬 수 있어, AI 추천 목록에 함께 놓았습니다.`;
+  return `${collection}의 후보 도서를 비교한 결과, 이 책은 현재 답변 패턴과 가장 가까운 서지 정보를 가진 항목으로 분류되었습니다. 추천에는 제목, 저자, 컬렉션, 소장 링크의 유효성을 함께 반영했습니다.`;
 }
 
 function makeBookDescription(book) {
   const original = cleanText(book.description || '');
-  const labels = (book.matchedTags || []).slice(0, 3).map(tag => TAG_LABELS[tag] || tag);
-  const labelText = labels.length ? labels.join(', ') : '오늘의 답변';
   const metaText = [book.author, book.publisher, book.collection].filter(Boolean).join(', ');
-  const guide = `${book.title}은 ${labelText}의 흐름 안에서 천천히 펼쳐볼 만한 책입니다. ${metaText ? `${metaText}의 단서가 함께 있어 ` : ''}AI가 분석한 답변의 분위기와 실제 도서관 상세 페이지 사이를 이어주는 역할을 합니다. 소개를 먼저 훑고, 마음에 남는 문장이나 주제가 있다면 도서관 상세 페이지에서 소장 위치를 확인해 이어 읽어보세요.`;
-  if (!original) return guide;
-  if (original.length >= 220) return original;
-  return `${original}\n\n${guide}`;
+  if (original) return original.length > 900 ? `${original.slice(0, 900).trim()}...` : original;
+  return `${book.title || '이 책'}은 ${metaText ? `${metaText} 정보로 확인되는 ` : ''}추천 도서입니다. 알라딘 API에서 긴 책 소개가 제공되지 않아, 현재 화면에는 도서관 서지 정보와 추천 분석 결과를 우선 표시합니다.`;
 }
 
 function makeShelfTitle(tags) {

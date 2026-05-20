@@ -779,11 +779,16 @@ h1,h2,h3,p{margin-top:0}
   color:transparent;
 }
 .book-meta{font-size:14px; color:var(--aura-ink); font-weight:850; line-height:1.45}
-.reason{margin:0; padding:16px 18px; border-left:4px solid var(--aura-deep); background:var(--aura-soft); color:var(--aura-ink); font-size:16px; line-height:1.75; font-weight:780}
+.reason{margin:0; padding:15px 17px; border:1px solid color-mix(in srgb, var(--aura-edge) 46%, white); border-left:4px solid var(--aura-deep); background:rgba(255,255,255,.58); color:#26384d; font-size:15px; line-height:1.72; font-weight:700}
 .description{margin:0; color:#344054; font-size:15px; line-height:1.85; font-weight:650; white-space:pre-wrap}
 .tag-row{display:flex; flex-wrap:wrap; gap:7px}
 .tag{font-size:12px; font-weight:900; color:var(--aura-deep); background:color-mix(in srgb, var(--aura-three) 62%, white); border:1px solid color-mix(in srgb, var(--aura-edge) 42%, white); border-radius:999px; padding:6px 9px}
-.book a{justify-self:start; display:inline-flex; align-items:center; min-height:42px; padding:0 14px; border-radius:999px; background:linear-gradient(135deg, var(--aura-deep), var(--aura-warm)); color:#fff; font-weight:950; text-decoration:none}
+.book-actions{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+.book-actions a{display:inline-flex; align-items:center; gap:7px; min-height:42px; padding:0 14px; border-radius:999px; color:#fff; font-weight:950; text-decoration:none}
+.catalog-link{background:linear-gradient(135deg, var(--aura-deep), var(--aura-warm))}
+.aladin-book-link{background:linear-gradient(135deg, #ee7326, #f2b426)}
+.aladin-book-link[hidden]{display:none}
+.aladin-book-link img{width:20px; height:20px; object-fit:contain; border-radius:4px; background:#fff}
 .popular-section,.aladin-section{position:relative; margin-top:44px; padding:clamp(20px,3.5vw,34px); border:1px solid rgba(255,255,255,.68); border-radius:var(--radius); background:rgba(255,255,255,.72); box-shadow:0 16px 42px rgba(20,33,61,.09); overflow:hidden; backdrop-filter:blur(14px)}
 .aladin-section{
   background:
