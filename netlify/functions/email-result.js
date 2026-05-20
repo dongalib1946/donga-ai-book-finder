@@ -72,49 +72,150 @@ function requireSmtpConfig() {
   return config;
 }
 
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function formatKoreanDate(value) {
+  return new Date(value).toLocaleString('ko-KR', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+}
+
+function compactText(value, maxLength = 140) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}...` : text;
+}
+
+function bookMeta(book) {
+  return [book.author, book.publisher, book.collection].filter(Boolean).join(' · ');
+}
+
+function bookReason(book) {
+  return compactText(book.reason || book.description || '선택한 답변의 분위기와 잘 맞아 추천 목록에 담았습니다.', 150);
+}
+
 function mailText(result, resultUrl, expiresAt) {
   const books = (result.items || [])
     .slice(0, 5)
-    .map((book, index) => `${index + 1}. ${book.title || '제목 정보 없음'}${book.author ? ` - ${book.author}` : ''}`)
+    .map((book, index) => [
+      `${index + 1}. ${book.title || '제목 정보 없음'}`,
+      bookMeta(book) ? `   ${bookMeta(book)}` : '',
+      `   추천 이유: ${bookReason(book)}`,
+    ].filter(Boolean).join('\n'))
     .join('\n');
 
   return [
+    '[동아대학교 도서관] AI가 찾아주는 오늘의 책',
     `${result.shelfTitle || 'AI가 추천한 오늘의 책'}`,
+    result.summary || '답변을 바탕으로 지금 읽기 좋은 책을 골랐습니다.',
     '',
-    '아래 링크에서 추천 결과 페이지를 확인할 수 있습니다.',
+    '추천 결과 페이지',
     resultUrl,
     '',
     '추천 도서',
     books || '추천 도서 정보가 없습니다.',
     '',
-    `이 링크는 ${new Date(expiresAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}까지 보관됩니다.`,
+    `이 링크는 ${formatKoreanDate(expiresAt)}까지 보관됩니다.`,
     '',
     '동아대학교 도서관',
   ].join('\n');
 }
 
 function mailHtml(result, resultUrl, expiresAt) {
-  const escape = value => String(value || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  const shelfTitle = escapeHtml(result.shelfTitle || 'AI가 추천한 오늘의 책');
+  const summary = escapeHtml(result.summary || '답변을 바탕으로 지금 읽기 좋은 책을 골랐습니다.');
+  const expiresText = escapeHtml(formatKoreanDate(expiresAt));
   const books = (result.items || [])
     .slice(0, 5)
-    .map((book, index) => `<li><strong>${index + 1}. ${escape(book.title || '제목 정보 없음')}</strong>${book.author ? ` <span>${escape(book.author)}</span>` : ''}</li>`)
+    .map((book, index) => {
+      const tags = Array.isArray(book.matchedTags)
+        ? book.matchedTags.slice(0, 3).map(tag => `
+          <span style="display:inline-block;margin:0 6px 6px 0;padding:4px 9px;border-radius:999px;background:#edf7f5;color:#18625f;font-size:12px;line-height:1.2">${escapeHtml(tag)}</span>
+        `).join('')
+        : '';
+      return `
+        <tr>
+          <td style="padding:0 0 14px">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:separate;border-spacing:0;background:#ffffff;border:1px solid #e5eef0;border-radius:16px">
+              <tr>
+                <td width="54" valign="top" style="padding:18px 0 18px 18px">
+                  <div style="width:38px;height:38px;border-radius:12px;background:#0f5579;color:#ffffff;text-align:center;line-height:38px;font-size:15px;font-weight:800">
+                    ${String(index + 1).padStart(2, '0')}
+                  </div>
+                </td>
+                <td valign="top" style="padding:17px 18px 14px 12px">
+                  <h3 style="margin:0 0 7px;color:#102a43;font-size:18px;line-height:1.35;font-weight:800">${escapeHtml(book.title || '제목 정보 없음')}</h3>
+                  ${bookMeta(book) ? `<p style="margin:0 0 10px;color:#64748b;font-size:13px;line-height:1.5">${escapeHtml(bookMeta(book))}</p>` : ''}
+                  <p style="margin:0 0 12px;color:#334155;font-size:14px;line-height:1.65">${escapeHtml(bookReason(book))}</p>
+                  ${tags ? `<div style="font-size:0;line-height:1">${tags}</div>` : ''}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      `;
+    })
     .join('');
 
   return `
-    <div style="font-family:Arial,'Noto Sans KR',sans-serif;line-height:1.6;color:#14213d">
-      <h2 style="margin:0 0 12px">${escape(result.shelfTitle || 'AI가 추천한 오늘의 책')}</h2>
-      <p>아래 버튼에서 추천 결과 페이지를 확인할 수 있습니다.</p>
-      <p>
-        <a href="${escape(resultUrl)}" style="display:inline-block;padding:12px 18px;background:#0f5579;color:#fff;text-decoration:none;border-radius:8px;font-weight:700">추천 결과 보기</a>
-      </p>
-      <h3 style="margin:24px 0 8px">추천 도서</h3>
-      <ol style="padding-left:22px">${books || '<li>추천 도서 정보가 없습니다.</li>'}</ol>
-      <p style="margin-top:24px;color:#667085;font-size:13px">이 링크는 ${escape(new Date(expiresAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }))}까지 보관됩니다.</p>
-      <p style="color:#667085;font-size:13px">동아대학교 도서관</p>
+    <div style="margin:0;padding:0;background:#eef6f6;font-family:Arial,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#102a43">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;background:#eef6f6">
+        <tr>
+          <td align="center" style="padding:28px 12px">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:separate;border-spacing:0;max-width:640px;background:#f8fcfc;border:1px solid #dbeaec;border-radius:24px;overflow:hidden">
+              <tr>
+                <td style="padding:30px 28px 26px;background:#0f5579">
+                  <p style="margin:0 0 12px;color:#b9edf0;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Dong-A Library AI Book Finder</p>
+                  <h1 style="margin:0;color:#ffffff;font-size:28px;line-height:1.28;font-weight:900">${shelfTitle}</h1>
+                  <p style="margin:14px 0 0;color:#dff8f7;font-size:15px;line-height:1.7">${summary}</p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:24px 28px 4px;background:#f8fcfc">
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                    <tr>
+                      <td style="padding:0 0 18px;color:#334155;font-size:15px;line-height:1.7">
+                        추천 결과 페이지에서 도서관 소장 위치와 함께 전체 추천 목록을 다시 확인할 수 있습니다.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0 0 26px">
+                        <a href="${escapeHtml(resultUrl)}" style="display:inline-block;padding:14px 22px;background:#103b5c;color:#ffffff;text-decoration:none;border-radius:12px;font-size:15px;font-weight:800">추천 결과 보기</a>
+                      </td>
+                    </tr>
+                  </table>
+                  <h2 style="margin:0 0 14px;color:#102a43;font-size:18px;line-height:1.4;font-weight:900">추천 도서</h2>
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                    ${books || '<tr><td style="padding:18px;color:#64748b;background:#ffffff;border:1px solid #e5eef0;border-radius:16px">추천 도서 정보가 없습니다.</td></tr>'}
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:10px 28px 28px;background:#f8fcfc">
+                  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;background:#fff8e6;border:1px solid #f2dfac;border-radius:16px">
+                    <tr>
+                      <td style="padding:16px 18px;color:#67511b;font-size:13px;line-height:1.65">
+                        이 링크는 <strong>${expiresText}</strong>까지 보관됩니다. 기간이 지나면 새 추천을 받아 다시 공유해 주세요.
+                      </td>
+                    </tr>
+                  </table>
+                  <p style="margin:20px 0 0;color:#64748b;font-size:13px;line-height:1.6">동아대학교 도서관</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
     </div>
   `;
 }
@@ -139,7 +240,7 @@ async function sendResultMail({ to, result, resultUrl, expiresAt }) {
     },
     to,
     replyTo: config.from,
-    subject: `[동아대학교 도서관] ${result.shelfTitle || 'AI 추천 도서 결과'}`,
+    subject: `[동아대학교 도서관] ${result.shelfTitle || 'AI 추천 도서 결과'} 추천 결과`,
     text: mailText(result, resultUrl, expiresAt),
     html: mailHtml(result, resultUrl, expiresAt),
     headers: {
