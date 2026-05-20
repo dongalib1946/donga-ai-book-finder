@@ -35,8 +35,7 @@ body{
   background:
     linear-gradient(135deg, rgba(247,252,255,.98), rgba(219,244,248,.96) 30%, rgba(255,250,236,.9) 55%, rgba(199,229,252,.92) 78%, rgba(242,249,255,.96)),
     #f3fbff;
-  background-size:240% 240%, auto;
-  animation:pageCloudGradient 18s ease-in-out infinite alternate;
+  background-size:100% 100%, auto;
   overflow-x:hidden;
 }
 body::before,
@@ -55,21 +54,17 @@ body::before{
     radial-gradient(circle at 18% 82%, rgba(207,233,255,.58) 0 14%, transparent 32%),
     radial-gradient(circle at 86% 76%, rgba(151,205,255,.44) 0 12%, transparent 30%);
   filter:blur(34px) saturate(1.12);
-  opacity:1;
-  animation:mistDrift 22s ease-in-out infinite alternate;
+  opacity:.62;
 }
 body::after{
   inset:0;
   z-index:0;
   background:
-    repeating-radial-gradient(ellipse at 50% 48%, rgba(27,86,145,.22) 0 2px, transparent 2px 86px),
-    repeating-radial-gradient(ellipse at 54% 50%, rgba(93,161,219,.16) 0 1px, transparent 1px 58px),
     radial-gradient(820px 540px at 16% 12%, rgba(72,150,216,.16), transparent 66%),
     radial-gradient(740px 520px at 90% 18%, rgba(154,209,255,.2), transparent 64%),
     radial-gradient(860px 620px at 54% 94%, rgba(98,178,236,.18), transparent 66%);
   mix-blend-mode:multiply;
-  opacity:.68;
-  animation:wavePulse 10s ease-in-out infinite;
+  opacity:.36;
 }
 [hidden]{display:none !important}
 button,a{font:inherit}
@@ -97,7 +92,6 @@ button{cursor:pointer}
   background:url("netlify/img/F_1768450924889.png") center/contain no-repeat;
   opacity:.08;
   filter:drop-shadow(0 18px 46px rgba(75,85,99,.12));
-  animation:logoFloat 24s ease-in-out infinite alternate;
 }
 .shell::after{
   inset:-22vh -20vw;
@@ -106,8 +100,7 @@ button{cursor:pointer}
     radial-gradient(ellipse at 74% 62%, rgba(196,231,255,.44), transparent 46%),
     radial-gradient(ellipse at 48% 82%, rgba(85,164,226,.2), transparent 48%);
   filter:blur(54px);
-  opacity:.68;
-  animation:auroraVeil 16s ease-in-out infinite alternate;
+  opacity:.34;
 }
 header{
   position:sticky;
