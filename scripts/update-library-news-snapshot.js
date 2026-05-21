@@ -10,6 +10,7 @@ function noticeSignature(notices) {
   return JSON.stringify((notices || []).map(notice => ({
     title: notice.title || '',
     url: notice.url || '',
+    thumbnail: notice.thumbnail || '',
     date: notice.date || '',
   })));
 }

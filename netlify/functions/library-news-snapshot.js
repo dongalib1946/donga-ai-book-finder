@@ -43,6 +43,7 @@ function normalizeNotice(notice) {
   return {
     title,
     url,
+    thumbnail: String(notice.thumbnail || notice.image || notice.imageUrl || '').trim(),
     author: String(notice.author || '').trim(),
     date: String(notice.date || '').trim(),
     views: String(notice.views || '').trim(),

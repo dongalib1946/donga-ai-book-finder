@@ -673,14 +673,28 @@ document.addEventListener('DOMContentLoaded', () => {
       link.href = notice.url || 'https://library.donga.ac.kr/community/';
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
+      const thumbnail = String(notice.thumbnail || notice.image || notice.imageUrl || '').trim();
       link.innerHTML = `
-        <span class="news-index"></span>
+        <span class="news-media">
+          <img alt="" loading="lazy">
+          <span class="news-index"></span>
+        </span>
         <span class="news-copy">
           <strong></strong>
           <small></small>
         </span>
         <span class="news-date"></span>
       `;
+      const image = link.querySelector('img');
+      if(thumbnail){
+        image.src = thumbnail;
+        image.addEventListener('error', ()=>{
+          link.classList.add('no-thumb');
+          image.removeAttribute('src');
+        }, { once:true });
+      }else{
+        link.classList.add('no-thumb');
+      }
       link.querySelector('.news-index').textContent = String(index + 1).padStart(2, '0');
       link.querySelector('strong').textContent = notice.title || '도서관 공지';
       link.querySelector('small').textContent = [notice.author, notice.views].filter(Boolean).join(' · ') || '동아대학교 도서관';

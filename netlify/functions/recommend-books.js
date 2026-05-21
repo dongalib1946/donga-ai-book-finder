@@ -627,7 +627,7 @@ function attrValue(tag, attrName) {
 
 function communityNoticeUrl(value) {
   const url = new URL(String(value || LIBRARY_COMMUNITY_URL).replace(/&amp;/g, '&'), LIBRARY_COMMUNITY_URL);
-  const pid = url.searchParams.get('pid');
+  const pid = url.searchParams.get('pid') || url.searchParams.get('p');
   if (pid) {
     const canonical = new URL(LIBRARY_COMMUNITY_URL);
     canonical.searchParams.set('pid', pid);
@@ -635,6 +635,12 @@ function communityNoticeUrl(value) {
     return canonical.toString();
   }
   return url.toString();
+}
+
+function firstImageUrlFromHtml(value, baseUrl = LIBRARY_COMMUNITY_URL) {
+  const imgTag = String(value || '').match(/<img\b[^>]*>/i)?.[0] || '';
+  const src = attrValue(imgTag, 'src') || attrValue(imgTag, 'data-src');
+  return src ? normalizeCoverUrl(src, baseUrl) : '';
 }
 
 function formatNoticeDate(value) {
@@ -667,9 +673,11 @@ function extractCommunityNotices(html, limit) {
     const optionMatches = [...block.matchAll(/<div\b[^>]*class=["'][^"']*\bitem-option-cell\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)]
       .map(match => cleanText(match[1]));
     const summary = fieldFromClass(block, 'item-info');
+    const thumbnail = firstImageUrlFromHtml(block, href);
     notices.push({
       title,
       url: communityNoticeUrl(href),
+      thumbnail,
       author: optionMatches[0] || '',
       date: optionMatches[1] || '',
       views: optionMatches[2] || '',
@@ -686,11 +694,14 @@ function extractFeedNotices(xml, limit) {
   for (const item of items) {
     const title = cleanText((item.match(/<title><!\[CDATA\[([\s\S]*?)\]\]><\/title>/i) || item.match(/<title>([\s\S]*?)<\/title>/i) || [])[1]);
     const link = cleanText((item.match(/<link><!\[CDATA\[([\s\S]*?)\]\]><\/link>/i) || item.match(/<link>([\s\S]*?)<\/link>/i) || [])[1]);
+    const guid = cleanText((item.match(/<guid\b[^>]*><!\[CDATA\[([\s\S]*?)\]\]><\/guid>/i) || item.match(/<guid\b[^>]*>([\s\S]*?)<\/guid>/i) || [])[1]);
     const pubDate = cleanText((item.match(/<pubDate>([\s\S]*?)<\/pubDate>/i) || [])[1]);
+    const content = (item.match(/<content:encoded><!\[CDATA\[([\s\S]*?)\]\]><\/content:encoded>/i) || item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/i) || [])[1];
     if (!title || !link) continue;
     notices.push({
       title,
-      url: communityNoticeUrl(link),
+      url: communityNoticeUrl(guid || link),
+      thumbnail: firstImageUrlFromHtml(content, link),
       author: '도서관',
       date: formatNoticeDate(pubDate),
       views: '',
@@ -735,6 +746,7 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
       .map(post => ({
         title: cleanText(post && post.title && post.title.rendered),
         url: post && post.id ? communityNoticeUrl(`${LIBRARY_COMMUNITY_URL}?pid=${post.id}&ks=`) : communityNoticeUrl(post && post.link),
+        thumbnail: firstImageUrlFromHtml(post && post.content && post.content.rendered, post && post.link),
         author: '도서관',
         date: post && post.date ? String(post.date).slice(0, 10).replace(/-/g, '.') : '',
         views: '',
