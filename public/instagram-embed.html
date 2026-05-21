@@ -194,9 +194,9 @@
     }
     .feed{
       display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:12px;
-      padding:12px clamp(18px,5vw,58px) 14px;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+      padding:10px clamp(16px,4vw,48px) 12px;
     }
     .post{
       position:relative;
@@ -400,7 +400,7 @@
 
   <script>
     (() => {
-      const LIMIT = 6;
+      const LIMIT = 4;
       const BATCH_LIMIT = 60;
       const frame = document.getElementById('embedFrame');
       const feed = document.getElementById('feed');
