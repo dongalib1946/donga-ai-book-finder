@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     aladinBestSellers:document.getElementById('aladinBestSellers'),
     popularBooks:document.getElementById('popularBooks'),
     libraryNews:document.getElementById('libraryNews'),
+    instagramFeed:document.getElementById('instagramFeed'),
     resultTitle:document.getElementById('resultTitle'),
     resultSummary:document.getElementById('resultSummary'),
     restartBtn:document.getElementById('restartBtn'),
@@ -725,6 +726,77 @@ document.addEventListener('DOMContentLoaded', () => {
       if(!currentItems.length) renderLibraryNews([]);
     }
   }
+  function formatInstagramDate(value){
+    const date = new Date(value);
+    if(Number.isNaN(date.getTime())) return '';
+    return new Intl.DateTimeFormat('ko-KR', {
+      timeZone:'Asia/Seoul',
+      month:'2-digit',
+      day:'2-digit'
+    }).format(date);
+  }
+  function renderInstagramFeed(items, options = {}){
+    if(!els.instagramFeed) return;
+    els.instagramFeed.innerHTML = '';
+    const posts = items || [];
+    if(!posts.length){
+      const empty = document.createElement('div');
+      empty.className = 'instagram-empty';
+      empty.textContent = options.message || 'Instagram 피드를 불러오지 못했습니다.';
+      els.instagramFeed.appendChild(empty);
+      return;
+    }
+    posts.slice(0, 6).forEach((post)=>{
+      const link = document.createElement('a');
+      link.className = 'instagram-card';
+      link.href = post.permalink || 'https://www.instagram.com/dongalibrary/';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      const imageUrl = String(post.thumbnailUrl || post.mediaUrl || '').trim();
+      link.innerHTML = `
+        <span class="instagram-media"><img alt="" loading="lazy"></span>
+        <span class="instagram-copy">
+          <strong></strong>
+          <small></small>
+        </span>
+      `;
+      const image = link.querySelector('img');
+      if(imageUrl){
+        image.src = imageUrl;
+        image.addEventListener('error', ()=>{
+          link.classList.add('no-thumb');
+          image.removeAttribute('src');
+        }, { once:true });
+      }else{
+        link.classList.add('no-thumb');
+      }
+      const caption = String(post.caption || '').trim();
+      link.querySelector('strong').textContent = caption || '@dongalibrary';
+      link.querySelector('small').textContent = [post.username ? `@${post.username}` : '@dongalibrary', formatInstagramDate(post.timestamp)].filter(Boolean).join(' · ');
+      els.instagramFeed.appendChild(link);
+    });
+  }
+  async function refreshInstagramFeed(){
+    if(!els.instagramFeed) return;
+    renderInstagramFeed([], { message:'Instagram 피드를 확인하는 중입니다.' });
+    try{
+      const res = await fetch(`/.netlify/functions/instagram-feed?limit=6&_=${Date.now()}`, {
+        cache:'no-store',
+        headers:{ accept:'application/json' }
+      });
+      const data = await res.json().catch(()=>({}));
+      if(!res.ok) throw new Error(data.error || 'Instagram 피드를 불러오지 못했습니다.');
+      const items = Array.isArray(data.items) ? data.items : [];
+      if(items.length){
+        renderInstagramFeed(items);
+      }else{
+        renderInstagramFeed([], { message:data.configured === false ? 'Instagram 연동 준비 중입니다.' : '표시할 Instagram 게시물이 없습니다.' });
+      }
+    }catch(error){
+      console.warn('Instagram feed refresh failed', error);
+      renderInstagramFeed([]);
+    }
+  }
   function serviceUrl(){
     return window.location.origin + window.location.pathname;
   }
@@ -855,6 +927,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPopularBooks(data.popularItems || []);
     renderLibraryNews(data.notices || []);
     refreshLibraryNews(data.notices || []);
+    refreshInstagramFeed();
     if(!(data.items || []).length){
       setError(els.resultError, '추천할 수 있는 도서를 찾지 못했습니다. 잠시 뒤 다시 시도해 주세요.');
     }
