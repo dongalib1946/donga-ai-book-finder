@@ -21,7 +21,7 @@ const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
 const ALADIN_LOOKUP_TIMEOUT_MS = Math.max(1800, Number.parseInt(process.env.ALADIN_LOOKUP_TIMEOUT_MS || '2500', 10) || 2500);
 const MAIN_ENRICH_LOOKUP_LIMIT = Math.max(6, Number.parseInt(process.env.MAIN_ENRICH_LOOKUP_LIMIT || '6', 10) || 6);
-const MAIN_CANDIDATE_POOL_LIMIT = Math.max(MAIN_ENRICH_LOOKUP_LIMIT, Number.parseInt(process.env.MAIN_CANDIDATE_POOL_LIMIT || '140', 10) || 140);
+const MAIN_CANDIDATE_POOL_LIMIT = Math.max(MAIN_ENRICH_LOOKUP_LIMIT, Number.parseInt(process.env.MAIN_CANDIDATE_POOL_LIMIT || '220', 10) || 220);
 const MAIN_EXTRA_COVER_LOOKUP_LIMIT = Math.max(0, Number.parseInt(process.env.MAIN_EXTRA_COVER_LOOKUP_LIMIT || '0', 10) || 0);
 const POPULAR_ENRICH_LOOKUP_LIMIT = Math.max(5, Number.parseInt(process.env.POPULAR_ENRICH_LOOKUP_LIMIT || '5', 10) || 5);
 const POPULAR_COVER_LOOKUP_LIMIT = Math.max(0, Number.parseInt(process.env.POPULAR_COVER_LOOKUP_LIMIT || '5', 10) || 0);
@@ -213,6 +213,26 @@ const TAG_LABELS = {
   readable: '잘 읽히는 책',
 };
 
+const BROAD_MATCH_TAGS = new Set([
+  'easy',
+  'short',
+  'readable',
+  'essay',
+  'life',
+  'fun',
+  'new',
+  'fresh',
+  'popular',
+  'recommended',
+]);
+
+function tagScoreWeight(tag) {
+  if (tag === 'readable' || tag === 'easy' || tag === 'short') return 1.6;
+  if (tag === 'essay' || tag === 'life' || tag === 'fun') return 2.2;
+  if (tag === 'new' || tag === 'fresh' || tag === 'popular' || tag === 'recommended') return 1.2;
+  return 4;
+}
+
 function json(statusCode, body, cacheControl = 'no-store') {
   return {
     statusCode,
@@ -330,6 +350,12 @@ function isAcademicTextbook(book) {
   }
 
   if (/교재편찬위원회|교과연구회|학회|사법연수원|대학교\.[^,\s]+연구실|학술국/i.test(authorPublisherText)) {
+    return true;
+  }
+
+  if (/발굴\s*조사|조사\s*보고서|조성사업부지|테크노밸리|산\s*\d+[-\d]*번지\s*유적|[가-힣]+리\s*유적$/i.test(titleText)
+    && /(연구원|박물관|문화재|문화유산|유산연구|조사단)/i.test([authorPublisherText, metaText].join(' '))
+    && !hasGeneralReadingSignal(titleText)) {
     return true;
   }
 
@@ -1015,6 +1041,20 @@ function getAnswerTags(answers) {
   return tags.filter(Boolean);
 }
 
+function requestExcludeIsbns(values) {
+  const set = new Set();
+  if (!Array.isArray(values)) return set;
+  values.slice(0, 90).forEach(value => {
+    isbnVariants(value).forEach(isbn => set.add(isbn));
+  });
+  return set;
+}
+
+function isExcludedByIsbn(entry, excludeIsbns) {
+  if (!excludeIsbns || !excludeIsbns.size) return false;
+  return isbnVariants(entry && entry.isbn).some(isbn => excludeIsbns.has(isbn));
+}
+
 function scoreText(text, tags) {
   const haystack = String(text || '').toLowerCase();
   let score = 0;
@@ -1023,7 +1063,7 @@ function scoreText(text, tags) {
     const keywords = TAG_RULES[tag] || [];
     for (const keyword of keywords) {
       if (haystack.includes(String(keyword).toLowerCase())) {
-        score += 4;
+        score += tagScoreWeight(tag);
         matched.add(tag);
         break;
       }
@@ -1044,10 +1084,10 @@ function recommendationQualityScore(entry) {
   const publisher = firstPublisherValue(entry && entry.meta);
   const keys = entry && entry.collectionKeys ? entry.collectionKeys : [];
 
-  if (keys.includes('monthly')) score += 2.2;
-  if (keys.includes('recommend')) score += 1.8;
-  if (keys.includes('popular')) score += 1.4;
-  if (keys.includes('new')) score += 0.8;
+  if (keys.includes('monthly')) score += 1.2;
+  if (keys.includes('recommend')) score += 1;
+  if (keys.includes('popular')) score += 0.6;
+  if (keys.includes('new')) score += 0.3;
   if (entry && entry.author) score += 0.5;
   if (publisher) score += 0.5;
   if (hasGeneralReadingSignal(title)) score += 1.2;
@@ -1063,14 +1103,20 @@ function scoreLibraryEntry(entry, tags, seed) {
     if (tags.includes(tag)) matched.add(tag);
   }
   const keyBoost =
-    (entry.collectionKeys || []).includes('recommend') ? 3 :
-    (entry.collectionKeys || []).includes('monthly') ? 2.8 :
-    (entry.collectionKeys || []).includes('classic') ? 2.4 :
-    (entry.collectionKeys || []).includes('popular') ? 2 :
-    (entry.collectionKeys || []).includes('new') ? 1.8 : 1;
-  const matchCoverage = matched.size ? Math.min(6, matched.size * 1.5) : 0;
-  const jitter = stableFloat(seed, entry.isbn) * 2.5;
-  return { score: score + keyBoost + matchCoverage + recommendationQualityScore(entry) + jitter, matched: [...matched] };
+    (entry.collectionKeys || []).includes('recommend') ? 1.8 :
+    (entry.collectionKeys || []).includes('monthly') ? 1.6 :
+    (entry.collectionKeys || []).includes('classic') ? 1.4 :
+    (entry.collectionKeys || []).includes('popular') ? 1 :
+    (entry.collectionKeys || []).includes('new') ? 0.7 : 0.5;
+  const meaningfulCount = [...matched].filter(tag => !BROAD_MATCH_TAGS.has(tag)).length;
+  const broadCount = Math.max(0, matched.size - meaningfulCount);
+  const matchCoverage = matched.size ? Math.min(5, meaningfulCount * 1.7 + broadCount * 0.45) : 0;
+  const broadOnlyPenalty = matched.size && !meaningfulCount ? 2.2 : 0;
+  const jitter = stableFloat(seed, 'score', entry.isbn) * 3.5;
+  return {
+    score: score + keyBoost + matchCoverage + recommendationQualityScore(entry) + jitter - broadOnlyPenalty,
+    matched: [...matched],
+  };
 }
 
 async function lookupAladin(ttbKey, isbn) {
@@ -1668,7 +1714,7 @@ function chooseDiverse(items, limit, seed, excludeIsbns = new Set(), options = {
     const uncapped = rankedWithCaps.filter(entry => !entry.cappedCollection);
     const ranked = uncapped.length ? uncapped : rankedWithCaps;
 
-    const windowSize = Math.min(4, ranked.length);
+    const windowSize = Math.min(8, ranked.length);
     const pickIndex = Math.floor(stableFloat(seed, 'window', selected.length) * windowSize);
     const picked = ranked[pickIndex].item;
     selected.push(picked);
@@ -1843,6 +1889,7 @@ exports.handler = async function handler(event) {
     const limit = Math.min(10, Math.max(3, Number.parseInt(payload.limit || '6', 10) || 6));
     const popularLimit = Math.min(8, Math.max(3, Number.parseInt(payload.popularLimit || '5', 10) || 5));
     const tags = getAnswerTags(answers);
+    const requestExcludes = requestExcludeIsbns(payload.excludeIsbns);
     if (answers.length < 1 || tags.length < 1) {
       return json(400, { error: 'Answers are required.' });
     }
@@ -1854,22 +1901,27 @@ exports.handler = async function handler(event) {
 
     const clientSeed = String(payload.seed || crypto.randomUUID());
     const dateKey = new Date().toISOString().slice(0, 10);
-    const seed = `${API_VERSION}:${dateKey}:${clientSeed}:${tags.join(',')}`;
-    const candidates = pool
-      .filter(entry => !isExamPrepBook(entry))
+    const answerKey = answers
+      .map(answer => `${answer && answer.questionId ? answer.questionId : ''}:${answer && answer.choice && answer.choice.id ? answer.choice.id : ''}`)
+      .join('|');
+    const seed = `${API_VERSION}:${dateKey}:${clientSeed}:${tags.join(',')}:${answerKey}`;
+    const recommendablePool = pool.filter(entry => !isExamPrepBook(entry));
+    const filteredPool = recommendablePool.filter(entry => !isExcludedByIsbn(entry, requestExcludes));
+    const candidateSource = filteredPool.length >= Math.max(limit * 8, 24) ? filteredPool : recommendablePool;
+    const candidates = candidateSource
       .map(entry => ({ entry, initial: scoreLibraryEntry(entry, tags, seed) }))
       .sort((a, b) => b.initial.score - a.initial.score)
-      .slice(0, Math.max(180, MAIN_CANDIDATE_POOL_LIMIT));
+      .slice(0, Math.max(260, MAIN_CANDIDATE_POOL_LIMIT));
 
     const enriched = await fillMainCovers(await enrichCandidates(candidates, tags, limit, seed), limit);
-    const chosenItems = chooseDiverse(enriched, limit, seed, new Set(), { collectionCaps: MAIN_COLLECTION_CAPS, coverPenalty: 18, preferCover: true });
+    const chosenItems = chooseDiverse(enriched, limit, seed, requestExcludes, { collectionCaps: MAIN_COLLECTION_CAPS, coverPenalty: 18, preferCover: true });
     const items = await Promise.all(chosenItems.map(ensureAladinCover));
     items.forEach(book => {
       book.description = makeBookDescription(book);
       book.matchedTags = book.matchedTags.map(tag => TAG_LABELS[tag] || tag).slice(0, 4);
     });
 
-    const exclude = new Set(items.map(item => item.isbn));
+    const exclude = new Set([...requestExcludes, ...items.map(item => item.isbn)]);
     const popularCandidates = popularCandidateEntries(pool, exclude, seed);
     const popularEnriched = await enrichCandidates(popularCandidates, ['popular', 'readable'], popularLimit, `${seed}:popular`);
     const popularItems = await fillPopularItems(chooseDiverse(popularEnriched, popularLimit, `${seed}:popular`, exclude).map(book => ({

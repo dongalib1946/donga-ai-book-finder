@@ -45,6 +45,47 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 
+  const RECENT_RECOMMENDATIONS_KEY = 'donga-ai-book-finder:recent-recommendations';
+  const RECENT_RECOMMENDATIONS_LIMIT = 72;
+  const RECENT_RECOMMENDATIONS_TTL = 14 * 24 * 60 * 60 * 1000;
+
+  function recentRecommendationRecords(){
+    try{
+      const parsed = JSON.parse(localStorage.getItem(RECENT_RECOMMENDATIONS_KEY) || '[]');
+      const now = Date.now();
+      return Array.isArray(parsed)
+        ? parsed
+          .filter(item=>item && item.isbn && now - Number(item.savedAt || 0) < RECENT_RECOMMENDATIONS_TTL)
+          .slice(0, RECENT_RECOMMENDATIONS_LIMIT)
+        : [];
+    }catch(_){
+      return [];
+    }
+  }
+
+  function recentRecommendationIsbns(){
+    return recentRecommendationRecords().map(item=>item.isbn);
+  }
+
+  function rememberRecommendedBooks(items){
+    const now = Date.now();
+    const fresh = (items || [])
+      .map(book=>String(book && book.isbn || '').replace(/[^0-9Xx]/g, '').trim())
+      .filter(Boolean)
+      .map(isbn=>({ isbn, savedAt:now }));
+    if(!fresh.length) return;
+    try{
+      const merged = [...fresh, ...recentRecommendationRecords()];
+      const seen = new Set();
+      const compact = merged.filter(item=>{
+        if(seen.has(item.isbn)) return false;
+        seen.add(item.isbn);
+        return true;
+      }).slice(0, RECENT_RECOMMENDATIONS_LIMIT);
+      localStorage.setItem(RECENT_RECOMMENDATIONS_KEY, JSON.stringify(compact));
+    }catch(_){}
+  }
+
   let QUESTIONS = [];
   let sessionSeed = newSeed();
   let questionLoadPromise = null;
@@ -509,7 +550,13 @@ document.addEventListener('DOMContentLoaded', () => {
         method:'POST',
         cache:'no-store',
         headers:{'content-type':'application/json'},
-        body:JSON.stringify({ answers:answerPayload(), limit:6, popularLimit:5, seed:sessionSeed })
+        body:JSON.stringify({
+          answers:answerPayload(),
+          limit:6,
+          popularLimit:5,
+          seed:sessionSeed,
+          excludeIsbns:recentRecommendationIsbns()
+        })
       });
       const data = await res.json();
       if(!res.ok) throw new Error(data.message || data.error || `추천 API 오류: ${res.status}`);
@@ -1056,6 +1103,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ? 'AI가 당신의 답변을 바탕으로 취향에 맞는 추천도서를 준비했습니다. 당신에게 도움이 될 다양한 정보도 함께 준비했으니, 지금 확인해보세요.'
       : '추천 결과를 만들지 못했습니다.';
     renderMainBooks(data.items || []);
+    rememberRecommendedBooks(data.items || []);
     renderAladinBestSellers(data.aladinBestSellers || []);
     renderPopularBooks(data.popularItems || []);
     renderLibraryNews(data.notices || []);
