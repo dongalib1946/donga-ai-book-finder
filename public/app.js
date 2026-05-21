@@ -754,10 +754,13 @@ document.addEventListener('DOMContentLoaded', () => {
       link.rel = 'noopener noreferrer';
       const imageUrl = String(post.thumbnailUrl || post.mediaUrl || '').trim();
       link.innerHTML = `
-        <span class="instagram-media"><img alt="" loading="lazy"></span>
+        <span class="instagram-media">
+          <img alt="" loading="lazy">
+          <span class="instagram-badge">Instagram</span>
+        </span>
         <span class="instagram-copy">
-          <strong></strong>
           <small></small>
+          <strong></strong>
         </span>
       `;
       const image = link.querySelector('img');
@@ -771,8 +774,8 @@ document.addEventListener('DOMContentLoaded', () => {
         link.classList.add('no-thumb');
       }
       const caption = String(post.caption || '').trim();
-      link.querySelector('strong').textContent = caption || '@dongalibrary';
       link.querySelector('small').textContent = [post.username ? `@${post.username}` : '@dongalibrary', formatInstagramDate(post.timestamp)].filter(Boolean).join(' · ');
+      link.querySelector('strong').textContent = caption || '도서관 인스타그램 게시물';
       els.instagramFeed.appendChild(link);
     });
   }

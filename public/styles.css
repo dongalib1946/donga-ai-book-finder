@@ -1147,6 +1147,7 @@ h1,h2,h3,p{margin-top:0}
   background:linear-gradient(90deg, rgba(15,85,121,.24), rgba(180,129,41,.24));
 }
 .instagram-media{
+  position:relative;
   width:100%;
   aspect-ratio:1;
   display:grid;
@@ -1165,19 +1166,56 @@ h1,h2,h3,p{margin-top:0}
   object-fit:cover;
 }
 .instagram-card.no-thumb .instagram-media img{display:none}
-.instagram-copy{min-width:0; display:grid; align-content:start; gap:7px}
+.instagram-badge{
+  position:absolute;
+  left:9px;
+  bottom:9px;
+  max-width:calc(100% - 18px);
+  min-height:28px;
+  display:inline-flex;
+  align-items:center;
+  padding:0 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  color:#17405f;
+  font-size:12px;
+  font-weight:950;
+  box-shadow:0 8px 18px rgba(20,33,61,.14);
+}
+.instagram-copy{
+  min-width:0;
+  display:grid;
+  align-content:start;
+  gap:8px;
+  padding:2px 2px 0 9px;
+}
 .instagram-copy strong{
   color:#17324b;
   font-size:14px;
-  line-height:1.38;
+  line-height:1.42;
   font-weight:900;
   overflow:hidden;
   text-overflow:ellipsis;
   display:-webkit-box;
-  -webkit-line-clamp:3;
+  -webkit-line-clamp:4;
   -webkit-box-orient:vertical;
 }
-.instagram-copy small{color:#667085; font-size:13px; font-weight:850; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.instagram-copy small{
+  width:max-content;
+  max-width:100%;
+  min-height:26px;
+  display:inline-flex;
+  align-items:center;
+  padding:0 9px;
+  border-radius:999px;
+  background:rgba(15,85,121,.08);
+  color:#0f5579;
+  font-size:12px;
+  font-weight:950;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
 .instagram-empty{grid-column:1/-1; padding:18px; border:1px dashed rgba(20,33,61,.18); border-radius:var(--radius); background:rgba(255,255,255,.72); color:var(--muted); font-weight:850; line-height:1.6}
 .video-news-section{
   position:relative;
