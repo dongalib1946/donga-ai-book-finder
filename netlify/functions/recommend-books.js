@@ -319,6 +319,12 @@ function cleanText(value) {
     .trim();
 }
 
+function cleanPersonName(value) {
+  return cleanText(value)
+    .replace(/\s*[,，、;；]+\s*$/g, '')
+    .trim();
+}
+
 function isBookLikeEntry(entry) {
   const text = [entry.title, entry.author, ...(entry.meta || [])].join(' ');
   return !/\[?비디오녹화자료\]?|DVD|Blu-ray|블루레이|녹음자료|오디오북|전자책|e-?book/i.test(text);
@@ -502,7 +508,7 @@ function extractCatalogEntries(baseUrl, html, collection) {
     if (!title) continue;
     seen.add(seenKey);
 
-    const author = fieldFromInner(inner, 'book-info-name') || fieldFromClass(nearby, 'item-option-cell');
+    const author = cleanPersonName(fieldFromInner(inner, 'book-info-name') || fieldFromClass(nearby, 'item-option-cell'));
     const innerMeta = [...String(inner || '').matchAll(/<div\b[^>]*class=["'][^"']*\b(?:book-info-txt|item-option-cell)\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)]
       .map(m => cleanText(m[1]))
       .filter(Boolean);
@@ -552,7 +558,7 @@ function fallbackLibraryPool() {
   return FALLBACK_ENTRIES.map((book, index) => ({
     isbn: book.isbn,
     title: book.title,
-    author: book.author,
+    author: cleanPersonName(book.author),
     meta: [book.publisher].filter(Boolean),
     collection: '추천 예비 컬렉션',
     collectionKeys: ['fallback', index < 5 ? 'popular' : 'recommend'],
@@ -587,7 +593,7 @@ function mergeLibraryEntry(byIsbn, entry, options = {}) {
   const merged = {
     ...old,
     title: cleanText(primary.title) || cleanText(secondary.title),
-    author: cleanText(primary.author) || cleanText(secondary.author),
+    author: cleanPersonName(primary.author) || cleanPersonName(secondary.author),
     meta: [...new Set([...(primary.meta || []), ...(secondary.meta || [])].map(cleanText).filter(Boolean))],
     cover: coverCandidates(primary.cover, secondary.cover)[0] || '',
     collection: [...new Set(collectionNames)].join(', '),
@@ -1542,7 +1548,7 @@ async function fetchAladinBestSellers(pool, limit = 6) {
         return {
           rank: index + 1,
           title: cleanText(item.title),
-          author: cleanText(item.author),
+          author: cleanPersonName(item.author),
           publisher: cleanText(item.publisher),
           cover: largerAladinCover(item.cover || ''),
           link: item.link || '',
@@ -1637,7 +1643,7 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
       const descriptionBonus = itemDescription ? Math.min(2.5, itemDescription.length / 180) : 0;
       enriched.push({
         title: entry.title,
-        author: cleanText(entry.author || (item && item.author) || ''),
+        author: cleanPersonName(entry.author || (item && item.author) || ''),
         publisher: cleanText((item && item.publisher) || firstPublisherValue(entry.meta || [])),
         description: itemDescription,
         cover,
@@ -1759,7 +1765,7 @@ function bookFromLibraryEntry(entry, matchedTags = ['동아인의 선택', '인�
   const libraryCovers = coverCandidates(entry.cover);
   const book = {
     title: entry.title,
-    author: cleanText(entry.author || ''),
+    author: cleanPersonName(entry.author || ''),
     publisher: firstPublisherValue(entry.meta || []),
     description: '',
     cover: '',
@@ -1797,7 +1803,7 @@ async function ensureAladinCover(book) {
     );
     return {
       ...book,
-      author: book.author || cleanText(item && item.author),
+      author: book.author || cleanPersonName(item && item.author),
       publisher: book.publisher || cleanText(item && item.publisher),
       description: book.description || aladinDescription(item),
       cover: covers[0] || '',

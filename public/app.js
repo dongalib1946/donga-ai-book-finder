@@ -660,9 +660,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if(text) return text;
     return '알라딘 API에서 상세 책 소개가 제공되지 않은 도서입니다. 도서관 서지 정보와 소장 위치를 확인해 보세요.';
   }
+  function cleanDisplayName(value){
+    return String(value || '').replace(/\s*[,，、;；]+\s*$/g, '').trim();
+  }
   function bookMetaItems(book){
     return [
-      { label:'저자', value:book && book.author },
+      { label:'저자', value:cleanDisplayName(book && book.author) },
       { label:'출판사', value:book && book.publisher },
       { label:'분류', value:book && book.collection },
     ]
@@ -788,7 +791,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       card.querySelector('.aladin-rank').textContent = `BEST ${String(book.rank || index + 1).padStart(2, '0')}`;
       card.querySelector('h4').textContent = book.title || '제목 정보 없음';
-      card.querySelector('.aladin-meta').textContent = [book.author, book.publisher].filter(Boolean).join(' · ') || '알라딘 베스트셀러';
+      card.querySelector('.aladin-meta').textContent = [cleanDisplayName(book.author), book.publisher].filter(Boolean).join(' · ') || '알라딘 베스트셀러';
       card.querySelector('.aladin-state').textContent = isOwned
         ? '도서관 소장중'
         : (isUnknown ? '도서관 확인 중' : '도서관 미소장');
