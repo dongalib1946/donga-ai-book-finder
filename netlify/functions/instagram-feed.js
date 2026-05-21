@@ -20,6 +20,11 @@ function cleanText(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
 }
 
+function normalizeNumber(value) {
+  const number = Number.parseInt(value, 10);
+  return Number.isFinite(number) ? number : null;
+}
+
 function normalizeItem(item) {
   if (!item || typeof item !== 'object') return null;
   const permalink = cleanText(item.permalink);
@@ -37,7 +42,37 @@ function normalizeItem(item) {
   };
 }
 
-async function fetchInstagramFeed(limit) {
+function normalizeProfile(profile) {
+  if (!profile || typeof profile !== 'object') return null;
+  return {
+    id: cleanText(profile.id),
+    username: cleanText(profile.username),
+    name: cleanText(profile.name),
+    profilePictureUrl: cleanText(profile.profile_picture_url),
+    mediaCount: normalizeNumber(profile.media_count),
+    followersCount: normalizeNumber(profile.followers_count),
+    followsCount: normalizeNumber(profile.follows_count),
+  };
+}
+
+async function fetchJson(url, signal) {
+  const response = await fetch(url, {
+    headers: { accept: 'application/json' },
+    signal,
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const message = payload && payload.error && payload.error.message
+      ? payload.error.message
+      : `Instagram API error: ${response.status}`;
+    const error = new Error(message);
+    error.statusCode = response.status;
+    throw error;
+  }
+  return payload;
+}
+
+async function fetchInstagramFeed(limit, options = {}) {
   const userId = cleanText(process.env.INSTAGRAM_USER_ID);
   const accessToken = cleanText(process.env.INSTAGRAM_ACCESS_TOKEN);
   if (!userId || !accessToken) {
@@ -47,28 +82,35 @@ async function fetchInstagramFeed(limit) {
   const url = new URL(`https://graph.facebook.com/${GRAPH_VERSION}/${encodeURIComponent(userId)}/media`);
   url.searchParams.set('fields', 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp,username');
   url.searchParams.set('limit', String(limit));
+  if (options.after) url.searchParams.set('after', cleanText(options.after));
+  if (options.before) url.searchParams.set('before', cleanText(options.before));
   url.searchParams.set('access_token', accessToken);
+
+  const profileUrl = new URL(`https://graph.facebook.com/${GRAPH_VERSION}/${encodeURIComponent(userId)}`);
+  profileUrl.searchParams.set('fields', 'id,username,name,profile_picture_url,media_count,followers_count,follows_count');
+  profileUrl.searchParams.set('access_token', accessToken);
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
-    const response = await fetch(url, {
-      headers: { accept: 'application/json' },
-      signal: controller.signal,
-    });
-    const payload = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      const message = payload && payload.error && payload.error.message
-        ? payload.error.message
-        : `Instagram API error: ${response.status}`;
-      const error = new Error(message);
-      error.statusCode = response.status;
-      throw error;
-    }
+    const [payload, profilePayload] = await Promise.all([
+      fetchJson(url, controller.signal),
+      fetchJson(profileUrl, controller.signal).catch(() => null),
+    ]);
     const items = (Array.isArray(payload.data) ? payload.data : [])
       .map(normalizeItem)
       .filter(Boolean);
-    return { configured: true, items };
+    return {
+      configured: true,
+      items,
+      profile: normalizeProfile(profilePayload),
+      paging: {
+        before: cleanText(payload && payload.paging && payload.paging.cursors && payload.paging.cursors.before),
+        after: cleanText(payload && payload.paging && payload.paging.cursors && payload.paging.cursors.after),
+        hasNext: Boolean(payload && payload.paging && payload.paging.next),
+        hasPrevious: Boolean(payload && payload.paging && payload.paging.previous),
+      },
+    };
   } finally {
     clearTimeout(timeout);
   }
@@ -81,12 +123,17 @@ exports.handler = async function handler(event) {
   try {
     const url = new URL(event.rawUrl || `http://localhost${event.path || '/.netlify/functions/instagram-feed'}`);
     const limit = Math.min(12, Math.max(1, Number.parseInt(url.searchParams.get('limit') || String(DEFAULT_LIMIT), 10) || DEFAULT_LIMIT));
-    const result = await fetchInstagramFeed(limit);
+    const result = await fetchInstagramFeed(limit, {
+      after: url.searchParams.get('after') || '',
+      before: url.searchParams.get('before') || '',
+    });
     return json(200, {
       version: 'instagram-feed-v1',
       updatedAt: new Date().toISOString(),
       source: result.configured ? 'instagram-api' : 'not-configured',
       configured: result.configured,
+      profile: result.profile || null,
+      paging: result.paging || null,
       items: result.items,
     });
   } catch (error) {
