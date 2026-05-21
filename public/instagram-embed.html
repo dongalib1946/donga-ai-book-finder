@@ -198,28 +198,6 @@
       gap:16px;
       padding:18px clamp(18px,6vw,72px) 24px;
     }
-    .feed-toolbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin:0 clamp(18px,6vw,72px);
-      padding:14px 0 0;
-      color:#667085;
-      font-size:13px;
-      font-weight:850;
-    }
-    .feed-toolbar span:last-child{
-      min-height:30px;
-      display:inline-flex;
-      align-items:center;
-      padding:0 10px;
-      border-radius:999px;
-      background:linear-gradient(135deg, rgba(64,93,230,.10), rgba(193,53,132,.10), rgba(252,175,69,.12));
-      color:#7a2d70;
-      font-weight:950;
-      white-space:nowrap;
-    }
     .post{
       position:relative;
       min-width:0;
@@ -352,7 +330,6 @@
       .profile-photo{border-width:3px}
       .profile-stats{gap:14px; font-size:14px}
       .tabs{margin:0 16px}
-      .feed-toolbar{margin:0 16px}
       .feed{grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; padding:14px 16px 20px}
     }
     @media (max-width:460px){
@@ -406,11 +383,6 @@
         <span class="tab">▦ POSTS</span>
       </nav>
 
-      <div class="feed-toolbar">
-        <span id="rangeText">최신 게시물을 불러오는 중입니다.</span>
-        <span id="totalPages">1 / 1</span>
-      </div>
-
       <section class="feed" id="feed" aria-live="polite">
         <div class="empty">Instagram 피드를 불러오는 중입니다.</div>
       </section>
@@ -432,8 +404,6 @@
       const prevButton = document.getElementById('prevPage');
       const nextButton = document.getElementById('nextPage');
       const pageNow = document.getElementById('pageNow');
-      const rangeText = document.getElementById('rangeText');
-      const totalPages = document.getElementById('totalPages');
       const profileName = document.getElementById('profileName');
       const profilePhoto = document.getElementById('profilePhoto');
       const postCount = document.getElementById('postCount');
@@ -520,13 +490,7 @@
 
       function updatePager(){
         const maxPage = Math.max(1, Math.ceil(allItems.length / LIMIT));
-        const start = allItems.length ? pageIndex * LIMIT + 1 : 0;
-        const end = Math.min(allItems.length, (pageIndex + 1) * LIMIT);
-        pageNow.textContent = String(pageIndex + 1);
-        totalPages.textContent = `${pageIndex + 1} / ${maxPage}`;
-        rangeText.textContent = allItems.length
-          ? `최신 ${allItems.length}개 중 ${start}-${end}번째 게시물`
-          : '표시할 게시물이 없습니다.';
+        pageNow.textContent = `${pageIndex + 1} / ${maxPage}`;
         prevButton.disabled = loading || pageIndex === 0;
         nextButton.disabled = loading || pageIndex >= maxPage - 1;
       }
