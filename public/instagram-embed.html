@@ -398,6 +398,7 @@
   <script>
     (() => {
       const LIMIT = 6;
+      const BATCH_LIMIT = 60;
       const frame = document.getElementById('embedFrame');
       const feed = document.getElementById('feed');
       const prevButton = document.getElementById('prevPage');
@@ -408,9 +409,8 @@
       const postCount = document.getElementById('postCount');
       const followerCount = document.getElementById('followerCount');
       const followingCount = document.getElementById('followingCount');
-      const cursors = [''];
+      let allItems = [];
       let pageIndex = 0;
-      let currentAfter = '';
       let loading = false;
 
       function formatNumber(value){
@@ -488,13 +488,21 @@
         });
       }
 
-      function updatePager(paging){
+      function updatePager(){
+        const maxPage = Math.max(1, Math.ceil(allItems.length / LIMIT));
         pageNow.textContent = String(pageIndex + 1);
         prevButton.disabled = loading || pageIndex === 0;
-        nextButton.disabled = loading || !(paging && paging.after && paging.hasNext);
+        nextButton.disabled = loading || pageIndex >= maxPage - 1;
       }
 
-      async function loadPage(targetIndex, after){
+      function renderPage(targetIndex){
+        pageIndex = Math.max(0, Math.min(targetIndex, Math.max(0, Math.ceil(allItems.length / LIMIT) - 1)));
+        const start = pageIndex * LIMIT;
+        renderPosts(allItems.slice(start, start + LIMIT));
+        updatePager();
+      }
+
+      async function loadFeed(){
         if(loading) return;
         loading = true;
         frame.classList.add('loading');
@@ -502,21 +510,19 @@
         nextButton.disabled = true;
         try{
           const url = new URL('/.netlify/functions/instagram-feed', window.location.origin);
-          url.searchParams.set('limit', String(LIMIT));
-          if(after) url.searchParams.set('after', after);
+          url.searchParams.set('limit', String(BATCH_LIMIT));
+          url.searchParams.set('mode', 'batch');
           const response = await fetch(url, { headers:{ accept:'application/json' } });
           const data = await response.json().catch(() => ({}));
           if(!response.ok) throw new Error(data.error || 'Instagram 피드를 불러오지 못했습니다.');
           renderProfile(data.profile);
-          renderPosts(Array.isArray(data.items) ? data.items : []);
-          pageIndex = targetIndex;
-          currentAfter = after || '';
-          if(data.paging && data.paging.after) cursors[targetIndex + 1] = data.paging.after;
-          updatePager(data.paging);
+          allItems = Array.isArray(data.items) ? data.items : [];
+          renderPage(0);
         }catch(error){
           console.warn(error);
           setEmpty(error.message || 'Instagram 피드를 불러오지 못했습니다.');
-          updatePager(null);
+          allItems = [];
+          updatePager();
         }finally{
           loading = false;
           frame.classList.remove('loading');
@@ -525,16 +531,14 @@
 
       prevButton.addEventListener('click', () => {
         if(pageIndex <= 0) return;
-        loadPage(pageIndex - 1, cursors[pageIndex - 1] || '');
+        renderPage(pageIndex - 1);
       });
 
       nextButton.addEventListener('click', () => {
-        const nextCursor = cursors[pageIndex + 1];
-        if(!nextCursor) return;
-        loadPage(pageIndex + 1, nextCursor);
+        renderPage(pageIndex + 1);
       });
 
-      loadPage(0, currentAfter);
+      loadFeed();
     })();
   </script>
 </body>

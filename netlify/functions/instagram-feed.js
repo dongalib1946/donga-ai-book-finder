@@ -1,5 +1,6 @@
 const GRAPH_VERSION = process.env.INSTAGRAM_GRAPH_VERSION || 'v25.0';
 const DEFAULT_LIMIT = Math.min(12, Math.max(1, Number.parseInt(process.env.INSTAGRAM_FEED_LIMIT || '6', 10) || 6));
+const MAX_LIMIT = Math.min(100, Math.max(DEFAULT_LIMIT, Number.parseInt(process.env.INSTAGRAM_FEED_MAX_LIMIT || '60', 10) || 60));
 const TIMEOUT_MS = Math.max(2000, Number.parseInt(process.env.INSTAGRAM_FETCH_TIMEOUT_MS || '8000', 10) || 8000);
 
 function json(statusCode, body, cacheControl = 'public, max-age=300, s-maxage=1800, stale-while-revalidate=3600') {
@@ -122,7 +123,9 @@ exports.handler = async function handler(event) {
 
   try {
     const url = new URL(event.rawUrl || `http://localhost${event.path || '/.netlify/functions/instagram-feed'}`);
-    const limit = Math.min(12, Math.max(1, Number.parseInt(url.searchParams.get('limit') || String(DEFAULT_LIMIT), 10) || DEFAULT_LIMIT));
+    const allowBatch = url.searchParams.get('mode') === 'batch';
+    const maxLimit = allowBatch ? MAX_LIMIT : 12;
+    const limit = Math.min(maxLimit, Math.max(1, Number.parseInt(url.searchParams.get('limit') || String(DEFAULT_LIMIT), 10) || DEFAULT_LIMIT));
     const result = await fetchInstagramFeed(limit, {
       after: url.searchParams.get('after') || '',
       before: url.searchParams.get('before') || '',
