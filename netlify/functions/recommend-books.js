@@ -21,13 +21,13 @@ const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
 const ALADIN_LOOKUP_TIMEOUT_MS = Math.max(1800, Number.parseInt(process.env.ALADIN_LOOKUP_TIMEOUT_MS || '2500', 10) || 2500);
 const MAIN_ENRICH_LOOKUP_LIMIT = Math.max(6, Number.parseInt(process.env.MAIN_ENRICH_LOOKUP_LIMIT || '6', 10) || 6);
-const MAIN_CANDIDATE_POOL_LIMIT = Math.max(MAIN_ENRICH_LOOKUP_LIMIT, Number.parseInt(process.env.MAIN_CANDIDATE_POOL_LIMIT || '70', 10) || 70);
+const MAIN_CANDIDATE_POOL_LIMIT = Math.max(MAIN_ENRICH_LOOKUP_LIMIT, Number.parseInt(process.env.MAIN_CANDIDATE_POOL_LIMIT || '140', 10) || 140);
 const MAIN_EXTRA_COVER_LOOKUP_LIMIT = Math.max(0, Number.parseInt(process.env.MAIN_EXTRA_COVER_LOOKUP_LIMIT || '0', 10) || 0);
 const POPULAR_ENRICH_LOOKUP_LIMIT = Math.max(5, Number.parseInt(process.env.POPULAR_ENRICH_LOOKUP_LIMIT || '5', 10) || 5);
 const POPULAR_COVER_LOOKUP_LIMIT = Math.max(0, Number.parseInt(process.env.POPULAR_COVER_LOOKUP_LIMIT || '5', 10) || 0);
 const BESTSELLER_HOLDING_TIMEOUT_MS = Math.max(2500, Number.parseInt(process.env.BESTSELLER_HOLDING_TIMEOUT_MS || '10000', 10) || 10000);
 const API_VERSION = 'ai-book-finder-v1';
-const MAIN_COLLECTION_CAPS = { popular: 2 };
+const MAIN_COLLECTION_CAPS = { new: 4, popular: 2, monthly: 2, recommend: 2, classic: 2, gallery: 2 };
 
 let poolCache = null;
 let noticeCache = null;
@@ -44,6 +44,27 @@ function collectionUrl(value) {
 function collectionRestUrl(pageId) {
   const url = new URL(String(pageId), LIBRARY_PAGES_REST_URL);
   url.searchParams.set('record_per_page', String(COLLECTION_RECORD_PER_PAGE));
+  return url.toString();
+}
+
+function decodeUrlEntities(value) {
+  return String(value || '')
+    .replace(/&amp;/gi, '&')
+    .replace(/&#0?38;/gi, '&');
+}
+
+function collectionPageUrl(collection, pageNumber = 1, options = {}) {
+  const preferRest = options.preferRest !== false;
+  const base = preferRest && collection.restUrl ? collection.restUrl : collection.url;
+  const url = new URL(decodeUrlEntities(base));
+  url.searchParams.set('record_per_page', String(COLLECTION_RECORD_PER_PAGE));
+  if (pageNumber > 1) {
+    url.searchParams.set('page_number', String(pageNumber));
+    url.searchParams.set('add_action', 'page');
+  } else {
+    url.searchParams.delete('page_number');
+    url.searchParams.delete('add_action');
+  }
   return url.toString();
 }
 
@@ -283,6 +304,49 @@ function isBookLikeEntry(entry) {
   return !/\[?비디오녹화자료\]?|DVD|Blu-ray|블루레이|녹음자료|오디오북|전자책|e-?book/i.test(text);
 }
 
+function compactKoreanText(value) {
+  return cleanText(value).replace(/\s+/g, '');
+}
+
+function hasAcademicPublisher(value) {
+  return /(?:현문사|수문사|한미의학|메디컬사이언스|범문에듀케이션|군자출판사|대학서림|청구문화사|사이플러스|북스힐|홍릉과학출판사|피어슨에듀케이션코리아|시그마프레스|박영사|정독|학지사|양서원|공동체|교문사|도서출판\s*청람|탑북스|법문사|법률저널|필통북스|세진사|레인보우북스|비엔엠북스|새로미|성안당|에듀윌|해커스|시대고시|윌비스|챔프스터디|전남대학교출판문화원|동국대학교출판부|조선대학교출판부|성균관대학교\s*출판부)/i.test(cleanText(value));
+}
+
+function hasGeneralReadingSignal(value) {
+  const text = cleanText(value);
+  return /교양|에세이|소설|시집|문학|세계사|역사|철학|심리|이야기|비밀|여행|인문|사람|삶|세상|사회|문화|예술|재미있게|소설처럼|쉽게|알기 쉬운|최소한|처음|읽는 법|가이드북|회고록|인터뷰|산문/i.test(text);
+}
+
+function isAcademicTextbook(book) {
+  const titleText = cleanText(book && book.title);
+  const compactTitle = compactKoreanText(titleText);
+  const categoryText = cleanText(book && book.categoryName);
+  const authorPublisherText = [book && book.author, book && book.publisher].map(cleanText).join(' ');
+  const metaText = Array.isArray(book && book.meta) ? book.meta.map(cleanText).join(' ') : '';
+  const fullText = [titleText, categoryText, authorPublisherText, metaText].join(' ');
+
+  if (/대학교재|전문서적|전공서|전공책|교재|수험서|외국어|컴퓨터\/모바일/i.test(categoryText)) {
+    return true;
+  }
+
+  if (/교재편찬위원회|교과연구회|학회|사법연수원|대학교\.[^,\s]+연구실|학술국/i.test(authorPublisherText)) {
+    return true;
+  }
+
+  const academicPublisher = hasAcademicPublisher(authorPublisherText) || hasAcademicPublisher(metaText);
+  const academicField = /(?:간호|의학|약학|치의학|보건|임상|해부|생리|병리|혈액투석|유기화학|무기화학|물리화학|생화학|화학|물리학|수학|통계|확률|미적분|선형대수|재료학|기계|전기|전자|회로|공학|토목|건축|컴퓨터|프로그래밍|데이터베이스|알고리즘|법학|법이론|법철학|행정학|경영학|회계|세무|경제학|교육학|사회복지|체육학|운동영양|연구방법)/i.test(fullText);
+  const textbookCue = /(?:개론|원론|각론|총론|입문|기초|기본|실습|실무|연습|워크북|핸드북|매뉴얼|연구\s*방법|방법론|이론과\s*실제|진단|중재|가이드|최신|신편|이공학도|전공자|학습|강의|수업|제\s*\d+\s*판|=)/i.test(titleText);
+  const strongTextbookTitle = /(?:간호학|간호진단|혈액투석간호|여성건강간호|유기화학|무기화학|물리화학|생화학|기계재료학|전기기기|회로이론|확률\s*및\s*통계|미적분|선형대수|해부학|생리학|병리학|약리학|여행지리)/i.test(titleText);
+
+  if (strongTextbookTitle) return true;
+  if (academicPublisher && academicField) return true;
+  if (academicPublisher && textbookCue && !hasGeneralReadingSignal(titleText)) return true;
+  if (academicField && textbookCue && !hasGeneralReadingSignal(titleText)) return true;
+
+  return /(?:^|[\s(])(?:전공서|전공책|전공\s*교재|학부교재|대학강의|강의교재)(?:$|[\s):])/i.test(titleText)
+    || /(?:전공서|전공책|전공교재|학부교재|대학강의|강의교재)/i.test(compactTitle);
+}
+
 function isExamPrepBook(book) {
   const titleText = cleanText(book && book.title);
   const categoryText = cleanText(book && book.categoryName);
@@ -303,6 +367,10 @@ function isExamPrepBook(book) {
   }
 
   if (/수험서|자격증|공무원|국가고시|고등학교참고서|중학교참고서|초등참고서|취업\/수험서/i.test(categoryText)) {
+    return true;
+  }
+
+  if (isAcademicTextbook(book)) {
     return true;
   }
 
@@ -409,9 +477,13 @@ function extractCatalogEntries(baseUrl, html, collection) {
     seen.add(seenKey);
 
     const author = fieldFromInner(inner, 'book-info-name') || fieldFromClass(nearby, 'item-option-cell');
-    const meta = [...String(`${inner}\n${nearby}`).matchAll(/<div\b[^>]*class=["'][^"']*\b(?:book-info-txt|item-option-cell)\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)]
+    const innerMeta = [...String(inner || '').matchAll(/<div\b[^>]*class=["'][^"']*\b(?:book-info-txt|item-option-cell)\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)]
       .map(m => cleanText(m[1]))
       .filter(Boolean);
+    const nearbyMeta = innerMeta.length ? [] : [...String(nearby || '').matchAll(/<div\b[^>]*class=["'][^"']*\b(?:book-info-txt|item-option-cell)\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)]
+      .map(m => cleanText(m[1]))
+      .filter(Boolean);
+    const meta = [...new Set([...innerMeta, ...nearbyMeta])];
     const imageMatch = inner.match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i) || nearby.match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i);
     const cover = normalizeCoverUrl(imageMatch && imageMatch[1], baseUrl);
 
@@ -436,7 +508,7 @@ function extractPageLinks(baseUrl, html, maxPages) {
   const links = [];
   const seen = new Set([baseUrl]);
   for (const match of String(html || '').matchAll(/href=["']([^"']*page_number=\d+[^"']*)["']/gi)) {
-    const url = new URL(match[1].replace(/&amp;/g, '&'), baseUrl).toString();
+    const url = new URL(decodeUrlEntities(match[1]), baseUrl).toString();
     if (!seen.has(url)) {
       seen.add(url);
       links.push(url);
@@ -462,6 +534,61 @@ function fallbackLibraryPool() {
     catalogUrl: libraryCatalogSearchUrl(book.isbn, 'I'),
     ranks: { fallback: index + 1 },
   }));
+}
+
+function mergeLibraryEntry(byIsbn, entry, options = {}) {
+  if (!entry || !entry.isbn) return { added: false, entry: null };
+  const old = byIsbn.get(entry.isbn);
+  if (!old) {
+    const fresh = {
+      ...entry,
+      meta: [...new Set((entry.meta || []).map(cleanText).filter(Boolean))],
+      collectionKeys: [...new Set(entry.collectionKeys || [])],
+      collectionTags: [...new Set(entry.collectionTags || [])],
+      ranks: { ...(entry.ranks || {}) },
+    };
+    byIsbn.set(entry.isbn, fresh);
+    return { added: true, entry: fresh };
+  }
+
+  const preferIncoming = Boolean(options.preferIncoming);
+  const primary = preferIncoming ? entry : old;
+  const secondary = preferIncoming ? old : entry;
+  const collectionNames = [old.collection, entry.collection]
+    .flatMap(value => String(value || '').split(','))
+    .map(cleanText)
+    .filter(Boolean);
+  const merged = {
+    ...old,
+    title: cleanText(primary.title) || cleanText(secondary.title),
+    author: cleanText(primary.author) || cleanText(secondary.author),
+    meta: [...new Set([...(primary.meta || []), ...(secondary.meta || [])].map(cleanText).filter(Boolean))],
+    cover: coverCandidates(primary.cover, secondary.cover)[0] || '',
+    collection: [...new Set(collectionNames)].join(', '),
+    collectionKeys: [...new Set([...(old.collectionKeys || []), ...(entry.collectionKeys || [])])],
+    collectionTags: [...new Set([...(old.collectionTags || []), ...(entry.collectionTags || [])])],
+    catalogUrl: primary.catalogUrl || secondary.catalogUrl || '',
+    ranks: preferIncoming
+      ? { ...(old.ranks || {}), ...(entry.ranks || {}) }
+      : { ...(entry.ranks || {}), ...(old.ranks || {}) },
+  };
+  byIsbn.set(entry.isbn, merged);
+  return { added: false, entry: merged };
+}
+
+function validLibraryEntry(entry) {
+  return Boolean(
+    entry
+    && entry.catalogUrl
+    && entry.title
+    && entry.isbn
+    && isBookLikeEntry(entry)
+    && !isExamPrepBook(entry)
+  );
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function fetchWithTimeout(url, options = {}) {
@@ -511,31 +638,102 @@ async function fetchJson(url, options = {}) {
   return res.json();
 }
 
-async function fetchCollectionFirstPage(collection) {
+async function fetchCollectionPage(collection, pageNumber = 1, options = {}) {
+  const parseUrl = collectionPageUrl(collection, pageNumber, { preferRest: false });
   if (collection.restUrl) {
+    const restUrl = collectionPageUrl(collection, pageNumber, { preferRest: true });
     try {
-      const data = await fetchJson(collection.restUrl);
+      const data = await fetchJson(restUrl, options);
       const html = data && data.content && data.content.rendered ? data.content.rendered : '';
-      if (html) return html;
+      if (html) return { html, parseUrl, fetchUrl: restUrl };
     } catch (error) {
       console.warn('[Collection REST]', collection.key, error.message);
     }
   }
-  return fetchText(collection.url);
+  return { html: await fetchText(parseUrl, options), parseUrl, fetchUrl: parseUrl };
+}
+
+async function fetchCollectionFirstPage(collection) {
+  const page = await fetchCollectionPage(collection, 1);
+  return page.html;
 }
 
 function loadSnapshotPool() {
   if (snapshotPoolCache) return snapshotPoolCache;
   try {
     const entries = require('../data/library-pool.json');
-    snapshotPoolCache = Array.isArray(entries)
-      ? entries.filter(entry => entry && entry.catalogUrl && entry.title && entry.isbn && !isExamPrepBook(entry))
-      : [];
+    const list = Array.isArray(entries) ? entries : entries && Array.isArray(entries.entries) ? entries.entries : [];
+    snapshotPoolCache = list
+      .filter(entry => entry && entry.catalogUrl && entry.title && entry.isbn && !isExamPrepBook(entry));
   } catch (error) {
     console.warn('[Library snapshot]', error.message);
     snapshotPoolCache = [];
   }
   return snapshotPoolCache;
+}
+
+async function fetchLibraryPoolSnapshot(options = {}) {
+  const pageLimit = Math.min(100, Math.max(1, Number.parseInt(options.pageLimit || '50', 10) || 50));
+  const delayMs = Math.max(0, Number.parseInt(options.delayMs || '0', 10) || 0);
+  const timeoutMs = Math.max(1500, Number.parseInt(options.timeoutMs || String(FETCH_TIMEOUT_MS), 10) || FETCH_TIMEOUT_MS);
+  const stalePageLimit = Math.max(1, Number.parseInt(options.stalePageLimit || '2', 10) || 2);
+  const logger = options.logger || console;
+  const byIsbn = new Map();
+  const collections = [];
+
+  for (const collection of COLLECTIONS) {
+    const pageSummaries = [];
+    const collectionSeen = new Set();
+    let stalePages = 0;
+
+    for (let pageNumber = 1; pageNumber <= pageLimit; pageNumber += 1) {
+      try {
+        const page = await fetchCollectionPage(collection, pageNumber, { timeoutMs });
+        const entries = extractCatalogEntries(page.parseUrl, page.html, collection).filter(validLibraryEntry);
+        let newCount = 0;
+
+        for (const entry of entries) {
+          if (!collectionSeen.has(entry.isbn)) {
+            collectionSeen.add(entry.isbn);
+            newCount += 1;
+          }
+          mergeLibraryEntry(byIsbn, entry);
+        }
+
+        pageSummaries.push({ page: pageNumber, count: entries.length, newCount });
+        logger.log(`[Library pool] ${collection.key} page ${pageNumber}: ${entries.length} entries (${newCount} new in collection)`);
+
+        if (pageNumber > 1 && newCount === 0) {
+          stalePages += 1;
+        } else {
+          stalePages = 0;
+        }
+        if (pageNumber > 1 && stalePages >= stalePageLimit) break;
+      } catch (error) {
+        pageSummaries.push({ page: pageNumber, count: 0, newCount: 0, error: error.message });
+        logger.warn(`[Library pool] ${collection.key} page ${pageNumber}: ${error.message}`);
+        stalePages += 1;
+        if (pageNumber > 1 && stalePages >= stalePageLimit) break;
+      }
+
+      if (delayMs > 0 && pageNumber < pageLimit) {
+        await sleep(delayMs);
+      }
+    }
+
+    collections.push({
+      key: collection.key,
+      name: collection.name,
+      pagesVisited: pageSummaries.length,
+      uniqueCount: collectionSeen.size,
+      pageSummaries,
+    });
+  }
+
+  return {
+    entries: [...byIsbn.values()].filter(validLibraryEntry),
+    collections,
+  };
 }
 
 async function findCatalogDetails(entry) {
@@ -577,43 +775,36 @@ async function buildLibraryPool() {
   }
 
   const byIsbn = new Map();
+  for (const entry of loadSnapshotPool()) {
+    mergeLibraryEntry(byIsbn, entry);
+  }
+
   await Promise.all(COLLECTIONS.map(async (collection) => {
     try {
-      const firstPage = await fetchCollectionFirstPage(collection);
-      const pageUrls = [collection.url, ...extractPageLinks(collection.url, firstPage, COLLECTION_PAGE_LIMIT)];
-      for (let i = 0; i < pageUrls.length; i += 1) {
-        const page = i === 0 ? firstPage : await fetchText(pageUrls[i]);
-        for (const entry of extractCatalogEntries(pageUrls[i], page, collection)) {
-          const old = byIsbn.get(entry.isbn);
-          if (!old) {
-            byIsbn.set(entry.isbn, entry);
-          } else {
-            old.collection = old.collection.includes(entry.collection) ? old.collection : `${old.collection}, ${entry.collection}`;
-            old.collectionKeys = [...new Set([...(old.collectionKeys || []), ...(entry.collectionKeys || [])])];
-            old.collectionTags = [...new Set([...old.collectionTags, ...entry.collectionTags])];
-            old.ranks = { ...(old.ranks || {}), ...(entry.ranks || {}) };
-          }
+      let stalePages = 0;
+      for (let pageNumber = 1; pageNumber <= COLLECTION_PAGE_LIMIT; pageNumber += 1) {
+        const page = await fetchCollectionPage(collection, pageNumber);
+        const entries = extractCatalogEntries(page.parseUrl, page.html, collection).filter(validLibraryEntry);
+        let newCount = 0;
+        for (const entry of entries) {
+          const alreadyExists = byIsbn.has(entry.isbn);
+          mergeLibraryEntry(byIsbn, entry, { preferIncoming: true });
+          if (!alreadyExists) newCount += 1;
         }
+        if (pageNumber > 1 && newCount === 0) {
+          stalePages += 1;
+        } else {
+          stalePages = 0;
+        }
+        if (pageNumber > 1 && stalePages >= 2) break;
       }
     } catch (error) {
       console.warn('[Library collection]', collection.name, error.message);
     }
   }));
 
-  const entries = [...byIsbn.values()].filter(entry => (
-    entry.catalogUrl
-    && entry.title
-    && entry.isbn
-    && isBookLikeEntry(entry)
-    && !isExamPrepBook(entry)
-  ));
+  const entries = [...byIsbn.values()].filter(validLibraryEntry);
   if (!entries.length) {
-    const snapshot = loadSnapshotPool();
-    if (snapshot.length) {
-      console.warn('[Library collection] using bundled snapshot');
-      poolCache = { savedAt: Date.now(), entries: snapshot };
-      return poolCache.entries;
-    }
     console.warn('[Library collection] using fallback entries');
     poolCache = { savedAt: Date.now(), entries: fallbackLibraryPool() };
     return poolCache.entries;
@@ -841,6 +1032,30 @@ function scoreText(text, tags) {
   return { score, matched };
 }
 
+function firstPublisherValue(values = []) {
+  return (values || [])
+    .map(cleanText)
+    .find(value => value && !/^대출횟수\s*:/i.test(value)) || '';
+}
+
+function recommendationQualityScore(entry) {
+  let score = 0;
+  const title = cleanText(entry && entry.title);
+  const publisher = firstPublisherValue(entry && entry.meta);
+  const keys = entry && entry.collectionKeys ? entry.collectionKeys : [];
+
+  if (keys.includes('monthly')) score += 2.2;
+  if (keys.includes('recommend')) score += 1.8;
+  if (keys.includes('popular')) score += 1.4;
+  if (keys.includes('new')) score += 0.8;
+  if (entry && entry.author) score += 0.5;
+  if (publisher) score += 0.5;
+  if (hasGeneralReadingSignal(title)) score += 1.2;
+  if (title.length > 70) score -= 0.8;
+  if (hasAcademicPublisher(publisher)) score -= 1.5;
+  return score;
+}
+
 function scoreLibraryEntry(entry, tags, seed) {
   const text = [entry.title, entry.author, entry.meta.join(' '), entry.collection, entry.collectionTags.join(' ')].join(' ');
   const { score, matched } = scoreText(text, tags);
@@ -854,8 +1069,8 @@ function scoreLibraryEntry(entry, tags, seed) {
     (entry.collectionKeys || []).includes('popular') ? 2 :
     (entry.collectionKeys || []).includes('new') ? 1.8 : 1;
   const matchCoverage = matched.size ? Math.min(6, matched.size * 1.5) : 0;
-  const jitter = stableFloat(seed, entry.isbn) * 5;
-  return { score: score + keyBoost + matchCoverage + jitter, matched: [...matched] };
+  const jitter = stableFloat(seed, entry.isbn) * 2.5;
+  return { score: score + keyBoost + matchCoverage + recommendationQualityScore(entry) + jitter, matched: [...matched] };
 }
 
 async function lookupAladin(ttbKey, isbn) {
@@ -1377,7 +1592,7 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
       enriched.push({
         title: entry.title,
         author: cleanText(entry.author || (item && item.author) || ''),
-        publisher: cleanText((item && item.publisher) || ''),
+        publisher: cleanText((item && item.publisher) || firstPublisherValue(entry.meta || [])),
         description: itemDescription,
         cover,
         coverFallbacks,
@@ -1395,11 +1610,34 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
   return enriched.sort((a, b) => b.score - a.score || a.title.localeCompare(b.title, 'ko'));
 }
 
+const DIVERSITY_TOPIC_ORDER = [
+  'future', 'technology', 'science', 'society', 'history', 'humanities', 'philosophy',
+  'literature', 'story', 'mystery', 'mind', 'psychology', 'comfort', 'growth',
+  'work', 'life', 'travel', 'art', 'culture', 'fun',
+];
+
+function bookPublisherValue(book) {
+  return cleanText((book && book.publisher) || firstPublisherValue(book && book.meta));
+}
+
+function bookTopicKey(book) {
+  const tags = book && Array.isArray(book.matchedTags) ? book.matchedTags : [];
+  const topic = DIVERSITY_TOPIC_ORDER.find(tag => tags.includes(tag));
+  if (topic) return topic;
+  return (book && book.collectionKeys && book.collectionKeys[0]) || '';
+}
+
+function bookTitleRoot(book) {
+  const title = cleanText(book && book.title);
+  const firstPart = titleParts(title)[0] || title;
+  return comparableTitle(firstPart).slice(0, 14);
+}
+
 function chooseDiverse(items, limit, seed, excludeIsbns = new Set(), options = {}) {
   const selected = [];
   const collectionCaps = options.collectionCaps || {};
   const coverPenalty = Number.parseFloat(options.coverPenalty || '0') || 0;
-  const remaining = items.filter(item => item && item.isbn && !excludeIsbns.has(item.isbn));
+  const remaining = items.filter(item => item && item.isbn && !excludeIsbns.has(item.isbn) && !isExamPrepBook(item));
   while (selected.length < limit && remaining.length) {
     const slotsLeft = limit - selected.length;
     const coverReady = remaining.filter(item => item.cover);
@@ -1408,18 +1646,29 @@ function chooseDiverse(items, limit, seed, excludeIsbns = new Set(), options = {
       .map(item => {
         const primaryCollection = item.collectionKeys?.[0] || '';
         const sameAuthor = selected.some(old => old.author && item.author && old.author === item.author);
+        const publisher = bookPublisherValue(item);
+        const samePublisher = publisher && selected.some(old => bookPublisherValue(old) === publisher);
+        const topic = bookTopicKey(item);
+        const sameTopicCount = topic ? selected.filter(old => bookTopicKey(old) === topic).length : 0;
+        const titleRoot = bookTitleRoot(item);
+        const similarTitle = titleRoot && selected.some(old => bookTitleRoot(old) === titleRoot);
         const samePrimaryCollection = selected.filter(old => old.collectionKeys?.[0] && old.collectionKeys?.[0] === primaryCollection).length;
-        const tagOverlap = selected.some(old => (old.matchedTags || []).some(tag => (item.matchedTags || []).includes(tag)));
         const cappedCollection = primaryCollection && collectionCaps[primaryCollection] && samePrimaryCollection >= collectionCaps[primaryCollection];
-        const penalty = (sameAuthor ? 8 : 0) + (samePrimaryCollection >= 2 ? 5 : 0) + (tagOverlap && selected.length > 2 ? 1.6 : 0) + (!item.cover ? coverPenalty : 0);
-        const variation = stableFloat(seed, 'pick', selected.length, item.isbn) * 7;
+        const penalty =
+          (sameAuthor ? 12 : 0)
+          + (samePublisher ? 4.5 : 0)
+          + (similarTitle ? 7 : 0)
+          + (samePrimaryCollection * 3.2)
+          + (sameTopicCount * 2.4)
+          + (!item.cover ? coverPenalty : 0);
+        const variation = stableFloat(seed, 'pick', selected.length, item.isbn) * 3;
         return { item, adjusted: item.score - penalty + variation, cappedCollection };
       })
       .sort((a, b) => b.adjusted - a.adjusted);
     const uncapped = rankedWithCaps.filter(entry => !entry.cappedCollection);
     const ranked = uncapped.length ? uncapped : rankedWithCaps;
 
-    const windowSize = Math.min(7, ranked.length);
+    const windowSize = Math.min(4, ranked.length);
     const pickIndex = Math.floor(stableFloat(seed, 'window', selected.length) * windowSize);
     const picked = ranked[pickIndex].item;
     selected.push(picked);
@@ -1465,7 +1714,7 @@ function bookFromLibraryEntry(entry, matchedTags = ['동아인의 선택', '인�
   const book = {
     title: entry.title,
     author: cleanText(entry.author || ''),
-    publisher: cleanText((entry.meta || [])[0] || ''),
+    publisher: firstPublisherValue(entry.meta || []),
     description: '',
     cover: '',
     coverFallbacks: libraryCovers,
@@ -1610,7 +1859,7 @@ exports.handler = async function handler(event) {
       .filter(entry => !isExamPrepBook(entry))
       .map(entry => ({ entry, initial: scoreLibraryEntry(entry, tags, seed) }))
       .sort((a, b) => b.initial.score - a.initial.score)
-      .slice(0, 110);
+      .slice(0, Math.max(180, MAIN_CANDIDATE_POOL_LIMIT));
 
     const enriched = await fillMainCovers(await enrichCandidates(candidates, tags, limit, seed), limit);
     const chosenItems = chooseDiverse(enriched, limit, seed, new Set(), { collectionCaps: MAIN_COLLECTION_CAPS, coverPenalty: 18, preferCover: true });
@@ -1658,3 +1907,4 @@ exports.handler = async function handler(event) {
 
 exports.fetchCommunityNotices = fetchCommunityNotices;
 exports.fetchCommunityNoticeResult = fetchCommunityNoticeResult;
+exports.fetchLibraryPoolSnapshot = fetchLibraryPoolSnapshot;
