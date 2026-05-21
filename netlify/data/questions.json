@@ -5,10 +5,10 @@
     "title": "오늘, 어떤 마음으로 책 앞에 섰나요?",
     "help": "지금 마음에 가장 가까운 표정을 골라주세요.",
     "choices": [
-      { "id": "tired", "emoji": "🌙", "label": "조금 지친 밤", "desc": "부드럽게 기대고 싶은 기분", "tags": ["comfort", "essay", "healing", "easy"] },
-      { "id": "curious", "emoji": "✨", "label": "반짝이는 호기심", "desc": "새로운 세계를 열고 싶은 기분", "tags": ["knowledge", "science", "society", "future"] },
-      { "id": "restless", "emoji": "🌊", "label": "흔들리는 생각", "desc": "복잡한 마음을 정리하고 싶은 기분", "tags": ["mind", "philosophy", "essay"] },
-      { "id": "bright", "emoji": "☀️", "label": "가볍게 환기", "desc": "조금 웃고, 조금 멀리 가고 싶은 기분", "tags": ["fun", "novel", "travel", "story"] }
+      { "id": "tired", "emoji": "😔", "label": "조금 지친 밤", "desc": "부드럽게 기대고 싶은 기분", "tags": ["comfort", "essay", "healing", "easy"] },
+      { "id": "curious", "emoji": "🤩", "label": "반짝이는 호기심", "desc": "새로운 세계를 열고 싶은 기분", "tags": ["knowledge", "science", "society", "future"] },
+      { "id": "restless", "emoji": "😕", "label": "흔들리는 생각", "desc": "복잡한 마음을 정리하고 싶은 기분", "tags": ["mind", "philosophy", "essay"] },
+      { "id": "bright", "emoji": "😄", "label": "가볍게 환기", "desc": "조금 웃고, 조금 멀리 가고 싶은 기분", "tags": ["fun", "novel", "travel", "story"] }
     ]
   },
   {
@@ -68,7 +68,7 @@
       { "id": "fog", "emoji": "🌫️", "label": "안개", "desc": "또렷하지 않아도 천천히 가고 싶은 날", "tags": ["mind", "essay", "comfort"] },
       { "id": "rain", "emoji": "🌧️", "label": "비", "desc": "조용히 젖어드는 문장이 필요한 날", "tags": ["healing", "literature", "deep"] },
       { "id": "wind", "emoji": "🍃", "label": "바람", "desc": "새로운 방향으로 흔들리고 싶은 날", "tags": ["future", "travel", "growth"] },
-      { "id": "stars", "emoji": "🌠", "label": "별빛", "desc": "멀고 낯선 것에 마음이 가는 날", "tags": ["science", "novel", "future", "story"] }
+      { "id": "sun", "emoji": "☀️", "label": "햇살", "desc": "활기차게 웃고 싶은 밝은 날", "tags": ["fun", "growth", "readable", "life"] }
     ]
   },
   {
@@ -117,6 +117,54 @@
       { "id": "plan", "emoji": "📌", "label": "작은 계획", "desc": "내일 해볼 수 있는 실천 하나", "tags": ["practical", "career", "growth"] },
       { "id": "question", "emoji": "❔", "label": "새 질문", "desc": "생각의 방향을 바꾸는 질문 하나", "tags": ["knowledge", "philosophy", "science"] },
       { "id": "scene", "emoji": "🎞️", "label": "장면 하나", "desc": "마음에 남는 이미지와 이야기", "tags": ["novel", "story", "art"] }
+    ]
+  },
+  {
+    "id": "secret-door",
+    "eyebrow": "상상 테스트",
+    "title": "문 하나를 열어야 한다면 어디로 들어갈까요?",
+    "help": "가장 먼저 끌리는 장면을 골라주세요.",
+    "choices": [
+      { "id": "cabin", "emoji": "🏡", "label": "숲속 오두막", "desc": "조용히 쉬며 나를 회복하는 공간", "tags": ["comfort", "healing", "essay", "life"] },
+      { "id": "rain-alley", "emoji": "🌧️", "label": "비 오는 골목", "desc": "쓸쓸하지만 오래 남는 분위기", "tags": ["deep", "literature", "mind", "essay"] },
+      { "id": "sea-house", "emoji": "🌊", "label": "바다 앞 작은 집", "desc": "멀리 떠나 마음을 환기하는 장면", "tags": ["travel", "healing", "story", "essay"] },
+      { "id": "dark-library", "emoji": "📚", "label": "불 꺼진 도서관", "desc": "비밀스러운 지식과 이야기의 방", "tags": ["knowledge", "deep", "classic", "mystery"] }
+    ]
+  },
+  {
+    "id": "cafe-seat",
+    "eyebrow": "취향 테스트",
+    "title": "카페에서 제일 좋아하는 자리는?",
+    "help": "책을 읽고 싶은 자리와 가장 가까운 곳을 골라주세요.",
+    "choices": [
+      { "id": "window", "emoji": "🪟", "label": "창가", "desc": "바깥을 보며 생각을 정리하는 자리", "tags": ["essay", "knowledge", "readable", "life"] },
+      { "id": "corner", "emoji": "🛋️", "label": "구석 자리", "desc": "혼자 편히 머물고 싶은 자리", "tags": ["comfort", "mind", "healing", "essay"] },
+      { "id": "center", "emoji": "🗣️", "label": "사람 많은 중앙", "desc": "사람과 분위기에서 에너지를 얻는 자리", "tags": ["relationship", "society", "fun", "readable"] },
+      { "id": "outside", "emoji": "🌿", "label": "야외 자리", "desc": "답답함을 털고 움직이고 싶은 자리", "tags": ["travel", "growth", "life", "easy"] }
+    ]
+  },
+  {
+    "id": "after-exam",
+    "eyebrow": "해방 테스트",
+    "title": "시험 끝난 날 가장 먼저 하고 싶은 건?",
+    "help": "긴장이 풀린 뒤 가장 먼저 떠오르는 행동을 골라주세요.",
+    "choices": [
+      { "id": "sleep", "emoji": "😴", "label": "하루 종일 잠", "desc": "아무것도 하지 않고 푹 쉬기", "tags": ["comfort", "healing", "easy"] },
+      { "id": "walk-alone", "emoji": "🚶", "label": "혼자 산책", "desc": "천천히 걸으며 마음을 정리하기", "tags": ["mind", "essay", "healing", "philosophy"] },
+      { "id": "friends", "emoji": "😆", "label": "친구 만나기", "desc": "사람들과 웃으며 기분 전환하기", "tags": ["relationship", "fun", "story", "readable"] },
+      { "id": "leave", "emoji": "🧳", "label": "어디든 떠나기", "desc": "낯선 곳으로 바로 움직이기", "tags": ["travel", "growth", "challenge", "novel"] }
+    ]
+  },
+  {
+    "id": "playlist",
+    "eyebrow": "플레이리스트 테스트",
+    "title": "이어폰에서 지금 흘러나올 것 같은 노래는?",
+    "help": "지금 마음의 배경음악에 가까운 것을 골라주세요.",
+    "choices": [
+      { "id": "indie", "emoji": "🎧", "label": "잔잔한 인디", "desc": "가만히 마음을 만지는 노래", "tags": ["essay", "comfort", "literature", "art"] },
+      { "id": "band", "emoji": "🎸", "label": "신나는 밴드곡", "desc": "몸을 일으키는 밝은 리듬", "tags": ["fun", "growth", "challenge", "readable"] },
+      { "id": "ost", "emoji": "🎻", "label": "클래식/OST", "desc": "장면이 선명하게 떠오르는 음악", "tags": ["classic", "art", "literature", "deep"] },
+      { "id": "dawn", "emoji": "🌙", "label": "우울한 새벽 감성", "desc": "혼자 깊이 잠기는 밤의 분위기", "tags": ["mind", "deep", "philosophy", "essay"] }
     ]
   }
 ]

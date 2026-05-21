@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <script src="app.js?v=20260520-news" defer></script>
+  <script src="app.js?v=20260521-type" defer></script>
 </head>
 <body>
   <div class="shell">
@@ -28,7 +28,7 @@
             <span></span>
           </div>
           <p class="start-kicker">DONG-A Library AI Book Finder</p>
-          <h1 class="start-title">지금 당신에게 필요한 책을 찾아드릴게요.</h1>
+          <h1 class="start-title">지금 당신에게 <span class="title-gradient">필요한 책</span>을 찾아드릴게요.</h1>
           <p class="start-copy">짧은 질문에 답하면, 오늘의 관심사에 어울리는 책을 추천합니다.</p>
           <div class="start-actions">
             <button class="btn primary" id="startBtn" type="button">AI 추천 시작</button>
@@ -100,14 +100,14 @@
 
         <div class="section-title">
           <span>01</span>
-          <h3>AI 추천도서</h3>
+          <h3><span class="title-gradient">AI</span> 추천도서</h3>
         </div>
         <div class="books" id="books"></div>
 
         <section class="popular-section" aria-labelledby="popularTitle">
           <div class="popular-head">
             <span>02</span>
-            <h3 id="popularTitle">현재 동아인들이 가장 사랑하는 책</h3>
+            <h3 id="popularTitle">현재 동아인들이 <span class="title-gradient">가장 사랑하는 책</span></h3>
             <p>함께 살펴볼 만한 동아대학교 도서관 인기도서입니다.</p>
           </div>
           <div class="popular-grid" id="popularBooks"></div>
@@ -116,7 +116,7 @@
         <section class="aladin-section" aria-labelledby="aladinTitle">
           <div class="popular-head">
             <span>03</span>
-            <h3 id="aladinTitle">알라딘 서점 베스트 도서</h3>
+            <h3 id="aladinTitle">알라딘 서점 <span class="title-gradient">베스트 도서</span></h3>
             <p>알라딘 베스트셀러를 기준으로 도서관 소장 여부를 함께 확인합니다.</p>
           </div>
           <div class="aladin-grid" id="aladinBestSellers"></div>
@@ -126,7 +126,7 @@
           <div class="library-news-head">
             <span>04</span>
             <div>
-              <h3 id="libraryNewsTitle">현재 도서관 소식</h3>
+              <h3 id="libraryNewsTitle">현재 <span class="title-gradient">도서관 소식</span></h3>
             </div>
             <a class="news-more" href="https://library.donga.ac.kr/community/notice/" target="_blank" rel="noopener noreferrer">전체보기</a>
           </div>
@@ -134,25 +134,58 @@
         </section>
 
         <section class="instagram-section" aria-labelledby="instagramTitle">
-          <div class="instagram-head">
+          <div class="instagram-section-head">
             <span>05</span>
             <div>
-              <h3 id="instagramTitle">북스타그램</h3>
-              <p>도서관 인스타그램에서 책과 도서관 이야기를 만나보세요.</p>
+              <h3 id="instagramTitle"><span class="title-gradient">북스타그램</span> 둘러보기</h3>
             </div>
-            <a class="instagram-more" href="https://www.instagram.com/dongalibrary/" target="_blank" rel="noopener noreferrer">
-              <img src="img/instagram.png" alt="">
-              <span>인스타그램 바로가기</span>
-            </a>
           </div>
-          <div class="instagram-grid" id="instagramFeed"></div>
+          <div class="instagram-frame">
+            <div class="instagram-topbar">
+              <a class="instagram-brand" href="https://www.instagram.com/dongalibrary/" target="_blank" rel="noopener noreferrer">
+                <img src="img/instagram.png" alt="">
+                <span>Instagram</span>
+              </a>
+              <div class="instagram-search-visual" aria-hidden="true">Search</div>
+              <a class="instagram-more" href="https://www.instagram.com/dongalibrary/" target="_blank" rel="noopener noreferrer">
+                <img src="img/instagram.png" alt="">
+                <span>인스타그램 바로가기</span>
+              </a>
+            </div>
+
+            <div class="instagram-profile">
+              <a class="instagram-avatar" href="https://www.instagram.com/dongalibrary/" target="_blank" rel="noopener noreferrer" aria-label="동아대학교 도서관 Instagram으로 이동">
+                <img id="instagramProfilePhoto" src="img/instagram.png" alt="">
+              </a>
+              <div class="instagram-profile-main">
+                <div class="instagram-profile-row">
+                  <h4 id="instagramProfileName">dongalibrary</h4>
+                  <span class="instagram-verified" aria-label="verified">✓</span>
+                </div>
+                <ul class="instagram-stats" aria-label="Instagram profile stats">
+                  <li><b id="instagramPostCount">-</b><span>posts</span></li>
+                  <li><b id="instagramFollowerCount">-</b><span>followers</span></li>
+                  <li><b id="instagramFollowingCount">-</b><span>following</span></li>
+                </ul>
+                <p class="instagram-bio">
+                  <strong>동아대학교 도서관</strong>
+                  책과 사람, 도서관의 순간을 전합니다.
+                </p>
+              </div>
+            </div>
+
+            <div class="instagram-tabs" aria-hidden="true">
+              <span>POSTS</span>
+            </div>
+            <div class="instagram-grid" id="instagramFeed" aria-live="polite"></div>
+          </div>
         </section>
 
         <section class="video-news-section" aria-labelledby="videoNewsTitle">
           <div class="video-news-head">
             <span>06</span>
             <div>
-              <h3 id="videoNewsTitle">도서관 영상 소식</h3>
+              <h3 id="videoNewsTitle">도서관 <span class="title-gradient">영상 소식</span></h3>
               <p>동아대학교 도서관의 영상 콘텐츠를 함께 살펴보세요.</p>
             </div>
           </div>

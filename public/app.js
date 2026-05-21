@@ -50,6 +50,41 @@ document.addEventListener('DOMContentLoaded', () => {
   let questionLoadPromise = null;
   let currentRecommendation = null;
   const state = { index:0, answers:{} };
+  const TITLE_ACCENT_PHRASES = [
+    '필요한 책',
+    '어떤 마음',
+    '어떤 방향',
+    '마지막 장',
+    '읽기 속도',
+    '한 단어',
+    '어떤 문장',
+    '어느 시간',
+    '가장 중요',
+    '책 한 권',
+    '문 하나',
+    '카페',
+    '시험 끝난 날',
+    '이어폰',
+    '공유 결과',
+    'AI',
+    '마음',
+    '방향',
+    '날씨',
+    '문장',
+    '시간',
+    '기준',
+    '오늘'
+  ];
+  const RESULT_TITLE_ACCENT_PHRASES = [
+    '다가올 세계',
+    '잠시 숨',
+    '다시 움직이게',
+    '오래 생각',
+    '이야기 안쪽',
+    '오늘의 관심사',
+    '공유 결과',
+    'AI'
+  ];
   const els = {
     startView:document.getElementById('startView'),
     quizView:document.getElementById('quizView'),
@@ -70,6 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
     popularBooks:document.getElementById('popularBooks'),
     libraryNews:document.getElementById('libraryNews'),
     instagramFeed:document.getElementById('instagramFeed'),
+    instagramProfileName:document.getElementById('instagramProfileName'),
+    instagramProfilePhoto:document.getElementById('instagramProfilePhoto'),
+    instagramPostCount:document.getElementById('instagramPostCount'),
+    instagramFollowerCount:document.getElementById('instagramFollowerCount'),
+    instagramFollowingCount:document.getElementById('instagramFollowingCount'),
     resultTitle:document.getElementById('resultTitle'),
     resultSummary:document.getElementById('resultSummary'),
     restartBtn:document.getElementById('restartBtn'),
@@ -128,6 +168,40 @@ document.addEventListener('DOMContentLoaded', () => {
     target.textContent = message || '';
     target.setAttribute('aria-hidden', message ? 'false' : 'true');
   }
+  function renderAccentText(target, value, preferredPhrases = []){
+    if(!target) return;
+    const text = String(value || '');
+    const phrases = [...preferredPhrases, ...TITLE_ACCENT_PHRASES]
+      .filter(Boolean)
+      .map(String);
+    const phrase = phrases.find(item => text.includes(item));
+    if(!phrase){
+      target.textContent = text;
+      return;
+    }
+    const index = text.indexOf(phrase);
+    const accent = document.createElement('span');
+    accent.className = 'title-gradient';
+    accent.textContent = phrase;
+    target.replaceChildren(
+      document.createTextNode(text.slice(0, index)),
+      accent,
+      document.createTextNode(text.slice(index + phrase.length))
+    );
+  }
+  function renderResultTitle(value){
+    const text = String(value || 'AI가 건네는 책');
+    const phrase = RESULT_TITLE_ACCENT_PHRASES.find(item => text.includes(item));
+    if(phrase){
+      renderAccentText(els.resultTitle, text, [phrase]);
+      return;
+    }
+    const structuralMatch = text.match(/^(.+?)(?:을|를|이|가|와|과)\s+[^\s]+(?:\s+책)?$/);
+    const structuralPhrase = structuralMatch && structuralMatch[1] && structuralMatch[1].length >= 2
+      ? structuralMatch[1].trim()
+      : '';
+    renderAccentText(els.resultTitle, text, structuralPhrase ? [structuralPhrase] : []);
+  }
   function renderQuestion(){
     const q = currentQuestion();
     const selected = selectedChoice();
@@ -137,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.stepText.textContent = `${step}번째 질문`;
     els.progressBar.style.width = `${(step / QUESTIONS.length) * 100}%`;
     els.eyebrow.textContent = q.eyebrow;
-    els.questionTitle.textContent = q.title;
+    renderAccentText(els.questionTitle, q.title);
     els.questionHelp.textContent = q.help;
     els.prevBtn.disabled = state.index === 0;
     setError(els.errorBox, '');
@@ -539,8 +613,39 @@ document.addEventListener('DOMContentLoaded', () => {
     if(text) return text;
     return '알라딘 API에서 상세 책 소개가 제공되지 않은 도서입니다. 도서관 서지 정보와 소장 위치를 확인해 보세요.';
   }
-  function bookMeta(book){
-    return [book.author, book.publisher, book.collection].filter(Boolean).join(' · ');
+  function bookMetaItems(book){
+    return [
+      { label:'저자', value:book && book.author },
+      { label:'출판사', value:book && book.publisher },
+      { label:'분류', value:book && book.collection },
+    ]
+      .map(item=>({ ...item, value:String(item.value || '').trim() }))
+      .filter(item=>item.value);
+  }
+  function renderBookMeta(target, book){
+    if(!target) return;
+    target.innerHTML = '';
+    const metaItems = bookMetaItems(book);
+    if(!metaItems.length){
+      const empty = document.createElement('span');
+      empty.className = 'book-meta-empty';
+      empty.textContent = '서지 정보 확인 중';
+      target.appendChild(empty);
+      return;
+    }
+    metaItems.forEach(item=>{
+      const chip = document.createElement('span');
+      chip.className = 'book-meta-chip';
+      const label = document.createElement('b');
+      label.textContent = item.label;
+      const value = document.createElement('span');
+      value.textContent = item.value;
+      chip.append(label, value);
+      target.appendChild(chip);
+    });
+  }
+  function bookMetaText(book){
+    return bookMetaItems(book).map(item=>item.value).join(' · ');
   }
   function renderMainBooks(items){
     els.books.innerHTML = '';
@@ -565,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       card.querySelector('.book-number').textContent = String(index + 1).padStart(2, '0');
       card.querySelector('.book-title').textContent = book.title || '제목 정보 없음';
-      card.querySelector('.book-meta').textContent = bookMeta(book);
+      renderBookMeta(card.querySelector('.book-meta'), book);
       card.querySelector('.reason').textContent = descriptionText(book);
       card.querySelector('.catalog-link').href = book.libraryCatalogUrl || book.link || '#';
       const aladinLink = card.querySelector('.aladin-book-link');
@@ -600,7 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="popular-meta"></div>
       `;
       link.querySelector('.popular-title').textContent = book.title || '제목 정보 없음';
-      link.querySelector('.popular-meta').textContent = bookMeta(book) || '인기도서';
+      link.querySelector('.popular-meta').textContent = bookMetaText(book) || '인기도서';
       installCoverFallback(link.querySelector('img'), book);
       els.popularBooks.appendChild(link);
     });
@@ -735,6 +840,29 @@ document.addEventListener('DOMContentLoaded', () => {
       day:'2-digit'
     }).format(date);
   }
+  function formatInstagramNumber(value){
+    if(value === null || value === undefined || value === '') return '-';
+    const number = Number(value);
+    if(!Number.isFinite(number)) return '-';
+    return new Intl.NumberFormat('ko-KR', {
+      notation:number >= 10000 ? 'compact' : 'standard'
+    }).format(number);
+  }
+  function instagramTypeLabel(value){
+    if(value === 'VIDEO') return 'VIDEO';
+    if(value === 'REELS') return 'REELS';
+    if(value === 'CAROUSEL_ALBUM') return 'ALBUM';
+    return 'POST';
+  }
+  function renderInstagramProfile(profile){
+    if(!els.instagramProfileName) return;
+    const data = profile || {};
+    els.instagramProfileName.textContent = data.username || 'dongalibrary';
+    if(els.instagramProfilePhoto) els.instagramProfilePhoto.src = data.profilePictureUrl || 'img/instagram.png';
+    if(els.instagramPostCount) els.instagramPostCount.textContent = formatInstagramNumber(data.mediaCount);
+    if(els.instagramFollowerCount) els.instagramFollowerCount.textContent = formatInstagramNumber(data.followersCount);
+    if(els.instagramFollowingCount) els.instagramFollowingCount.textContent = formatInstagramNumber(data.followsCount);
+  }
   function renderInstagramFeed(items, options = {}){
     if(!els.instagramFeed) return;
     els.instagramFeed.innerHTML = '';
@@ -756,7 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
       link.innerHTML = `
         <span class="instagram-media">
           <img alt="" loading="lazy">
-          <span class="instagram-badge">Instagram</span>
+          <span class="instagram-badge"></span>
         </span>
         <span class="instagram-copy">
           <small></small>
@@ -774,6 +902,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.classList.add('no-thumb');
       }
       const caption = String(post.caption || '').trim();
+      link.querySelector('.instagram-badge').textContent = instagramTypeLabel(post.mediaType);
       link.querySelector('small').textContent = [post.username ? `@${post.username}` : '@dongalibrary', formatInstagramDate(post.timestamp)].filter(Boolean).join(' · ');
       link.querySelector('strong').textContent = caption || '도서관 인스타그램 게시물';
       els.instagramFeed.appendChild(link);
@@ -790,6 +919,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json().catch(()=>({}));
       if(!res.ok) throw new Error(data.error || 'Instagram 피드를 불러오지 못했습니다.');
       const items = Array.isArray(data.items) ? data.items : [];
+      renderInstagramProfile(data.profile);
       if(items.length){
         renderInstagramFeed(items);
       }else{
@@ -877,7 +1007,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.loadingView.setAttribute('aria-hidden','true');
     els.resultsView.setAttribute('aria-hidden','false');
     setAuraClass(els.resultHero, 'aura-balanced');
-    els.resultTitle.textContent = '공유 결과를 불러오지 못했습니다';
+    renderResultTitle('공유 결과를 불러오지 못했습니다');
     els.resultSummary.textContent = '일주일 보관 기간이 지났거나 링크가 올바르지 않습니다. 새 추천을 받아 다시 공유해 주세요.';
     renderMainBooks([]);
     renderAladinBestSellers([]);
@@ -921,7 +1051,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.resultsView.setAttribute('aria-hidden','false');
     setError(els.resultError, '');
     resetEmailForm();
-    els.resultTitle.textContent = data.shelfTitle || 'AI가 건네는 책';
+    renderResultTitle(data.shelfTitle || 'AI가 건네는 책');
     els.resultSummary.textContent = data.items && data.items.length
       ? 'AI가 당신의 답변을 바탕으로 취향에 맞는 추천도서를 준비했습니다. 당신에게 도움이 될 다양한 정보도 함께 준비했으니, 지금 확인해보세요.'
       : '추천 결과를 만들지 못했습니다.';

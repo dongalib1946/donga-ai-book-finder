@@ -1,6 +1,13 @@
 const crypto = require('crypto');
 const questions = require('../data/questions.json');
 
+const PSYCH_QUESTION_IDS = new Set([
+  'secret-door',
+  'cafe-seat',
+  'after-exam',
+  'playlist',
+]);
+
 function json(statusCode, body) {
   return {
     statusCode,
@@ -30,6 +37,26 @@ function validQuestion(question) {
     && question.choices.length >= 2;
 }
 
+function balancedQuestionSet(pool, limit) {
+  const max = Math.min(limit, pool.length);
+  const psych = pool.filter(question => PSYCH_QUESTION_IDS.has(question.id));
+  const core = pool.filter(question => !PSYCH_QUESTION_IDS.has(question.id));
+  if (!psych.length || !core.length || max < 3) return shuffled(pool).slice(0, max);
+
+  const psychLimit = Math.min(psych.length, Math.max(1, Math.floor(max * 0.4)));
+  const selected = [
+    ...shuffled(core).slice(0, max - psychLimit),
+    ...shuffled(psych).slice(0, psychLimit),
+  ];
+
+  if (selected.length < max) {
+    const selectedIds = new Set(selected.map(question => question.id));
+    selected.push(...shuffled(pool.filter(question => !selectedIds.has(question.id))).slice(0, max - selected.length));
+  }
+
+  return shuffled(selected).slice(0, max);
+}
+
 exports.handler = async function handler(event) {
   if (event.httpMethod === 'OPTIONS') return json(204, {});
   if (event.httpMethod !== 'GET') return json(405, { error: 'Method not allowed' });
@@ -46,7 +73,7 @@ exports.handler = async function handler(event) {
     version: 'questions-v1',
     limit,
     total: pool.length,
-    questions: shuffled(pool).slice(0, Math.min(limit, pool.length)),
+    questions: balancedQuestionSet(pool, limit),
     seed: crypto.randomUUID(),
   });
 };
