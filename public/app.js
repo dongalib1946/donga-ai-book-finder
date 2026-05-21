@@ -711,7 +711,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="tag-row">${tags}</div>
           <div class="book-actions">
             <a class="catalog-link" target="_blank" rel="noopener noreferrer">소장위치 확인</a>
-            <a class="aladin-book-link" target="_blank" rel="noopener noreferrer" aria-label="알라딘에서 보기"><img src="img/aladin.png" alt=""></a>
+            <a class="aladin-book-link" target="_blank" rel="noopener noreferrer" aria-label="알라딘에서 보기"><img src="img/aladin.png" alt="알라딘"><span>⌕</span></a>
           </div>
         </div>
       `;
@@ -782,7 +782,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="aladin-state"></span>
           <div class="aladin-actions">
             <a class="library-action" target="_blank" rel="noopener noreferrer"></a>
-            <a class="aladin-link" target="_blank" rel="noopener noreferrer" aria-label="알라딘에서 보기"><img class="aladin-logo" src="img/aladin.png" alt=""></a>
+            <a class="aladin-link" target="_blank" rel="noopener noreferrer" aria-label="알라딘에서 보기"><img class="aladin-logo" src="img/aladin.png" alt="알라딘"><span>⌕</span></a>
           </div>
         </div>
       `;
