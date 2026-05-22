@@ -1,18 +1,9 @@
 {
   "version": "library-news-v1",
-  "refreshedAt": "2026-05-21T17:27:14.535Z",
-  "collectedAt": "2026-05-21T17:27:14.535Z",
+  "refreshedAt": "2026-05-22T00:45:19.937Z",
+  "collectedAt": "2026-05-22T00:45:19.937Z",
   "source": "github-action:rss",
   "notices": [
-    {
-      "title": "북스타그램",
-      "url": "https://library.donga.ac.kr/community/notice/?pid=36751&ks=",
-      "thumbnail": "",
-      "author": "도서관",
-      "date": "2026.05.21",
-      "views": "",
-      "summary": ""
-    },
     {
       "title": "북크닉 추첨 당첨자 발표",
       "url": "https://library.donga.ac.kr/community/notice/?pid=36700&ks=",
@@ -44,6 +35,15 @@
       "title": "2026 전자정보 박람회 경품당첨자 발표",
       "url": "https://library.donga.ac.kr/community/notice/?pid=36545&ks=",
       "thumbnail": "https://library.donga.ac.kr/wp-content/uploads/2026/05/2026-%EC%A0%84%EC%9E%90%EC%A0%95%EB%B3%B4%EB%B0%95%EB%9E%8C%ED%9A%8C-%EA%B2%BD%ED%92%88-%EB%8B%B9%EC%B2%A8%EC%9E%90-%EB%B0%9C%ED%91%9C-scaled.jpg",
+      "author": "도서관",
+      "date": "2026.05.14",
+      "views": "",
+      "summary": ""
+    },
+    {
+      "title": "[월간 학술DB] ICPSR DB & KSDC DB (2026년 5월)",
+      "url": "https://library.donga.ac.kr/community/notice/?pid=36571&ks=",
+      "thumbnail": "https://library.donga.ac.kr/wp-content/uploads/2026/05/%EC%9B%94%EA%B0%84-%ED%95%99%EC%88%A0DB-ICPSRKSDC26.5..png",
       "author": "도서관",
       "date": "2026.05.14",
       "views": "",
