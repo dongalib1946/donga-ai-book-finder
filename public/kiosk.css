@@ -1,0 +1,166 @@
+body.kiosk-page{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(46, 182, 196, .16), transparent 28%),
+    radial-gradient(circle at 82% 22%, rgba(242, 180, 38, .13), transparent 26%),
+    linear-gradient(135deg, #eef7f8 0%, #f9fbf7 48%, #eef5fb 100%);
+}
+
+body.kiosk-page *,
+body.kiosk-page *::before,
+body.kiosk-page *::after{
+  animation:none !important;
+  transition-duration:.01ms !important;
+  scroll-behavior:auto !important;
+}
+
+body.kiosk-page .shell{
+  contain:layout paint;
+}
+
+body.kiosk-page .start-card,
+body.kiosk-page .stage,
+body.kiosk-page .result-hero,
+body.kiosk-page .popular-section,
+body.kiosk-page .aladin-section,
+body.kiosk-page .library-news-section,
+body.kiosk-page .book-card,
+body.kiosk-page .popular-card,
+body.kiosk-page .aladin-card,
+body.kiosk-page .news-card{
+  backdrop-filter:none !important;
+  box-shadow:0 12px 30px rgba(20, 33, 61, .08) !important;
+}
+
+body.kiosk-page .start-card::before,
+body.kiosk-page .stage::before,
+body.kiosk-page .result-hero::before,
+body.kiosk-page .loading-card::before,
+body.kiosk-page .popular-section::before,
+body.kiosk-page .aladin-section::before,
+body.kiosk-page .library-news-section::before,
+body.kiosk-page .book-card::before,
+body.kiosk-page .popular-card::before,
+body.kiosk-page .aladin-card::before,
+body.kiosk-page .news-card::before{
+  animation:none !important;
+  filter:none !important;
+  opacity:.28 !important;
+}
+
+body.kiosk-page .start-ai-orbit span,
+body.kiosk-page .analysis-orbit span,
+body.kiosk-page .loading-card::before,
+body.kiosk-page .loading-card::after,
+body.kiosk-page .analysis-row b{
+  animation:none !important;
+}
+
+body.kiosk-page .loading[aria-hidden="false"] .loading-mark{
+  animation:kioskAiPulse 1.35s ease-in-out infinite !important;
+}
+
+body.kiosk-page .loading[aria-hidden="false"] .analysis-orbit span:nth-of-type(3){
+  animation:kioskAiRing 1.7s ease-out infinite !important;
+}
+
+body.kiosk-page .loading[aria-hidden="false"] .analysis-row b{
+  animation:kioskAnalysisBar 1.25s ease-in-out infinite !important;
+}
+
+body.kiosk-page .loading[aria-hidden="false"] .analysis-row:nth-child(2) b{
+  animation-delay:.14s !important;
+}
+
+body.kiosk-page .loading[aria-hidden="false"] .analysis-row:nth-child(3) b{
+  animation-delay:.28s !important;
+}
+
+body.kiosk-page .quiz-wrap{
+  position:relative;
+}
+
+body.kiosk-page.question-step-loading .quiz-wrap::after{
+  content:"다음 질문을 준비하고 있어요";
+  position:fixed;
+  left:50%;
+  bottom:34px;
+  z-index:40;
+  min-width:220px;
+  transform:translateX(-50%);
+  padding:13px 18px 13px 44px;
+  border:1px solid rgba(15, 85, 121, .12);
+  border-radius:999px;
+  background:rgba(255, 255, 255, .92);
+  box-shadow:0 10px 24px rgba(20, 33, 61, .12);
+  color:#0f5579;
+  font-size:14px;
+  font-weight:900;
+  text-align:center;
+}
+
+body.kiosk-page.question-step-loading .quiz-wrap::before{
+  content:"";
+  position:fixed;
+  left:calc(50% - 96px);
+  bottom:47px;
+  z-index:41;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  border:2px solid rgba(15, 85, 121, .18);
+  border-top-color:#0f5579;
+  animation:kioskSpin .8s linear infinite;
+}
+
+body.kiosk-page .catalog-link,
+body.kiosk-page .aladin-book-link,
+body.kiosk-page .aladin-actions,
+body.kiosk-page .library-action,
+body.kiosk-page .aladin-link,
+body.kiosk-page .news-more{
+  display:none !important;
+}
+
+body.kiosk-page .popular-card,
+body.kiosk-page .news-card{
+  cursor:default;
+}
+
+body.kiosk-page a[aria-disabled="true"]{
+  cursor:default;
+}
+
+body.kiosk-page .aladin-state{
+  background:rgba(15, 85, 121, .08) !important;
+  color:#0f5579 !important;
+}
+
+@keyframes kioskAiPulse{
+  0%, 100%{ transform:scale(1); opacity:1; }
+  50%{ transform:scale(1.04); opacity:.86; }
+}
+
+@keyframes kioskAiRing{
+  0%{ transform:scale(.92); opacity:.45; }
+  100%{ transform:scale(1.18); opacity:0; }
+}
+
+@keyframes kioskAnalysisBar{
+  0%{ transform:translateX(-72%); opacity:.45; }
+  50%{ opacity:.95; }
+  100%{ transform:translateX(72%); opacity:.45; }
+}
+
+@keyframes kioskSpin{
+  to{ transform:rotate(360deg); }
+}
+
+@media (prefers-reduced-motion:reduce){
+  body.kiosk-page .loading[aria-hidden="false"] .loading-mark,
+  body.kiosk-page .loading[aria-hidden="false"] .analysis-orbit span:nth-of-type(3),
+  body.kiosk-page .loading[aria-hidden="false"] .analysis-row b,
+  body.kiosk-page.question-step-loading .quiz-wrap::before{
+    animation:none !important;
+  }
+}
