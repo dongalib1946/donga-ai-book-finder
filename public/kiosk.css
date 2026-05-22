@@ -92,41 +92,58 @@ body.kiosk-page .loading[aria-hidden="false"] .analysis-row:nth-child(3) b::afte
   animation-delay:.28s !important;
 }
 
-body.kiosk-page .quiz-wrap{
-  position:relative;
+body.kiosk-page.question-step-loading .quiz-wrap{
+  pointer-events:none;
 }
 
-body.kiosk-page.question-step-loading .quiz-wrap::after{
+body.kiosk-page.question-step-loading .choices,
+body.kiosk-page.question-step-loading .controls{
+  opacity:.64;
+}
+
+body.kiosk-page.question-step-loading::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:9998;
+  background:rgba(15, 23, 42, .18);
+  pointer-events:auto;
+}
+
+body.kiosk-page.question-step-loading::after{
   content:"다음 질문을 준비하고 있어요";
   position:fixed;
   left:50%;
-  bottom:34px;
-  z-index:40;
-  min-width:220px;
-  transform:translateX(-50%);
-  padding:13px 18px 13px 44px;
+  top:50%;
+  z-index:9999;
+  width:min(360px, calc(100vw - 56px));
+  transform:translate(-50%, -50%);
+  padding:18px 24px 18px 58px;
   border:1px solid rgba(15, 85, 121, .12);
   border-radius:999px;
   background:rgba(255, 255, 255, .92);
-  box-shadow:0 10px 24px rgba(20, 33, 61, .12);
+  box-shadow:0 18px 48px rgba(20, 33, 61, .22);
   color:#0f5579;
-  font-size:14px;
+  font-size:16px;
   font-weight:900;
   text-align:center;
+  pointer-events:auto;
 }
 
-body.kiosk-page.question-step-loading .quiz-wrap::before{
+body.kiosk-page.question-step-loading .stage::after{
   content:"";
   position:fixed;
-  left:calc(50% - 96px);
-  bottom:47px;
-  z-index:41;
-  width:14px;
-  height:14px;
+  left:calc(50% - 156px);
+  top:50%;
+  z-index:10000;
+  width:18px;
+  height:18px;
+  margin-top:-9px;
   border-radius:50%;
-  border:2px solid rgba(15, 85, 121, .18);
+  border:3px solid rgba(15, 85, 121, .18);
   border-top-color:#0f5579;
   animation:kioskSpin .8s linear infinite;
+  pointer-events:none;
 }
 
 body.kiosk-page .catalog-link,
@@ -177,7 +194,7 @@ body.kiosk-page .aladin-state{
   body.kiosk-page .loading[aria-hidden="false"] .analysis-orbit span:nth-of-type(3),
   body.kiosk-page .loading[aria-hidden="false"] .analysis-row b,
   body.kiosk-page .loading[aria-hidden="false"] .analysis-row b::after,
-  body.kiosk-page.question-step-loading .quiz-wrap::before{
+  body.kiosk-page.question-step-loading .stage::after{
     animation:none !important;
   }
 }

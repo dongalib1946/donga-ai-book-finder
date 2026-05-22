@@ -18,7 +18,14 @@
     window.clearTimeout(pulseQuestionLoader.timer);
     pulseQuestionLoader.timer = window.setTimeout(()=>{
       document.body.classList.remove('question-step-loading');
-    }, 420);
+    }, 720);
+  }
+
+  function blockQuestionInput(event){
+    if(!document.body.classList.contains('question-step-loading')) return;
+    if(!event.target.closest || !event.target.closest('#quizView')) return;
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   document.addEventListener('DOMContentLoaded', ()=>{
@@ -31,6 +38,10 @@
         if(event.target.closest('button.choice')) pulseQuestionLoader();
       }, true);
     }
+
+    ['click', 'pointerdown', 'touchstart', 'keydown'].forEach((eventName)=>{
+      document.addEventListener(eventName, blockQuestionInput, true);
+    });
 
     document.addEventListener('click', (event)=>{
       const link = event.target.closest && event.target.closest('a');
