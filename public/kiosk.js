@@ -13,11 +13,38 @@
     });
   }
 
+  function ensureQuestionLoader(){
+    let loader = document.getElementById('kioskStepLoader');
+    if(loader) return loader;
+
+    loader = document.createElement('div');
+    loader.id = 'kioskStepLoader';
+    loader.className = 'kiosk-step-loader';
+    loader.hidden = true;
+    loader.setAttribute('role', 'status');
+    loader.setAttribute('aria-live', 'polite');
+    loader.innerHTML = [
+      '<div class="kiosk-step-card">',
+      '  <span class="kiosk-step-spinner" aria-hidden="true"></span>',
+      '  <span class="kiosk-step-copy">',
+      '    <strong>다음 질문을 준비하고 있어요</strong>',
+      '    <small>잠시만 기다려주세요</small>',
+      '  </span>',
+      '  <span class="kiosk-step-bar" aria-hidden="true"></span>',
+      '</div>'
+    ].join('');
+    document.body.appendChild(loader);
+    return loader;
+  }
+
   function pulseQuestionLoader(){
+    const loader = ensureQuestionLoader();
+    loader.hidden = false;
     document.body.classList.add('question-step-loading');
     window.clearTimeout(pulseQuestionLoader.timer);
     pulseQuestionLoader.timer = window.setTimeout(()=>{
       document.body.classList.remove('question-step-loading');
+      loader.hidden = true;
     }, 720);
   }
 
@@ -30,6 +57,7 @@
 
   document.addEventListener('DOMContentLoaded', ()=>{
     document.body.classList.add('kiosk-page');
+    ensureQuestionLoader();
     disableOutboundLinks(document);
 
     const choices = document.getElementById('choices');
