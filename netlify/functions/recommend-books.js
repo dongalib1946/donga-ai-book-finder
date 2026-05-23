@@ -1669,9 +1669,11 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
 }
 
 const DIVERSITY_TOPIC_ORDER = [
-  'future', 'technology', 'science', 'society', 'history', 'humanities', 'philosophy',
-  'literature', 'story', 'mystery', 'mind', 'psychology', 'comfort', 'growth',
-  'work', 'life', 'travel', 'art', 'culture', 'fun',
+  'future', 'technology', 'science', 'economy', 'society', 'history', 'humanities',
+  'philosophy', 'knowledge', 'study', 'career', 'work', 'practical', 'growth',
+  'challenge', 'youth', 'start', 'identity', 'relationship', 'literature', 'novel',
+  'story', 'mystery', 'mind', 'psychology', 'comfort', 'healing', 'life', 'travel',
+  'art', 'culture', 'fun',
 ];
 
 function bookPublisherValue(book) {
@@ -1881,12 +1883,26 @@ function makeBookDescription(book) {
   return `${book.title || '이 책'}은 ${metaText ? `${metaText} 정보로 확인되는 ` : ''}추천 도서입니다. 알라딘 API에서 긴 책 소개가 제공되지 않아, 현재 화면에는 도서관 서지 정보와 추천 분석 결과를 우선 표시합니다.`;
 }
 
+function tagGroupScore(tags, groupTags) {
+  const group = new Set(groupTags);
+  return (tags || []).reduce((score, tag) => score + (group.has(tag) ? 1 : 0), 0);
+}
+
 function makeShelfTitle(tags) {
-  if (tags.includes('comfort') || tags.includes('healing')) return '잠시 숨을 고르는 책';
-  if (tags.includes('technology') || tags.includes('future')) return '다가올 세계를 읽는 책';
-  if (tags.includes('career') || tags.includes('growth')) return '다시 움직이게 하는 책';
-  if (tags.includes('deep') || tags.includes('classic')) return '오래 생각이 머무는 책';
-  if (tags.includes('novel') || tags.includes('story')) return '이야기 안쪽으로 들어가는 책';
+  const groups = [
+    { title: '다가올 세계를 읽는 책', tags: ['technology', 'future', 'science'] },
+    { title: '이해가 선명해지는 책', tags: ['study', 'knowledge'] },
+    { title: '세상의 흐름을 읽는 책', tags: ['economy', 'society', 'history', 'humanities'] },
+    { title: '나의 다음 장을 여는 책', tags: ['identity', 'youth', 'start'] },
+    { title: '다시 움직이게 하는 책', tags: ['career', 'growth', 'work', 'practical', 'challenge'] },
+    { title: '잠시 숨을 고르는 책', tags: ['comfort', 'healing', 'mind', 'psychology', 'relationship'] },
+    { title: '오래 생각이 머무는 책', tags: ['deep', 'classic', 'philosophy'] },
+    { title: '이야기 안쪽으로 들어가는 책', tags: ['novel', 'story', 'literature', 'mystery'] },
+  ];
+  const best = groups
+    .map(group => ({ ...group, score: tagGroupScore(tags, group.tags) }))
+    .sort((a, b) => b.score - a.score)[0];
+  if (best && best.score > 0) return best.title;
   return '오늘의 관심사와 맞닿은 책';
 }
 
