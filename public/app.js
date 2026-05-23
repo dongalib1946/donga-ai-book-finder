@@ -106,6 +106,20 @@ document.addEventListener('DOMContentLoaded', () => {
     '카페',
     '시험 끝난 날',
     '이어폰',
+    '하루의 모드',
+    '어떤 분야',
+    '어떤 사람',
+    '첫 페이지',
+    '자판기',
+    '내 피드',
+    'AI가 초안',
+    '알림',
+    '작은 의식',
+    '폰을 잠깐',
+    '미래의 나',
+    '도서관',
+    '책상 위',
+    '이번 주말',
     '공유 결과',
     'AI',
     '마음',
@@ -215,7 +229,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const phrases = [...preferredPhrases, ...TITLE_ACCENT_PHRASES]
       .filter(Boolean)
       .map(String);
-    const phrase = phrases.find(item => text.includes(item));
+    const phrase = phrases
+      .filter(item => text.includes(item))
+      .sort((a, b) => b.length - a.length)[0];
     if(!phrase){
       target.textContent = text;
       return;
