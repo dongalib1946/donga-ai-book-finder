@@ -6,6 +6,13 @@ const PSYCH_QUESTION_IDS = new Set([
   'cafe-seat',
   'after-exam',
   'playlist',
+  'vending-machine',
+  'library-corner',
+  'desk-item',
+  'weekend-plan',
+  'notification',
+  'tiny-ritual',
+  'offline-pocket',
 ]);
 
 function json(statusCode, body) {

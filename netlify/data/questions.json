@@ -166,5 +166,173 @@
       { "id": "ost", "emoji": "🎻", "label": "클래식/OST", "desc": "장면이 선명하게 떠오르는 음악", "tags": ["classic", "art", "literature", "deep"] },
       { "id": "dawn", "emoji": "🌙", "label": "우울한 새벽 감성", "desc": "혼자 깊이 잠기는 밤의 분위기", "tags": ["mind", "deep", "philosophy", "essay"] }
     ]
+  },
+  {
+    "id": "semester-mode",
+    "eyebrow": "오늘의 모드",
+    "title": "지금 가장 가까운 하루의 모드는 무엇인가요?",
+    "help": "오늘의 생활 리듬과 가장 닮은 상태를 골라주세요.",
+    "choices": [
+      { "id": "assignment", "emoji": "📝", "label": "과제 집중", "desc": "정리하고 써내야 할 것이 많은 날", "tags": ["study", "practical", "work", "knowledge"] },
+      { "id": "fresh-start", "emoji": "🌱", "label": "새 출발", "desc": "처음부터 차근차근 다시 잡고 싶은 날", "tags": ["start", "youth", "easy", "growth"] },
+      { "id": "career", "emoji": "💼", "label": "진로 고민", "desc": "앞으로의 방향을 현실적으로 보고 싶은 날", "tags": ["career", "growth", "economy", "identity"] },
+      { "id": "rest", "emoji": "🫧", "label": "잠깐 숨 고르기", "desc": "머리를 식히고 마음을 회복하고 싶은 날", "tags": ["comfort", "healing", "essay", "life"] }
+    ]
+  },
+  {
+    "id": "curiosity-field",
+    "eyebrow": "호기심 지도",
+    "title": "오늘은 어떤 분야의 문을 열어보고 싶나요?",
+    "help": "가장 먼저 알아보고 싶은 세계를 골라주세요.",
+    "choices": [
+      { "id": "space-life", "emoji": "🔬", "label": "우주와 생명", "desc": "과학이 보여주는 낯선 질서", "tags": ["science", "knowledge", "future", "deep"] },
+      { "id": "money-society", "emoji": "📈", "label": "돈과 사회", "desc": "경제와 제도가 삶을 움직이는 방식", "tags": ["economy", "society", "knowledge", "work"] },
+      { "id": "city-culture", "emoji": "🏙️", "label": "도시와 문화", "desc": "공간, 사람, 시대의 분위기 읽기", "tags": ["society", "humanities", "travel", "history"] },
+      { "id": "creation", "emoji": "🎨", "label": "예술과 창작", "desc": "감각과 표현이 넓어지는 세계", "tags": ["art", "literature", "story", "identity"] }
+    ]
+  },
+  {
+    "id": "book-role",
+    "eyebrow": "책의 역할",
+    "title": "오늘 책이 어떤 사람처럼 곁에 있으면 좋겠나요?",
+    "help": "책에게 기대하는 역할을 골라주세요.",
+    "choices": [
+      { "id": "friend", "emoji": "🤝", "label": "다정한 친구", "desc": "판단 없이 곁에 있어주는 책", "tags": ["comfort", "relationship", "essay", "healing"] },
+      { "id": "teacher", "emoji": "🧑‍🏫", "label": "친절한 선생님", "desc": "어려운 것을 쉽게 풀어주는 책", "tags": ["knowledge", "study", "practical", "easy"] },
+      { "id": "traveler", "emoji": "🧭", "label": "먼 길의 여행자", "desc": "다른 풍경과 이야기를 데려오는 책", "tags": ["travel", "fun", "story", "novel"] },
+      { "id": "debater", "emoji": "💬", "label": "깊은 토론자", "desc": "생각을 흔들고 질문을 남기는 책", "tags": ["society", "philosophy", "deep", "humanities"] }
+    ]
+  },
+  {
+    "id": "page-energy",
+    "eyebrow": "페이지 에너지",
+    "title": "첫 페이지에서 어떤 힘을 느끼고 싶나요?",
+    "help": "책을 펼치는 순간 원하는 에너지를 골라주세요.",
+    "choices": [
+      { "id": "immersion", "emoji": "🎬", "label": "빠른 몰입", "desc": "바로 다음 장이 궁금해지는 힘", "tags": ["readable", "story", "novel", "mystery"] },
+      { "id": "calm", "emoji": "🌿", "label": "차분한 정리", "desc": "복잡한 마음이 천천히 정돈되는 힘", "tags": ["mind", "essay", "healing", "comfort"] },
+      { "id": "tool", "emoji": "🧰", "label": "쓸모 있는 팁", "desc": "오늘 바로 적용할 수 있는 힘", "tags": ["practical", "work", "career", "growth"] },
+      { "id": "wide-view", "emoji": "🛰️", "label": "큰 관점", "desc": "내가 사는 세계를 멀리서 보는 힘", "tags": ["history", "humanities", "society", "knowledge"] }
+    ]
+  },
+  {
+    "id": "vending-machine",
+    "eyebrow": "자판기 테스트",
+    "title": "자판기 앞이라면 지금 무엇을 고를까요?",
+    "help": "손이 먼저 갈 것 같은 음료를 골라주세요.",
+    "choices": [
+      { "id": "cocoa", "emoji": "☕", "label": "따뜻한 코코아", "desc": "달고 부드러운 위로가 필요한 순간", "tags": ["comfort", "healing", "essay", "easy"] },
+      { "id": "sparkling", "emoji": "🫧", "label": "시원한 탄산수", "desc": "기분을 산뜻하게 바꾸고 싶은 순간", "tags": ["fun", "readable", "life", "travel"] },
+      { "id": "coffee", "emoji": "🫘", "label": "진한 커피", "desc": "집중해서 파고들 준비가 된 순간", "tags": ["study", "work", "knowledge", "practical"] },
+      { "id": "unknown", "emoji": "🥤", "label": "처음 보는 음료", "desc": "낯선 선택이 끌리는 순간", "tags": ["future", "art", "challenge", "novel"] }
+    ]
+  },
+  {
+    "id": "algorithm-feed",
+    "eyebrow": "취향 알고리즘",
+    "title": "오늘 내 피드가 하나만 제대로 추천해준다면?",
+    "help": "끝까지 넘기지 않고 보고 싶은 콘텐츠를 골라주세요.",
+    "choices": [
+      { "id": "five-minute-science", "emoji": "🧪", "label": "5분 과학 설명", "desc": "몰랐던 원리가 한 번에 이해되는 영상", "tags": ["science", "knowledge", "readable", "future"] },
+      { "id": "life-reset", "emoji": "🧺", "label": "생활 리셋 루틴", "desc": "방, 일정, 마음을 같이 정리하는 팁", "tags": ["life", "practical", "growth", "healing"] },
+      { "id": "city-story", "emoji": "🚇", "label": "도시의 숨은 이야기", "desc": "매일 지나던 곳이 다르게 보이는 이야기", "tags": ["history", "society", "travel", "humanities"] },
+      { "id": "book-scene", "emoji": "🎞️", "label": "소설 속 한 장면", "desc": "짧게 봤는데 오래 남는 인물과 분위기", "tags": ["novel", "story", "literature", "deep"] }
+    ]
+  },
+  {
+    "id": "human-loop",
+    "eyebrow": "AI 시대의 나",
+    "title": "AI가 초안을 만들어준다면, 당신은 무엇을 더하고 싶나요?",
+    "help": "기계가 대신 못 해주는 내 역할을 골라주세요.",
+    "choices": [
+      { "id": "question", "emoji": "🔎", "label": "더 좋은 질문", "desc": "방향을 바꾸는 질문을 던지기", "tags": ["knowledge", "philosophy", "study", "deep"] },
+      { "id": "feeling", "emoji": "💗", "label": "사람의 온도", "desc": "상대의 마음과 맥락을 살피기", "tags": ["relationship", "psychology", "comfort", "essay"] },
+      { "id": "judgment", "emoji": "⚖️", "label": "마지막 판단", "desc": "무엇이 맞는지 기준을 세우기", "tags": ["society", "humanities", "work", "practical"] },
+      { "id": "imagination", "emoji": "🪄", "label": "뜻밖의 상상", "desc": "정답 밖의 장면을 떠올리기", "tags": ["art", "future", "novel", "challenge"] }
+    ]
+  },
+  {
+    "id": "notification",
+    "eyebrow": "알림 테스트",
+    "title": "폰에 알림이 하나 떴다면, 어떤 문구에 손이 갈까요?",
+    "help": "지금 가장 열어보고 싶은 메시지를 골라주세요.",
+    "choices": [
+      { "id": "you-did-enough", "emoji": "🌙", "label": "오늘은 충분했어요", "desc": "마음을 내려놓게 해주는 한마디", "tags": ["comfort", "healing", "mind", "essay"] },
+      { "id": "tiny-challenge", "emoji": "🏁", "label": "작은 도전 도착", "desc": "지금 바로 해볼 수 있는 미션", "tags": ["growth", "challenge", "practical", "career"] },
+      { "id": "world-issue", "emoji": "🌐", "label": "지금 세상이 바뀌는 중", "desc": "뉴스 너머의 흐름을 알려주는 신호", "tags": ["society", "economy", "technology", "future"] },
+      { "id": "secret-plot", "emoji": "🕯️", "label": "비밀스러운 이야기 시작", "desc": "첫 문장부터 따라가고 싶은 사건", "tags": ["mystery", "story", "novel", "readable"] }
+    ]
+  },
+  {
+    "id": "tiny-ritual",
+    "eyebrow": "작은 루틴",
+    "title": "하루 끝에 딱 하나의 작은 의식을 만든다면?",
+    "help": "오늘의 나를 가볍게 붙잡아줄 행동을 골라주세요.",
+    "choices": [
+      { "id": "one-line", "emoji": "✍️", "label": "한 줄 기록", "desc": "사라지기 전에 오늘을 붙잡는 문장", "tags": ["essay", "life", "identity", "mind"] },
+      { "id": "stretch", "emoji": "🧘", "label": "느린 스트레칭", "desc": "몸과 마음의 긴장을 푸는 시간", "tags": ["healing", "comfort", "life", "easy"] },
+      { "id": "tomorrow-note", "emoji": "📌", "label": "내일 메모", "desc": "불안을 계획으로 바꾸는 작은 준비", "tags": ["start", "practical", "career", "growth"] },
+      { "id": "one-page", "emoji": "📖", "label": "한 페이지만 읽기", "desc": "짧아도 깊게 들어가는 조용한 마무리", "tags": ["short", "literature", "deep", "readable"] }
+    ]
+  },
+  {
+    "id": "offline-pocket",
+    "eyebrow": "오프라인 30분",
+    "title": "폰을 잠깐 내려놓는다면 무엇으로 채우고 싶나요?",
+    "help": "스크롤 대신 손에 쥐고 싶은 시간을 골라주세요.",
+    "choices": [
+      { "id": "walk", "emoji": "🚶", "label": "목적 없는 산책", "desc": "길 위에서 생각이 풀리는 시간", "tags": ["travel", "mind", "essay", "life"] },
+      { "id": "paper", "emoji": "📝", "label": "종이에 끄적이기", "desc": "머릿속 말을 손으로 꺼내는 시간", "tags": ["identity", "essay", "humanities", "comfort"] },
+      { "id": "talk", "emoji": "🍵", "label": "천천히 대화", "desc": "답보다 마음을 듣는 시간", "tags": ["relationship", "psychology", "healing", "life"] },
+      { "id": "deep-dive", "emoji": "🧠", "label": "하나만 파고들기", "desc": "짧은 정보 대신 긴 이해를 쌓는 시간", "tags": ["study", "knowledge", "deep", "science"] }
+    ]
+  },
+  {
+    "id": "ready-core",
+    "eyebrow": "준비 감각",
+    "title": "미래의 나에게 미리 챙겨주고 싶은 것은?",
+    "help": "불안해지기 전에 갖춰두고 싶은 힘을 골라주세요.",
+    "choices": [
+      { "id": "money-sense", "emoji": "💰", "label": "돈 감각", "desc": "흐름을 읽고 덜 흔들리는 힘", "tags": ["economy", "practical", "work", "knowledge"] },
+      { "id": "career-map", "emoji": "🗺️", "label": "진로 지도", "desc": "어디로 갈지 직접 그려보는 힘", "tags": ["career", "youth", "growth", "identity"] },
+      { "id": "tech-literacy", "emoji": "🤖", "label": "AI 문해력", "desc": "기술을 두려워하지 않고 다루는 힘", "tags": ["technology", "future", "study", "practical"] },
+      { "id": "inner-balance", "emoji": "🪨", "label": "마음의 중심", "desc": "속도가 빨라도 나를 놓치지 않는 힘", "tags": ["mind", "philosophy", "comfort", "deep"] }
+    ]
+  },
+  {
+    "id": "library-corner",
+    "eyebrow": "도서관 테스트",
+    "title": "도서관에서 발길이 먼저 향하는 곳은?",
+    "help": "오늘의 독서 취향과 닮은 공간을 골라주세요.",
+    "choices": [
+      { "id": "new-shelf", "emoji": "✨", "label": "신착 서가", "desc": "새로 들어온 책을 먼저 훑어보는 곳", "tags": ["future", "readable", "knowledge", "growth"] },
+      { "id": "classic-shelf", "emoji": "🏛️", "label": "고전 서가", "desc": "오래 살아남은 문장들 앞에 서는 곳", "tags": ["classic", "deep", "philosophy", "literature"] },
+      { "id": "window-seat", "emoji": "🪟", "label": "창가 열람석", "desc": "조용히 읽고 생각을 정리하는 곳", "tags": ["essay", "mind", "comfort", "study"] },
+      { "id": "exhibition", "emoji": "🖼️", "label": "전시 코너", "desc": "뜻밖의 주제와 이미지가 말을 거는 곳", "tags": ["art", "humanities", "society", "story"] }
+    ]
+  },
+  {
+    "id": "desk-item",
+    "eyebrow": "책상 테스트",
+    "title": "지금 책상 위에 하나만 올려둔다면?",
+    "help": "오늘의 집중 방식과 닮은 물건을 골라주세요.",
+    "choices": [
+      { "id": "highlighter", "emoji": "🖍️", "label": "형광펜", "desc": "중요한 것을 표시하며 배우고 싶은 날", "tags": ["study", "knowledge", "practical", "work"] },
+      { "id": "plant", "emoji": "🪴", "label": "작은 화분", "desc": "천천히 회복하고 자라나는 느낌", "tags": ["healing", "life", "growth", "essay"] },
+      { "id": "earphones", "emoji": "🎧", "label": "이어폰", "desc": "나만의 리듬으로 몰입하고 싶은 날", "tags": ["art", "mind", "novel", "readable"] },
+      { "id": "planner", "emoji": "📓", "label": "다이어리", "desc": "생각과 계획을 정리하고 싶은 날", "tags": ["career", "identity", "practical", "growth"] }
+    ]
+  },
+  {
+    "id": "weekend-plan",
+    "eyebrow": "주말 테스트",
+    "title": "이번 주말에 가장 하고 싶은 일은?",
+    "help": "기다려지는 장면을 하나 골라주세요.",
+    "choices": [
+      { "id": "late-sleep", "emoji": "🛌", "label": "느긋한 늦잠", "desc": "아무 일정 없이 충전하는 시간", "tags": ["comfort", "healing", "easy", "essay"] },
+      { "id": "exhibit-movie", "emoji": "🎟️", "label": "전시나 영화", "desc": "감각을 깨우는 장면을 만나는 시간", "tags": ["art", "literature", "story", "fun"] },
+      { "id": "local-walk", "emoji": "🚶", "label": "동네 산책", "desc": "익숙한 길에서 새 생각을 얻는 시간", "tags": ["life", "mind", "travel", "essay"] },
+      { "id": "study-cafe", "emoji": "📚", "label": "스터디 카페", "desc": "해야 할 일을 차분히 끝내는 시간", "tags": ["study", "career", "work", "practical"] }
+    ]
   }
 ]
