@@ -216,6 +216,12 @@ document.addEventListener('DOMContentLoaded', () => {
       .finally(()=>{ questionLoadPromise = null; });
     return questionLoadPromise;
   }
+  async function refreshQuestionSet(){
+    QUESTIONS = [];
+    state.index = 0;
+    state.answers = {};
+    return loadQuestionSet();
+  }
 
   function currentQuestion(){ return QUESTIONS[state.index]; }
   function selectedChoice(){ return state.answers[currentQuestion().id]; }
@@ -1163,6 +1169,19 @@ document.addEventListener('DOMContentLoaded', () => {
     setAuraClass(els.resultHero, 'aura-balanced');
     window.scrollTo({top:0, behavior:'smooth'});
   }
+  async function returnHomeWithFreshQuestions(){
+    els.startBtn.disabled = true;
+    els.startBtn.textContent = '질문 준비 중';
+    showStartView();
+    try{
+      await refreshQuestionSet();
+      els.startBtn.disabled = false;
+      els.startBtn.textContent = 'AI 추천 시작';
+    }catch(error){
+      console.error(error);
+      els.startBtn.textContent = '질문을 불러오지 못했습니다';
+    }
+  }
 
   window.startQuiz = startQuiz;
   els.startBtn.disabled = true;
@@ -1179,7 +1198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   els.startBtn.addEventListener('click', startQuiz);
   if(els.homeBtn){
-    els.homeBtn.addEventListener('click', showStartView);
+    els.homeBtn.addEventListener('click', returnHomeWithFreshQuestions);
   }
   if(els.emailResultBtn){
     els.emailResultBtn.addEventListener('click', openEmailModal);
@@ -1201,7 +1220,7 @@ document.addEventListener('DOMContentLoaded', () => {
   els.restartBtn.addEventListener('click', async ()=>{
     els.restartBtn.disabled = true;
     try{
-      await loadQuestionSet();
+      await refreshQuestionSet();
       showStartView();
     }catch(error){
       setError(els.resultError, error.message || '질문을 다시 불러오지 못했습니다.');
