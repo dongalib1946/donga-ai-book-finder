@@ -2,7 +2,7 @@ name: Update library news snapshot
 
 on:
   schedule:
-    - cron: '0 3,15 * * *'
+    - cron: '17 2,6 * * *'
   workflow_dispatch:
 
 permissions:
