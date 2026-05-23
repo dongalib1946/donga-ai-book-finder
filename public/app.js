@@ -685,19 +685,22 @@ document.addEventListener('DOMContentLoaded', () => {
   function cleanDisplayName(value){
     return String(value || '').replace(/\s*[,，、;；]+\s*$/g, '').trim();
   }
-  function bookMetaItems(book){
-    return [
+  function bookMetaItems(book, options = {}){
+    const items = [
       { label:'저자', value:cleanDisplayName(book && book.author) },
       { label:'출판사', value:book && book.publisher },
-      { label:'분류', value:book && book.collection },
-    ]
+    ];
+    if(options.includeCollection !== false){
+      items.push({ label:'분류', value:book && book.collection });
+    }
+    return items
       .map(item=>({ ...item, value:String(item.value || '').trim() }))
       .filter(item=>item.value);
   }
-  function renderBookMeta(target, book){
+  function renderBookMeta(target, book, options = {}){
     if(!target) return;
     target.innerHTML = '';
-    const metaItems = bookMetaItems(book);
+    const metaItems = bookMetaItems(book, options);
     if(!metaItems.length){
       const empty = document.createElement('span');
       empty.className = 'book-meta-empty';
@@ -742,7 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       card.querySelector('.book-number').textContent = String(index + 1).padStart(2, '0');
       card.querySelector('.book-title').textContent = book.title || '제목 정보 없음';
-      renderBookMeta(card.querySelector('.book-meta'), book);
+      renderBookMeta(card.querySelector('.book-meta'), book, { includeCollection:false });
       card.querySelector('.reason').textContent = descriptionText(book);
       card.querySelector('.catalog-link').href = book.libraryCatalogUrl || book.link || '#';
       const aladinLink = card.querySelector('.aladin-book-link');
