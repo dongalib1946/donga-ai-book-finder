@@ -15,12 +15,16 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    env:
+      NEWS_SNAPSHOT_FETCH_TIMEOUT_MS: '20000'
+      NEWS_SNAPSHOT_FETCH_RETRIES: '2'
+      NEWS_SNAPSHOT_RETRY_DELAY_MS: '1500'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm

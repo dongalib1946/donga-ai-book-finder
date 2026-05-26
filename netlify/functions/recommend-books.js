@@ -629,15 +629,94 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function fetchErrorDetails(error) {
+  const cause = error && error.cause;
+  const code = error && (error.code || (cause && cause.code));
+  const details = [
+    error && error.name ? `name=${error.name}` : '',
+    error && error.message ? `message=${error.message}` : '',
+    code ? `code=${code}` : '',
+    cause && cause.name ? `causeName=${cause.name}` : '',
+    cause && cause.message && cause.message !== (error && error.message) ? `causeMessage=${cause.message}` : '',
+    cause && cause.hostname ? `hostname=${cause.hostname}` : '',
+    cause && cause.address ? `address=${cause.address}` : '',
+    cause && cause.port ? `port=${cause.port}` : '',
+    cause && cause.syscall ? `syscall=${cause.syscall}` : '',
+  ].filter(Boolean);
+  return details.join(', ') || 'unknown error';
+}
+
+function isRetryableFetchError(error) {
+  const code = error && (error.code || (error.cause && error.cause.code));
+  return error && (
+    error.name === 'AbortError'
+    || error.name === 'TimeoutError'
+    || error.message === 'fetch failed'
+    || [
+      'EAI_AGAIN',
+      'ECONNRESET',
+      'ECONNREFUSED',
+      'ETIMEDOUT',
+      'UND_ERR_CONNECT_TIMEOUT',
+      'UND_ERR_HEADERS_TIMEOUT',
+      'UND_ERR_SOCKET',
+    ].includes(code)
+  );
+}
+
+function shouldRetryStatus(status) {
+  return status === 408 || status === 429 || status >= 500;
+}
+
+function enhancedFetchError(error, url, timeoutMs) {
+  const enhanced = new Error(`fetch failed for ${url} (${fetchErrorDetails(error)}, timeoutMs=${timeoutMs})`);
+  enhanced.name = error && error.name ? error.name : 'FetchError';
+  enhanced.cause = error;
+  return enhanced;
+}
+
 async function fetchWithTimeout(url, options = {}) {
-  const { timeoutMs, ...fetchOptions } = options;
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs || FETCH_TIMEOUT_MS);
-  try {
-    return await fetch(url, { ...fetchOptions, signal: controller.signal });
-  } finally {
-    clearTimeout(timer);
+  const { timeoutMs, retries, retryDelayMs, ...fetchOptions } = options;
+  const resolvedTimeoutMs = timeoutMs || FETCH_TIMEOUT_MS;
+  const retryCount = Math.max(0, Number.parseInt(retries || '0', 10) || 0);
+  const delayMs = Math.max(0, Number.parseInt(retryDelayMs || '750', 10) || 0);
+  let lastError = null;
+
+  for (let attempt = 0; attempt <= retryCount; attempt += 1) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), resolvedTimeoutMs);
+
+    try {
+      const res = await fetch(url, { ...fetchOptions, signal: controller.signal });
+      clearTimeout(timer);
+
+      if (attempt < retryCount && shouldRetryStatus(res.status)) {
+        if (res.body && typeof res.body.cancel === 'function') {
+          try {
+            await res.body.cancel();
+          } catch {}
+        }
+        console.warn(`[fetch retry] ${url} returned ${res.status}. Retrying ${attempt + 1}/${retryCount}.`);
+        await sleep(delayMs * (attempt + 1));
+        continue;
+      }
+
+      return res;
+    } catch (error) {
+      clearTimeout(timer);
+      lastError = error;
+
+      if (attempt < retryCount && isRetryableFetchError(error)) {
+        console.warn(`[fetch retry] ${url} failed (${fetchErrorDetails(error)}). Retrying ${attempt + 1}/${retryCount}.`);
+        await sleep(delayMs * (attempt + 1));
+        continue;
+      }
+
+      throw enhancedFetchError(error, url, resolvedTimeoutMs);
+    }
   }
+
+  throw enhancedFetchError(lastError, url, resolvedTimeoutMs);
 }
 
 function libraryPostsApiUrl(limit = 5) {
@@ -656,6 +735,8 @@ async function fetchText(url, options = {}) {
       'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
     },
     timeoutMs: options.timeoutMs,
+    retries: options.retries,
+    retryDelayMs: options.retryDelayMs,
   });
   if (!res.ok) throw new Error(`Library page failed ${res.status}: ${url}`);
   return res.text();
@@ -671,6 +752,8 @@ async function fetchJson(url, options = {}) {
       pragma: 'no-cache',
     },
     timeoutMs: options.timeoutMs,
+    retries: options.retries,
+    retryDelayMs: options.retryDelayMs,
   });
   if (!res.ok) throw new Error(`Library JSON failed ${res.status}: ${url}`);
   return res.json();
@@ -964,13 +1047,18 @@ function rememberNotices(notices, source) {
 
 async function fetchCommunityNotices(limit = 5, options = {}) {
   const timeoutMs = Math.max(500, Number.parseInt(options.timeoutMs || String(NOTICE_FETCH_TIMEOUT_MS), 10) || NOTICE_FETCH_TIMEOUT_MS);
+  const fetchOptions = {
+    timeoutMs,
+    retries: options.retries,
+    retryDelayMs: options.retryDelayMs,
+  };
   if (!options.fresh && noticeCache && Date.now() - noticeCache.savedAt < NOTICE_CACHE_TTL_MS) {
     lastNoticeSource = noticeCache.source ? `cache:${noticeCache.source}` : 'cache';
     return noticeCache.items.slice(0, limit);
   }
 
   try {
-    const feed = await fetchText(LIBRARY_FEED_URL, { timeoutMs });
+    const feed = await fetchText(LIBRARY_FEED_URL, fetchOptions);
     const notices = extractFeedNotices(feed, limit);
     if (notices.length) {
       return rememberNotices(notices, 'rss');
@@ -985,7 +1073,7 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
   }
 
   try {
-    const posts = await fetchJson(libraryPostsApiUrl(Math.max(limit, 8)), { timeoutMs });
+    const posts = await fetchJson(libraryPostsApiUrl(Math.max(limit, 8)), fetchOptions);
     const notices = (Array.isArray(posts) ? posts : [])
       .map(post => ({
         title: cleanText(post && post.title && post.title.rendered),
@@ -1006,7 +1094,7 @@ async function fetchCommunityNotices(limit = 5, options = {}) {
   }
 
   try {
-    const html = await fetchText(LIBRARY_COMMUNITY_URL, { timeoutMs });
+    const html = await fetchText(LIBRARY_COMMUNITY_URL, fetchOptions);
     const notices = extractCommunityNotices(html, limit);
     if (notices.length) {
       return rememberNotices(notices, 'html');
