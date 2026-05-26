@@ -168,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resultTitle:document.getElementById('resultTitle'),
     resultSummary:document.getElementById('resultSummary'),
     restartBtn:document.getElementById('restartBtn'),
+    printResultBtn:document.getElementById('printResultBtn'),
     emailResultBtn:document.getElementById('emailResultBtn'),
     emailResultModal:document.getElementById('emailResultModal'),
     emailResultForm:document.getElementById('emailResultForm'),
@@ -194,6 +195,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.gtag('event', 'ai_recommendation_start', {
       event_category:'engagement',
       event_label:document.body.classList.contains('kiosk-page') ? 'kiosk' : 'main'
+    });
+  }
+
+  function trackAiRecommendationPrint(count){
+    if(typeof window.gtag !== 'function') return;
+    window.gtag('event', 'ai_recommendation_print', {
+      event_category:'engagement',
+      event_label:document.body.classList.contains('kiosk-page') ? 'kiosk' : 'main',
+      item_count:count
     });
   }
 
@@ -730,6 +740,142 @@ document.addEventListener('DOMContentLoaded', () => {
   function bookMetaText(book){
     return bookMetaItems(book).map(item=>item.value).join(' · ');
   }
+  function firstDisplayText(...values){
+    return values
+      .map(value=>String(value || '').trim())
+      .find(Boolean) || '';
+  }
+  function printBookInfoItems(book){
+    const keywords = Array.isArray(book && book.matchedTags)
+      ? book.matchedTags.slice(0,4).map(tag=>String(tag || '').trim()).filter(Boolean).join(', ')
+      : '';
+    return [
+      { label:'저자', value:cleanDisplayName(book && book.author) },
+      { label:'출판사', value:firstDisplayText(book && book.publisher) },
+      { label:'키워드', value:keywords },
+    ].filter(item=>item.value);
+  }
+  function ensurePrintRecommendations(){
+    let root = document.getElementById('printRecommendations');
+    if(root) return root;
+    root = document.createElement('section');
+    root.id = 'printRecommendations';
+    root.className = 'print-recommendations';
+    root.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(root);
+    return root;
+  }
+  function renderPrintRecommendations(items){
+    const root = ensurePrintRecommendations();
+    root.innerHTML = '';
+
+    const header = document.createElement('header');
+    header.className = 'print-head';
+    const title = document.createElement('h1');
+    title.textContent = 'AI 추천도서';
+    const subtitle = document.createElement('p');
+    subtitle.textContent = firstDisplayText(currentRecommendation && currentRecommendation.shelfTitle, '동아대학교 도서관');
+    header.append(title, subtitle);
+    root.appendChild(header);
+
+    items.forEach((book, index)=>{
+      const card = document.createElement('article');
+      card.className = 'print-book';
+
+      const cover = document.createElement('img');
+      cover.className = 'print-book-cover';
+      cover.alt = '';
+      cover.src = coverForBook(book);
+      installCoverFallback(cover, book);
+
+      const body = document.createElement('div');
+      body.className = 'print-book-body';
+
+      const number = document.createElement('p');
+      number.className = 'print-book-number';
+      number.textContent = String(index + 1).padStart(2, '0');
+
+      const bookTitle = document.createElement('h2');
+      bookTitle.className = 'print-book-title';
+      bookTitle.textContent = book.title || '제목 정보 없음';
+
+      const info = document.createElement('div');
+      info.className = 'print-book-info';
+      const infoItems = printBookInfoItems(book);
+      if(!infoItems.length){
+        infoItems.push({ label:'도서정보', value:'서지 정보 확인 중' });
+      }
+      infoItems.forEach(item=>{
+        const row = document.createElement('p');
+        row.className = 'print-book-info-row';
+        const label = document.createElement('b');
+        label.textContent = item.label;
+        const value = document.createElement('span');
+        value.textContent = item.value;
+        row.append(label, value);
+        info.appendChild(row);
+      });
+
+      body.append(number, bookTitle, info);
+      card.append(cover, body);
+      root.appendChild(card);
+    });
+
+    const footer = document.createElement('footer');
+    footer.className = 'print-foot';
+    footer.textContent = new Intl.DateTimeFormat('ko-KR', {
+      timeZone:'Asia/Seoul',
+      year:'numeric',
+      month:'2-digit',
+      day:'2-digit',
+      hour:'2-digit',
+      minute:'2-digit'
+    }).format(new Date());
+    root.appendChild(footer);
+    return root;
+  }
+  function waitForPrintImages(root){
+    const images = [...root.querySelectorAll('img')].filter(img=>img.src);
+    if(!images.length) return Promise.resolve();
+    const waits = images.map(img=>new Promise(resolve=>{
+      const finish = ()=>{
+        window.clearTimeout(timer);
+        resolve();
+      };
+      const check = ()=>{
+        img.removeEventListener('load', check);
+        img.removeEventListener('error', check);
+        if(img.complete || !img.src){
+          finish();
+          return;
+        }
+        img.addEventListener('load', check, { once:true });
+        img.addEventListener('error', check, { once:true });
+      };
+      const timer = window.setTimeout(finish, 1400);
+      check();
+    }));
+    return Promise.all(waits);
+  }
+  async function printRecommendationList(){
+    const items = currentRecommendation && Array.isArray(currentRecommendation.items)
+      ? currentRecommendation.items
+      : [];
+    if(!items.length){
+      setError(els.resultError, '프린트할 추천도서가 없습니다. 다시 추천을 진행해 주세요.');
+      return;
+    }
+    setError(els.resultError, '');
+    if(els.printResultBtn) els.printResultBtn.disabled = true;
+    try{
+      const root = renderPrintRecommendations(items);
+      trackAiRecommendationPrint(items.length);
+      await waitForPrintImages(root);
+      window.print();
+    }finally{
+      if(els.printResultBtn) els.printResultBtn.disabled = false;
+    }
+  }
   function renderMainBooks(items){
     els.books.innerHTML = '';
     (items || []).forEach((book, index)=>{
@@ -1135,6 +1281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setError(els.resultError, '');
     resetEmailForm();
     renderResultTitle(data.shelfTitle || 'AI가 건네는 책');
+    if(els.printResultBtn) els.printResultBtn.disabled = !(data.items && data.items.length);
     els.resultSummary.textContent = data.items && data.items.length
       ? 'AI가 당신의 답변을 바탕으로 취향에 맞는 추천도서를 준비했습니다. 당신에게 도움이 될 다양한 정보도 함께 준비했으니, 지금 확인해보세요.'
       : '추천 결과를 만들지 못했습니다.';
@@ -1174,6 +1321,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.stepPill.textContent = '시작 전';
     els.startBtn.disabled = !QUESTIONS.length;
     els.startBtn.textContent = QUESTIONS.length ? 'AI 추천 시작' : '질문 준비 중';
+    if(els.printResultBtn) els.printResultBtn.disabled = true;
     setError(els.errorBox, '');
     setError(els.resultError, '');
     resetEmailForm();
@@ -1216,6 +1364,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if(els.emailResultBtn){
     els.emailResultBtn.addEventListener('click', openEmailModal);
+  }
+  if(els.printResultBtn){
+    els.printResultBtn.addEventListener('click', printRecommendationList);
   }
   if(els.emailResultForm){
     els.emailResultForm.addEventListener('submit', sendResultEmail);

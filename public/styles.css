@@ -528,6 +528,15 @@ h1,h2,h3,p{margin-top:0}
   color:#0f5579;
   border-color:rgba(15,85,121,.22);
 }
+.btn.print-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  background:#fff;
+  color:#172033;
+  border-color:rgba(20,33,61,.16);
+}
 .btn:disabled{opacity:.42; cursor:not-allowed}
 .loading{display:none; min-height:calc(100vh - 126px); place-items:center; text-align:center}
 .loading[aria-hidden="false"]{display:grid}
@@ -861,6 +870,7 @@ h1,h2,h3,p{margin-top:0}
 .aladin-book-link[hidden]{display:none}
 .aladin-book-link img{display:block; width:74px; height:auto; object-fit:contain; pointer-events:none}
 .aladin-book-link span{color:#253f9b; font-size:28px; line-height:.8; font-weight:950; transform:translateY(-1px); white-space:nowrap}
+.print-recommendations{display:none}
 .popular-section,.aladin-section{position:relative; margin-top:44px; padding:clamp(20px,3.5vw,34px); border:1px solid rgba(255,255,255,.68); border-radius:var(--radius); background:rgba(255,255,255,.72); box-shadow:0 16px 42px rgba(20,33,61,.09); overflow:hidden; backdrop-filter:blur(14px)}
 .aladin-section{
   background:
@@ -1727,6 +1737,13 @@ h1,h2,h3,p{margin-top:0}
   .result-hero::after{
     will-change:transform;
   }
+  .analysis-row b{
+    animation:analysisBar 1.5s ease-in-out infinite;
+    background-size:220% 100%;
+    opacity:.58;
+  }
+  .analysis-row:nth-child(2) b{animation-delay:.22s}
+  .analysis-row:nth-child(3) b{animation-delay:.44s}
   .start-ai-orbit::before{
     animation:orbitSpin 12s linear infinite;
   }
@@ -1750,6 +1767,126 @@ h1,h2,h3,p{margin-top:0}
       0 0 0 14px rgba(24,183,200,.05),
       0 12px 28px rgba(13,78,113,.08);
     opacity:.46;
+  }
+}
+@media print{
+  @page{margin:0}
+  html,
+  body{
+    width:80mm;
+    min-width:80mm;
+    margin:0 !important;
+    padding:0 !important;
+    background:#fff !important;
+    color:#000 !important;
+  }
+  body{
+    overflow:visible !important;
+  }
+  body > *:not(.print-recommendations){
+    display:none !important;
+  }
+  .print-recommendations{
+    display:block !important;
+    width:76mm;
+    margin:0 !important;
+    padding:4mm 3mm 5mm !important;
+    box-sizing:border-box;
+    background:#fff !important;
+    color:#000 !important;
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  .print-recommendations,
+  .print-recommendations *{
+    color:#000 !important;
+    box-shadow:none !important;
+    text-shadow:none !important;
+    letter-spacing:0 !important;
+  }
+  .print-head{
+    padding:0 0 3mm;
+    border-bottom:.45mm solid #000;
+    text-align:center;
+  }
+  .print-head h1{
+    margin:0;
+    font-size:18pt;
+    line-height:1.18;
+    font-weight:900;
+  }
+  .print-head p{
+    margin:1.5mm 0 0;
+    font-size:8.5pt;
+    line-height:1.25;
+    font-weight:700;
+    word-break:keep-all;
+    overflow-wrap:anywhere;
+  }
+  .print-book{
+    display:grid;
+    grid-template-columns:25mm minmax(0,1fr);
+    gap:3mm;
+    align-items:center;
+    padding:3.5mm 0;
+    border-top:.25mm solid #000;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .print-head + .print-book{
+    border-top:0;
+  }
+  .print-book-cover{
+    width:25mm;
+    max-height:37mm;
+    object-fit:contain;
+    border:.25mm solid #000;
+    filter:grayscale(1) contrast(1.08) !important;
+  }
+  .print-book-body{
+    min-width:0;
+  }
+  .print-book-number{
+    margin:0 0 1.4mm;
+    font-size:8pt;
+    line-height:1;
+    font-weight:900;
+  }
+  .print-book-title{
+    margin:0;
+    font-size:12.5pt;
+    line-height:1.28;
+    font-weight:900;
+    word-break:keep-all;
+    overflow-wrap:anywhere;
+  }
+  .print-book-info{
+    display:grid;
+    gap:.8mm;
+    margin:2mm 0 0;
+  }
+  .print-book-info-row{
+    display:grid;
+    grid-template-columns:9.5mm minmax(0,1fr);
+    gap:1.2mm;
+    margin:0;
+    font-size:8.8pt;
+    line-height:1.35;
+    font-weight:760;
+    word-break:keep-all;
+    overflow-wrap:anywhere;
+  }
+  .print-book-info-row b{
+    font-size:7.4pt;
+    line-height:1.35;
+    font-weight:900;
+  }
+  .print-foot{
+    padding:2.6mm 0 0;
+    border-top:.25mm solid #000;
+    text-align:center;
+    font-size:7.6pt;
+    line-height:1.2;
+    font-weight:700;
   }
 }
 @media (max-width:1100px){
