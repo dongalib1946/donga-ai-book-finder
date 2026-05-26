@@ -797,6 +797,11 @@ async function fetchLibraryPoolSnapshot(options = {}) {
   const pageLimit = Math.min(100, Math.max(1, Number.parseInt(options.pageLimit || '50', 10) || 50));
   const delayMs = Math.max(0, Number.parseInt(options.delayMs || '0', 10) || 0);
   const timeoutMs = Math.max(1500, Number.parseInt(options.timeoutMs || String(FETCH_TIMEOUT_MS), 10) || FETCH_TIMEOUT_MS);
+  const fetchOptions = {
+    timeoutMs,
+    retries: options.retries,
+    retryDelayMs: options.retryDelayMs,
+  };
   const stalePageLimit = Math.max(1, Number.parseInt(options.stalePageLimit || '2', 10) || 2);
   const logger = options.logger || console;
   const byIsbn = new Map();
@@ -809,7 +814,7 @@ async function fetchLibraryPoolSnapshot(options = {}) {
 
     for (let pageNumber = 1; pageNumber <= pageLimit; pageNumber += 1) {
       try {
-        const page = await fetchCollectionPage(collection, pageNumber, { timeoutMs });
+        const page = await fetchCollectionPage(collection, pageNumber, fetchOptions);
         const entries = extractCatalogEntries(page.parseUrl, page.html, collection).filter(validLibraryEntry);
         let newCount = 0;
 
