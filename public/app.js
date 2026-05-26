@@ -189,6 +189,14 @@ document.addEventListener('DOMContentLoaded', () => {
       && question.choices.length > 1;
   }
 
+  function trackAiRecommendationStart(){
+    if(typeof window.gtag !== 'function') return;
+    window.gtag('event', 'ai_recommendation_start', {
+      event_category:'engagement',
+      event_label:document.body.classList.contains('kiosk-page') ? 'kiosk' : 'main'
+    });
+  }
+
   async function fetchQuestionSet(){
     const res = await fetch('/.netlify/functions/questions?limit=5', {
       headers:{ accept:'application/json' }
@@ -1199,7 +1207,10 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(error);
       els.startBtn.textContent = '질문을 불러오지 못했습니다';
     });
-  els.startBtn.addEventListener('click', startQuiz);
+  els.startBtn.addEventListener('click', ()=>{
+    trackAiRecommendationStart();
+    startQuiz();
+  });
   if(els.homeBtn){
     els.homeBtn.addEventListener('click', returnHomeWithFreshQuestions);
   }
