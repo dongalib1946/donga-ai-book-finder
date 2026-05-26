@@ -203,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.gtag('event', 'ai_recommendation_print', {
       event_category:'engagement',
       event_label:document.body.classList.contains('kiosk-page') ? 'kiosk' : 'main',
+      value:count,
       item_count:count
     });
   }
@@ -745,6 +746,14 @@ document.addEventListener('DOMContentLoaded', () => {
       .map(value=>String(value || '').trim())
       .find(Boolean) || '';
   }
+  function escapeHtml(value){
+    return String(value || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
   function printBookInfoItems(book){
     const keywords = Array.isArray(book && book.matchedTags)
       ? book.matchedTags.slice(0,4).map(tag=>String(tag || '').trim()).filter(Boolean).join(', ')
@@ -755,75 +764,152 @@ document.addEventListener('DOMContentLoaded', () => {
       { label:'키워드', value:keywords },
     ].filter(item=>item.value);
   }
-  function ensurePrintRecommendations(){
-    let root = document.getElementById('printRecommendations');
-    if(root) return root;
-    root = document.createElement('section');
-    root.id = 'printRecommendations';
-    root.className = 'print-recommendations';
-    root.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(root);
-    return root;
+  function printCoverSources(book){
+    const sources = coverCandidatesForBook(book);
+    const fallback = fallbackCover(book && book.title);
+    return sources.includes(fallback) ? sources : [...sources, fallback];
   }
-  function renderPrintRecommendations(items){
-    const root = ensurePrintRecommendations();
-    root.innerHTML = '';
-
-    const header = document.createElement('header');
-    header.className = 'print-head';
-    const title = document.createElement('h1');
-    title.textContent = 'AI 추천도서';
-    const subtitle = document.createElement('p');
-    subtitle.textContent = firstDisplayText(currentRecommendation && currentRecommendation.shelfTitle, '동아대학교 도서관');
-    header.append(title, subtitle);
-    root.appendChild(header);
-
-    items.forEach((book, index)=>{
-      const card = document.createElement('article');
-      card.className = 'print-book';
-
-      const cover = document.createElement('img');
-      cover.className = 'print-book-cover';
-      cover.alt = '';
-      cover.src = coverForBook(book);
-      installCoverFallback(cover, book);
-
-      const body = document.createElement('div');
-      body.className = 'print-book-body';
-
-      const number = document.createElement('p');
-      number.className = 'print-book-number';
-      number.textContent = String(index + 1).padStart(2, '0');
-
-      const bookTitle = document.createElement('h2');
-      bookTitle.className = 'print-book-title';
-      bookTitle.textContent = book.title || '제목 정보 없음';
-
-      const info = document.createElement('div');
-      info.className = 'print-book-info';
-      const infoItems = printBookInfoItems(book);
-      if(!infoItems.length){
-        infoItems.push({ label:'도서정보', value:'서지 정보 확인 중' });
+  function printStyles(){
+    return `
+      @page{margin:0}
+      *{box-sizing:border-box}
+      html,body{margin:0; padding:0; width:80mm; min-width:80mm; background:#fff; color:#000}
+      body{
+        font-family:Arial,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+        font-synthesis:weight;
+        text-rendering:geometricPrecision;
       }
-      infoItems.forEach(item=>{
-        const row = document.createElement('p');
-        row.className = 'print-book-info-row';
-        const label = document.createElement('b');
-        label.textContent = item.label;
-        const value = document.createElement('span');
-        value.textContent = item.value;
-        row.append(label, value);
-        info.appendChild(row);
-      });
-
-      body.append(number, bookTitle, info);
-      card.append(cover, body);
-      root.appendChild(card);
-    });
-
-    const footer = document.createElement('footer');
-    footer.className = 'print-foot';
-    footer.textContent = new Intl.DateTimeFormat('ko-KR', {
+      .receipt{width:80mm; min-height:100vh; padding:4mm 3mm 5mm; background:#fff; color:#000}
+      .receipt-head{
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:4mm;
+        padding:0 0 3mm;
+        border-bottom:.45mm solid #000;
+        color:#000;
+      }
+      .receipt-head h1{
+        flex:0 0 auto;
+        margin:0;
+        color:#000;
+        font-size:18pt;
+        line-height:1.08;
+        font-weight:900;
+        letter-spacing:0;
+      }
+      .receipt-head p{
+        flex:1 1 auto;
+        margin:1.8mm 0 0;
+        color:#000;
+        font-size:8.6pt;
+        line-height:1.25;
+        font-weight:900;
+        text-align:left;
+        word-break:keep-all;
+        overflow-wrap:anywhere;
+      }
+      .book{
+        display:grid;
+        grid-template-columns:27mm minmax(0,1fr);
+        gap:3.4mm;
+        align-items:start;
+        padding:3.8mm 0;
+        border-top:.25mm solid #000;
+        break-inside:avoid;
+        page-break-inside:avoid;
+        color:#000;
+      }
+      .receipt-head + .book{border-top:0}
+      .cover-wrap{width:27mm; min-height:39mm; display:grid; place-items:center}
+      .cover{
+        display:block;
+        width:27mm;
+        max-height:40mm;
+        object-fit:contain;
+        border:.2mm solid #000;
+        background:#fff;
+      }
+      .book-body{min-width:0; color:#000}
+      .rank{
+        margin:0 0 1.4mm;
+        color:#000;
+        font-size:8.5pt;
+        line-height:1;
+        font-weight:900;
+      }
+      .title{
+        margin:0;
+        color:#000;
+        font-size:12.6pt;
+        line-height:1.26;
+        font-weight:900;
+        letter-spacing:0;
+        word-break:keep-all;
+        overflow-wrap:anywhere;
+      }
+      .meta{display:grid; gap:.8mm; margin:2mm 0 0}
+      .meta-row{
+        display:grid;
+        grid-template-columns:10mm minmax(0,1fr);
+        gap:1.4mm;
+        margin:0;
+        color:#000;
+        font-size:8.8pt;
+        line-height:1.35;
+        font-weight:800;
+        word-break:keep-all;
+        overflow-wrap:anywhere;
+      }
+      .meta-row b{
+        color:#000;
+        font-size:7.6pt;
+        line-height:1.35;
+        font-weight:900;
+      }
+      .meta-row span{color:#000; font-weight:900}
+      .receipt-foot{
+        padding:2.6mm 0 0;
+        border-top:.25mm solid #000;
+        text-align:center;
+        color:#000;
+        font-size:7.6pt;
+        line-height:1.2;
+        font-weight:700;
+      }
+      @media screen{
+        body{background:#f4f4f4}
+        .receipt{min-height:100vh}
+      }
+    `;
+  }
+  function printBookHtml(book, index){
+    const covers = printCoverSources(book);
+    const src = covers[0] || fallbackCover(book && book.title);
+    const fallbacks = covers.slice(1);
+    const infoItems = printBookInfoItems(book);
+    if(!infoItems.length){
+      infoItems.push({ label:'도서정보', value:'서지 정보 확인 중' });
+    }
+    const meta = infoItems.map(item=>`
+      <p class="meta-row"><b>${escapeHtml(item.label)}</b><span>${escapeHtml(item.value)}</span></p>
+    `).join('');
+    return `
+      <article class="book">
+        <div class="cover-wrap">
+          <img class="cover" alt="" src="${escapeHtml(src)}" data-fallbacks="${escapeHtml(JSON.stringify(fallbacks))}" referrerpolicy="no-referrer">
+        </div>
+        <div class="book-body">
+          <p class="rank">${String(index + 1).padStart(2, '0')}</p>
+          <h2 class="title">${escapeHtml(book && book.title || '제목 정보 없음')}</h2>
+          <div class="meta">${meta}</div>
+        </div>
+      </article>
+    `;
+  }
+  function printDocumentHtml(items){
+    const shelfTitle = firstDisplayText(currentRecommendation && currentRecommendation.shelfTitle, '동아대학교 도서관');
+    const printedAt = new Intl.DateTimeFormat('ko-KR', {
       timeZone:'Asia/Seoul',
       year:'numeric',
       month:'2-digit',
@@ -831,11 +917,38 @@ document.addEventListener('DOMContentLoaded', () => {
       hour:'2-digit',
       minute:'2-digit'
     }).format(new Date());
-    root.appendChild(footer);
-    return root;
+    return `<!doctype html>
+      <html lang="ko">
+      <head>
+        <meta charset="utf-8">
+        <title>AI 추천도서 출력</title>
+        <style>${printStyles()}</style>
+      </head>
+      <body>
+        <main class="receipt">
+          <div class="receipt-head">
+            <h1>AI 추천도서</h1>
+            <p>${escapeHtml(shelfTitle)}</p>
+          </div>
+          ${items.map(printBookHtml).join('')}
+          <div class="receipt-foot">${escapeHtml(printedAt)}</div>
+        </main>
+        <script>
+          document.querySelectorAll('img[data-fallbacks]').forEach(function(img){
+            var fallbacks = [];
+            try{ fallbacks = JSON.parse(img.getAttribute('data-fallbacks') || '[]'); }catch(_){}
+            var index = 0;
+            img.addEventListener('error', function(){
+              if(index >= fallbacks.length) return;
+              img.src = fallbacks[index++];
+            });
+          });
+        <\/script>
+      </body>
+      </html>`;
   }
-  function waitForPrintImages(root){
-    const images = [...root.querySelectorAll('img')].filter(img=>img.src);
+  function waitForPrintImages(doc){
+    const images = [...doc.querySelectorAll('img')].filter(img=>img.src);
     if(!images.length) return Promise.resolve();
     const waits = images.map(img=>new Promise(resolve=>{
       const finish = ()=>{
@@ -852,10 +965,49 @@ document.addEventListener('DOMContentLoaded', () => {
         img.addEventListener('load', check, { once:true });
         img.addEventListener('error', check, { once:true });
       };
-      const timer = window.setTimeout(finish, 1400);
+      const timer = window.setTimeout(finish, 2200);
       check();
     }));
     return Promise.all(waits);
+  }
+  async function printHtmlDocument(html){
+    document.querySelectorAll('iframe[data-print-frame="recommendations"]').forEach(frame=>frame.remove());
+    const frame = document.createElement('iframe');
+    frame.dataset.printFrame = 'recommendations';
+    frame.setAttribute('aria-hidden', 'true');
+    frame.style.position = 'fixed';
+    frame.style.left = '-10000px';
+    frame.style.top = '0';
+    frame.style.width = '80mm';
+    frame.style.height = '1px';
+    frame.style.border = '0';
+    frame.style.opacity = '0';
+    frame.style.pointerEvents = 'none';
+    document.body.appendChild(frame);
+
+    const doc = frame.contentDocument || frame.contentWindow.document;
+    doc.open();
+    doc.write(html);
+    doc.close();
+
+    const frameWindow = frame.contentWindow;
+    await new Promise(resolve=>setTimeout(resolve, 80));
+    await Promise.all([
+      waitForPrintImages(doc),
+      doc.fonts && doc.fonts.ready ? doc.fonts.ready.catch(()=>{}) : Promise.resolve()
+    ]);
+    await new Promise(resolve=>frameWindow.requestAnimationFrame(()=>resolve()));
+
+    let cleaned = false;
+    const cleanup = ()=>{
+      if(cleaned) return;
+      cleaned = true;
+      frame.remove();
+    };
+    frameWindow.addEventListener('afterprint', cleanup, { once:true });
+    frameWindow.focus();
+    frameWindow.print();
+    window.setTimeout(cleanup, 30000);
   }
   async function printRecommendationList(){
     const items = currentRecommendation && Array.isArray(currentRecommendation.items)
@@ -868,10 +1020,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setError(els.resultError, '');
     if(els.printResultBtn) els.printResultBtn.disabled = true;
     try{
-      const root = renderPrintRecommendations(items);
       trackAiRecommendationPrint(items.length);
-      await waitForPrintImages(root);
-      window.print();
+      await printHtmlDocument(printDocumentHtml(items));
     }finally{
       if(els.printResultBtn) els.printResultBtn.disabled = false;
     }
@@ -1244,6 +1394,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLibraryNews([]);
     renderLibraryInstructions([]);
     resetEmailForm();
+    if(els.printResultBtn) els.printResultBtn.disabled = true;
     setError(els.resultError, message || '공유 결과를 불러오지 못했습니다.');
     window.scrollTo({top:0, behavior:'smooth'});
   }

@@ -14,9 +14,9 @@
   <title>AI 추천도서 키오스크 | 동아대학교 도서관</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260523-card-height">
+  <link rel="stylesheet" href="styles.css?v=20260526-print-redesign">
   <link rel="stylesheet" href="kiosk.css?v=20260522-step-loader-card">
-  <script src="app.js?v=20260523-question-flow" defer></script>
+  <script src="app.js?v=20260526-print-redesign" defer></script>
   <script src="kiosk.js?v=20260522-step-loader-card" defer></script>
 </head>
 <body class="kiosk-page">
@@ -103,7 +103,7 @@
           <h2 id="resultTitle">오늘의 책 추천</h2>
           <p id="resultSummary"></p>
           <div class="result-actions">
-            <button class="btn print-toggle" id="printResultBtn" type="button">🖨️ 프린트</button>
+            <button class="btn print-toggle" id="printResultBtn" type="button" disabled>🖨️ 프린트</button>
             <button class="btn email-toggle" id="emailResultBtn" type="button">결과 메일로 받기</button>
             <button class="btn accent" id="restartBtn" type="button">다시 추천받기</button>
           </div>
