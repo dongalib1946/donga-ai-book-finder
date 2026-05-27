@@ -108,6 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let sessionSeed = newSeed();
   let questionLoadPromise = null;
   let currentRecommendation = null;
+  let activeRecommendationRequestId = 0;
+  let recommendationAbortController = null;
   const state = { index:0, answers:{} };
   const TITLE_ACCENT_PHRASES = [
     '필요한 책',
@@ -270,6 +272,27 @@ document.addEventListener('DOMContentLoaded', () => {
     state.index = 0;
     state.answers = {};
     return loadQuestionSet();
+  }
+
+  function cancelRecommendationRequest(){
+    activeRecommendationRequestId += 1;
+    if(recommendationAbortController){
+      recommendationAbortController.abort();
+      recommendationAbortController = null;
+    }
+  }
+
+  function beginRecommendationRequest(){
+    cancelRecommendationRequest();
+    recommendationAbortController = new AbortController();
+    return {
+      id:activeRecommendationRequestId,
+      signal:recommendationAbortController.signal
+    };
+  }
+
+  function isCurrentRecommendationRequest(requestId){
+    return requestId === activeRecommendationRequestId;
   }
 
   function currentQuestion(){ return QUESTIONS[state.index]; }
@@ -623,11 +646,13 @@ document.addEventListener('DOMContentLoaded', () => {
     els.loadingView.setAttribute('aria-hidden','false');
     currentRecommendation = null;
     setError(els.resultError, '');
+    const request = beginRecommendationRequest();
 
     try{
       const res = await fetch(`/.netlify/functions/recommend-books?_=${Date.now()}`, {
         method:'POST',
         cache:'no-store',
+        signal:request.signal,
         headers:{'content-type':'application/json'},
         body:JSON.stringify({
           answers:answerPayload(),
@@ -640,8 +665,14 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       const data = await res.json();
       if(!res.ok) throw new Error(data.message || data.error || `추천 API 오류: ${res.status}`);
-      renderResults(await enrichClientCatalogData(data));
+      if(!isCurrentRecommendationRequest(request.id)) return;
+      const enrichedData = await enrichClientCatalogData(data);
+      if(!isCurrentRecommendationRequest(request.id)) return;
+      recommendationAbortController = null;
+      renderResults(enrichedData);
     }catch(error){
+      if(!isCurrentRecommendationRequest(request.id) || error.name === 'AbortError') return;
+      recommendationAbortController = null;
       els.loadingView.setAttribute('aria-hidden','true');
       els.resultsView.setAttribute('aria-hidden','false');
       setError(els.resultError, error.message || '책 추천을 불러오지 못했습니다.');
@@ -1498,6 +1529,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({top:0, behavior:'smooth'});
   }
   function showStartView(){
+    cancelRecommendationRequest();
     state.index = 0;
     state.answers = {};
     currentRecommendation = null;
