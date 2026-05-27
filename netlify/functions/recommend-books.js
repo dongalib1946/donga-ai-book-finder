@@ -243,7 +243,8 @@ const CATEGORY_FILTERS = {
     id: 'self_development',
     label: '자기계발',
     aliases: ['자기계발'],
-    keywords: ['자기계발', '성장', '습관', '태도', '성공', '목표', '실천'],
+    keywords: ['자기계발', '자기개발', '성장', '습관', '성취', '성공', '목표', '몰입', '커리어', '리더십', '동기부여', '시간관리', '일 잘', '역량', '멘토링'],
+    minKeywordHits: 2,
   },
   history: {
     id: 'history',
@@ -456,12 +457,6 @@ function isAcademicTextbook(book) {
   }
 
   if (/교재편찬위원회|교과연구회|학회|사법연수원|대학교\.[^,\s]+연구실|학술국/i.test(authorPublisherText)) {
-    return true;
-  }
-
-  if (/발굴\s*조사|조사\s*보고서|조성사업부지|테크노밸리|산\s*\d+[-\d]*번지\s*유적|[가-힣]+리\s*유적$/i.test(titleText)
-    && /(연구원|박물관|문화재|문화유산|유산연구|조사단)/i.test([authorPublisherText, metaText].join(' '))
-    && !hasGeneralReadingSignal(titleText)) {
     return true;
   }
 
@@ -875,9 +870,21 @@ async function fetchCollectionFirstPage(collection) {
 
 function loadSnapshotPool() {
   if (snapshotPoolCache) return snapshotPoolCache;
+  const list = [];
+  const addEntries = (entries) => {
+    const values = Array.isArray(entries) ? entries : entries && Array.isArray(entries.entries) ? entries.entries : [];
+    list.push(...values);
+  };
+
   try {
-    const entries = require('../data/library-pool.json');
-    const list = Array.isArray(entries) ? entries : entries && Array.isArray(entries.entries) ? entries.entries : [];
+    addEntries(require('../data/library-pool.json'));
+    try {
+      addEntries(require('../data/library-catalog-pool.json'));
+    } catch (error) {
+      if (error && error.code !== 'MODULE_NOT_FOUND') {
+        console.warn('[Library snapshot] library-catalog-pool.json:', error.message);
+      }
+    }
     snapshotPoolCache = list
       .filter(entry => entry && entry.catalogUrl && entry.title && entry.isbn && !isExamPrepBook(entry));
   } catch (error) {
@@ -1293,7 +1300,7 @@ function categoryFilterMatch(entry, item, filter) {
   const keywordHits = (filter.keywords || [])
     .filter(keyword => includesAnyTerm(fullText, [keyword]))
     .length;
-  const matched = Boolean(categoryMatched || keywordHits >= 1);
+  const matched = Boolean(categoryMatched || keywordHits >= (filter.minKeywordHits || 1));
   return {
     matched,
     score: (categoryMatched ? 36 : 0) + Math.min(keywordHits, 5) * 7,
@@ -2028,6 +2035,22 @@ function chooseDiverse(items, limit, seed, excludeIsbns = new Set(), options = {
   return selected;
 }
 
+function chooseCategoryAwareDiverse(items, limit, seed, excludeIsbns = new Set(), options = {}, categoryFilter = null) {
+  if (!categoryFilter) return chooseDiverse(items, limit, seed, excludeIsbns, options);
+
+  const categoryMatchedItems = items.filter(item => item && item.categoryMatched);
+  const selected = chooseDiverse(categoryMatchedItems, limit, seed, excludeIsbns, options);
+  if (selected.length >= limit) return selected;
+
+  const selectedIsbns = new Set(selected.map(item => item && item.isbn).filter(Boolean));
+  const fallbackExcludes = new Set([...excludeIsbns, ...selectedIsbns]);
+  const fallbackItems = items.filter(item => item && !selectedIsbns.has(item.isbn));
+  return [
+    ...selected,
+    ...chooseDiverse(fallbackItems, limit - selected.length, `${seed}:category-fallback`, fallbackExcludes, options),
+  ];
+}
+
 function popularCandidateEntries(pool, excludeIsbns, seed) {
   const preferred = pool.filter(entry => (entry.collectionKeys || []).includes('popular') && !isExamPrepBook(entry));
   const source = preferred.length
@@ -2249,7 +2272,7 @@ exports.handler = async function handler(event) {
       categoryFilter,
       seed
     ), limit);
-    const chosenItems = chooseDiverse(enriched, limit, seed, requestExcludes, { collectionCaps: MAIN_COLLECTION_CAPS, coverPenalty: 18, preferCover: true });
+    const chosenItems = chooseCategoryAwareDiverse(enriched, limit, seed, requestExcludes, { collectionCaps: MAIN_COLLECTION_CAPS, coverPenalty: 18, preferCover: true }, categoryFilter);
     const items = await Promise.all(chosenItems.map(ensureAladinCover));
     items.forEach(book => {
       book.description = makeBookDescription(book);
