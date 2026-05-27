@@ -1,9 +1,18 @@
 {
   "version": "library-news-v1",
-  "refreshedAt": "2026-05-22T17:02:56.481Z",
-  "collectedAt": "2026-05-22T17:02:56.481Z",
+  "refreshedAt": "2026-05-27T06:40:38.993Z",
+  "collectedAt": "2026-05-27T06:40:38.993Z",
   "source": "github-action:rss",
   "notices": [
+    {
+      "title": "지금 당신에게 필요한 책을 찾아드립니다.",
+      "url": "https://library.donga.ac.kr/community/notice/?pid=36812&ks=",
+      "thumbnail": "https://library.donga.ac.kr/wp-content/uploads/2026/05/ai%EC%B6%94%EC%B2%9C%EB%8F%84%EC%84%9C.png",
+      "author": "도서관",
+      "date": "2026.05.27",
+      "views": "",
+      "summary": ""
+    },
     {
       "title": "자료실 휴실 안내(5. 25., 6. 3.)",
       "url": "https://library.donga.ac.kr/community/notice/?pid=36734&ks=",
@@ -37,15 +46,6 @@
       "thumbnail": "https://directsend.co.kr/index.php/mail_report_api/image_down/VTc0NDYyNg/3544",
       "author": "도서관",
       "date": "2026.05.15",
-      "views": "",
-      "summary": ""
-    },
-    {
-      "title": "2026 전자정보 박람회 경품당첨자 발표",
-      "url": "https://library.donga.ac.kr/community/notice/?pid=36545&ks=",
-      "thumbnail": "https://library.donga.ac.kr/wp-content/uploads/2026/05/2026-%EC%A0%84%EC%9E%90%EC%A0%95%EB%B3%B4%EB%B0%95%EB%9E%8C%ED%9A%8C-%EA%B2%BD%ED%92%88-%EB%8B%B9%EC%B2%A8%EC%9E%90-%EB%B0%9C%ED%91%9C-scaled.jpg",
-      "author": "도서관",
-      "date": "2026.05.14",
       "views": "",
       "summary": ""
     }
