@@ -22,6 +22,7 @@ const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(pr
 const ALADIN_LOOKUP_TIMEOUT_MS = Math.max(1800, Number.parseInt(process.env.ALADIN_LOOKUP_TIMEOUT_MS || '2500', 10) || 2500);
 const MAIN_ENRICH_LOOKUP_LIMIT = Math.max(6, Number.parseInt(process.env.MAIN_ENRICH_LOOKUP_LIMIT || '6', 10) || 6);
 const MAIN_CANDIDATE_POOL_LIMIT = Math.max(MAIN_ENRICH_LOOKUP_LIMIT, Number.parseInt(process.env.MAIN_CANDIDATE_POOL_LIMIT || '220', 10) || 220);
+const MAIN_ALADIN_LINKED_LOOKUP_LIMIT = Math.max(MAIN_ENRICH_LOOKUP_LIMIT, Number.parseInt(process.env.MAIN_ALADIN_LINKED_LOOKUP_LIMIT || '36', 10) || 36);
 const MAIN_EXTRA_COVER_LOOKUP_LIMIT = Math.max(0, Number.parseInt(process.env.MAIN_EXTRA_COVER_LOOKUP_LIMIT || '0', 10) || 0);
 const POPULAR_ENRICH_LOOKUP_LIMIT = Math.max(5, Number.parseInt(process.env.POPULAR_ENRICH_LOOKUP_LIMIT || '5', 10) || 5);
 const POPULAR_COVER_LOOKUP_LIMIT = Math.max(0, Number.parseInt(process.env.POPULAR_COVER_LOOKUP_LIMIT || '5', 10) || 0);
@@ -2039,16 +2040,11 @@ function chooseCategoryAwareDiverse(items, limit, seed, excludeIsbns = new Set()
   if (!categoryFilter) return chooseDiverse(items, limit, seed, excludeIsbns, options);
 
   const categoryMatchedItems = items.filter(item => item && item.categoryMatched);
-  const selected = chooseDiverse(categoryMatchedItems, limit, seed, excludeIsbns, options);
-  if (selected.length >= limit) return selected;
+  return chooseDiverse(categoryMatchedItems, limit, seed, excludeIsbns, options);
+}
 
-  const selectedIsbns = new Set(selected.map(item => item && item.isbn).filter(Boolean));
-  const fallbackExcludes = new Set([...excludeIsbns, ...selectedIsbns]);
-  const fallbackItems = items.filter(item => item && !selectedIsbns.has(item.isbn));
-  return [
-    ...selected,
-    ...chooseDiverse(fallbackItems, limit - selected.length, `${seed}:category-fallback`, fallbackExcludes, options),
-  ];
+function hasAladinRecommendationLink(book) {
+  return Boolean(book && cleanText(book.link));
 }
 
 function popularCandidateEntries(pool, excludeIsbns, seed) {
@@ -2253,6 +2249,7 @@ exports.handler = async function handler(event) {
     const baseCandidateSource = filteredPool.length >= Math.max(limit * 8, 24) ? filteredPool : recommendablePool;
     const candidateSource = prioritizeCategoryPool(baseCandidateSource, categoryFilter, seed);
     const categoryLookupLimit = categoryFilter ? Math.max(MAIN_ENRICH_LOOKUP_LIMIT, Math.min(24, limit * 4)) : MAIN_ENRICH_LOOKUP_LIMIT;
+    const mainLookupLimit = Math.max(categoryLookupLimit, MAIN_ALADIN_LINKED_LOOKUP_LIMIT, limit * 4);
     const categoryCandidateLimit = categoryFilter ? Math.max(320, MAIN_CANDIDATE_POOL_LIMIT) : MAIN_CANDIDATE_POOL_LIMIT;
     const candidates = candidateSource
       .map(entry => {
@@ -2266,13 +2263,14 @@ exports.handler = async function handler(event) {
     const enriched = await fillMainCovers(prioritizeCategoryItems(
       await enrichCandidates(candidates, tags, limit, seed, {
         categoryFilter,
-        lookupLimit: categoryLookupLimit,
+        lookupLimit: mainLookupLimit,
         candidateLimit: categoryCandidateLimit,
       }),
       categoryFilter,
       seed
     ), limit);
-    const chosenItems = chooseCategoryAwareDiverse(enriched, limit, seed, requestExcludes, { collectionCaps: MAIN_COLLECTION_CAPS, coverPenalty: 18, preferCover: true }, categoryFilter);
+    const aladinLinkedEnriched = enriched.filter(hasAladinRecommendationLink);
+    const chosenItems = chooseCategoryAwareDiverse(aladinLinkedEnriched, limit, seed, requestExcludes, { collectionCaps: MAIN_COLLECTION_CAPS, coverPenalty: 18, preferCover: true }, categoryFilter);
     const items = await Promise.all(chosenItems.map(ensureAladinCover));
     items.forEach(book => {
       book.description = makeBookDescription(book);
