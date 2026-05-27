@@ -11,6 +11,24 @@ document.addEventListener('DOMContentLoaded', () => {
     'aura-art',
     'aura-balanced'
   ];
+  const CATEGORY_QUESTION_ID = 'preferred_category';
+  const FIXED_CATEGORY_QUESTION = {
+    id:CATEGORY_QUESTION_ID,
+    eyebrow:'추천 범위',
+    title:'마지막으로, 어떤 분야의 책을 추천받고 싶나요?',
+    help:'',
+    layout:'category-grid',
+    choices:[
+      { id:'any', emoji:'✨', label:'아무거나(AI추천)', desc:'전체 분야', categoryFilter:{ id:'any', label:'아무거나(AI추천)' } },
+      { id:'novel', emoji:'📖', label:'소설', desc:'이야기와 문학', categoryFilter:{ id:'novel', label:'소설' } },
+      { id:'essay', emoji:'✍️', label:'에세이', desc:'머무는 문장', categoryFilter:{ id:'essay', label:'에세이' } },
+      { id:'self_development', emoji:'🚀', label:'자기계발', desc:'성장과 실천', categoryFilter:{ id:'self_development', label:'자기계발' } },
+      { id:'humanities_philosophy', emoji:'🧠', label:'인문·철학', desc:'생각과 사유', categoryFilter:{ id:'humanities_philosophy', label:'인문·철학' } },
+      { id:'psychology', emoji:'💭', label:'심리', desc:'마음과 관계', categoryFilter:{ id:'psychology', label:'심리' } },
+      { id:'economy_business', emoji:'📈', label:'경제·경영', desc:'시장과 일', categoryFilter:{ id:'economy_business', label:'경제·경영' } },
+      { id:'science', emoji:'🔬', label:'과학', desc:'지식과 발견', categoryFilter:{ id:'science', label:'과학' } }
+    ]
+  };
 
   function collectValues(value){
     if(Array.isArray(value)) return value.flatMap(collectValues);
@@ -149,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startBtn:document.getElementById('startBtn'),
     stepPill:document.getElementById('stepPill'),
     stepText:document.getElementById('stepText'),
+    questionTotalText:document.getElementById('questionTotalText'),
     progressBar:document.getElementById('progressBar'),
     eyebrow:document.getElementById('eyebrow'),
     questionTitle:document.getElementById('questionTitle'),
@@ -190,6 +209,17 @@ document.addEventListener('DOMContentLoaded', () => {
       && question.choices.length > 1;
   }
 
+  function cloneQuestion(question){
+    return JSON.parse(JSON.stringify(question));
+  }
+
+  function withFixedCategoryQuestion(questions){
+    return [
+      ...questions.filter(question=>question.id !== CATEGORY_QUESTION_ID).slice(0, 5),
+      cloneQuestion(FIXED_CATEGORY_QUESTION)
+    ];
+  }
+
   function trackAiRecommendationStart(){
     if(typeof window.gtag !== 'function') return;
     window.gtag('event', 'ai_recommendation_start', {
@@ -217,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const questions = Array.isArray(data.questions) ? data.questions.filter(validQuestion) : [];
     if(!questions.length) throw new Error('사용할 수 있는 질문이 없습니다.');
     return {
-      questions,
+      questions:withFixedCategoryQuestion(questions),
       seed:data.seed || newSeed()
     };
   }
@@ -291,18 +321,21 @@ document.addEventListener('DOMContentLoaded', () => {
     setAuraClass(els.stage, 'aura-balanced');
     els.stepPill.textContent = `${step} / ${QUESTIONS.length}`;
     els.stepText.textContent = `${step}번째 질문`;
+    if(els.questionTotalText) els.questionTotalText.textContent = `${QUESTIONS.length}문항`;
     els.progressBar.style.width = `${(step / QUESTIONS.length) * 100}%`;
     els.eyebrow.textContent = q.eyebrow;
     renderAccentText(els.questionTitle, q.title);
-    els.questionHelp.textContent = q.help;
+    els.questionHelp.textContent = q.help || '';
+    els.questionHelp.hidden = !q.help;
     els.prevBtn.disabled = state.index === 0;
     setError(els.errorBox, '');
     els.choices.innerHTML = '';
+    els.choices.classList.toggle('is-category-grid', q.layout === 'category-grid');
 
     q.choices.forEach(choice=>{
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = `choice aura-balanced${selected && selected.id === choice.id ? ' is-selected' : ''}`;
+      btn.className = `choice aura-balanced${q.layout === 'category-grid' ? ' category-choice' : ''}${selected && selected.id === choice.id ? ' is-selected' : ''}`;
       btn.innerHTML = '<span class="emoji"></span><span class="choice-copy"><b></b><small></small></span>';
       btn.querySelector('.emoji').textContent = choice.emoji;
       btn.querySelector('b').textContent = choice.label;
@@ -321,6 +354,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function answerPayload(){
     return QUESTIONS.map(q=>({ questionId:q.id, question:q.title, choice:state.answers[q.id] }));
+  }
+  function selectedCategoryFilter(){
+    const choice = state.answers[CATEGORY_QUESTION_ID];
+    return choice && choice.categoryFilter ? choice.categoryFilter : { id:'any', label:'아무거나(AI추천)' };
   }
   function normalizeIsbn(value){
     const isbn = String(value || '').replace(/[^0-9Xx]/g, '').toUpperCase();
@@ -593,6 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
         headers:{'content-type':'application/json'},
         body:JSON.stringify({
           answers:answerPayload(),
+          categoryFilter:selectedCategoryFilter(),
           limit:6,
           popularLimit:5,
           seed:sessionSeed,
@@ -1470,6 +1508,7 @@ document.addEventListener('DOMContentLoaded', () => {
     els.startView.hidden = false;
     els.quizView.hidden = true;
     els.stepPill.textContent = '시작 전';
+    if(els.questionTotalText) els.questionTotalText.textContent = `${QUESTIONS.length || 6}문항`;
     els.startBtn.disabled = !QUESTIONS.length;
     els.startBtn.textContent = QUESTIONS.length ? 'AI 추천 시작' : '질문 준비 중';
     if(els.printResultBtn) els.printResultBtn.disabled = true;

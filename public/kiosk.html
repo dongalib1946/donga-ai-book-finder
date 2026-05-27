@@ -14,9 +14,9 @@
   <title>AI 추천도서 키오스크 | 동아대학교 도서관</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260526-print-redesign">
+  <link rel="stylesheet" href="styles.css?v=20260527-category-filter">
   <link rel="stylesheet" href="kiosk.css?v=20260522-step-loader-card">
-  <script src="app.js?v=20260526-print-redesign" defer></script>
+  <script src="app.js?v=20260527-category-filter" defer></script>
   <script src="kiosk.js?v=20260522-step-loader-card" defer></script>
 </head>
 <body class="kiosk-page">
@@ -52,7 +52,7 @@
           <div class="progress">
             <div class="progress-top">
               <span id="stepText">1번째 질문</span>
-              <span>5문항</span>
+              <span id="questionTotalText">6문항</span>
             </div>
             <div class="bar" aria-hidden="true"><span id="progressBar"></span></div>
           </div>

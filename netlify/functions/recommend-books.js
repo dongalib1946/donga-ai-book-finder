@@ -219,6 +219,100 @@ const TAG_LABELS = {
   readable: '잘 읽히는 책',
 };
 
+const CATEGORY_FILTER_QUESTION_ID = 'preferred_category';
+const CATEGORY_FILTERS = {
+  any: {
+    id: 'any',
+    label: '아무거나(AI추천)',
+    aliases: [],
+    keywords: [],
+  },
+  novel: {
+    id: 'novel',
+    label: '소설',
+    aliases: ['소설/시/희곡', '장르소설', '소설'],
+    keywords: ['소설', '장편', '단편', '소설집', '문학', '작가', '서사'],
+  },
+  essay: {
+    id: 'essay',
+    label: '에세이',
+    aliases: ['에세이'],
+    keywords: ['에세이', '산문', '일상', '문장', '마음', '삶'],
+  },
+  self_development: {
+    id: 'self_development',
+    label: '자기계발',
+    aliases: ['자기계발'],
+    keywords: ['자기계발', '성장', '습관', '태도', '성공', '목표', '실천'],
+  },
+  history: {
+    id: 'history',
+    label: '역사',
+    aliases: ['역사'],
+    keywords: ['역사', '세계사', '한국사', '문명', '전쟁', '왕조', '시대'],
+  },
+  humanities_philosophy: {
+    id: 'humanities_philosophy',
+    label: '인문·철학',
+    aliases: ['인문학', '철학'],
+    keywords: ['인문', '철학', '사유', '사상', '윤리', '존재', '문명'],
+  },
+  psychology: {
+    id: 'psychology',
+    label: '심리',
+    aliases: ['심리학', '심리', '정신분석'],
+    keywords: ['심리', '마음', '감정', '관계', '불안', '자존감', '뇌'],
+  },
+  science: {
+    id: 'science',
+    label: '과학',
+    aliases: ['과학'],
+    keywords: ['과학', '물리', '화학', '생명', '우주', '수학', '뇌과학', '기술'],
+  },
+  economy_business: {
+    id: 'economy_business',
+    label: '경제·경영',
+    aliases: ['경제경영', '경제', '경영'],
+    keywords: ['경제', '경영', '투자', '시장', '돈', '자본', '비즈니스', '마케팅'],
+  },
+  society: {
+    id: 'society',
+    label: '사회',
+    aliases: ['사회과학', '사회'],
+    keywords: ['사회', '정치', '불평등', '젠더', '노동', '공동체', '제도', '문화'],
+  },
+  art_culture: {
+    id: 'art_culture',
+    label: '예술·문화',
+    aliases: ['예술/대중문화', '예술', '대중문화', '문화'],
+    keywords: ['예술', '문화', '미술', '음악', '영화', '디자인', '창작', '공연'],
+  },
+  travel_hobby: {
+    id: 'travel_hobby',
+    label: '여행·취미',
+    aliases: ['여행', '건강/취미', '취미'],
+    keywords: ['여행', '취미', '산책', '도시', '공간', '라이프스타일', '여가'],
+  },
+  fantasy_sf: {
+    id: 'fantasy_sf',
+    label: '판타지·SF',
+    aliases: ['판타지', 'SF', '과학소설', '환상문학'],
+    keywords: ['판타지', 'sf', '에스에프', '과학소설', '환상', '마법', '우주', '미래'],
+  },
+  mystery_thriller: {
+    id: 'mystery_thriller',
+    label: '추리·스릴러',
+    aliases: ['추리', '미스터리', '스릴러', '공포'],
+    keywords: ['추리', '미스터리', '스릴러', '범죄', '탐정', '살인', '비밀'],
+  },
+  romance: {
+    id: 'romance',
+    label: '로맨스',
+    aliases: ['로맨스'],
+    keywords: ['로맨스', '연애', '사랑', '첫사랑', '연인', '러브'],
+  },
+};
+
 const BROAD_MATCH_TAGS = new Set([
   'easy',
   'short',
@@ -1140,10 +1234,110 @@ function stableFloat(...parts) {
 function getAnswerTags(answers) {
   const tags = [];
   for (const answer of answers || []) {
+    if (answer && answer.questionId === CATEGORY_FILTER_QUESTION_ID) continue;
     const choice = answer && answer.choice;
     if (choice && Array.isArray(choice.tags)) tags.push(...choice.tags);
   }
   return tags.filter(Boolean);
+}
+
+function normalizeCategoryFilterId(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]/g, '');
+}
+
+function categoryFilterFromValue(value) {
+  const id = normalizeCategoryFilterId(
+    typeof value === 'string'
+      ? value
+      : value && (value.id || value.categoryId || value.value)
+  );
+  const filter = CATEGORY_FILTERS[id];
+  return filter && filter.id !== 'any' ? filter : null;
+}
+
+function requestCategoryFilter(payload, answers) {
+  const direct = categoryFilterFromValue(payload && payload.categoryFilter);
+  if (direct) return direct;
+
+  const answer = (answers || []).find(item => item && item.questionId === CATEGORY_FILTER_QUESTION_ID);
+  const choice = answer && answer.choice;
+  return categoryFilterFromValue(choice && (choice.categoryFilter || choice.id));
+}
+
+function includesAnyTerm(text, terms) {
+  const haystack = String(text || '').toLowerCase();
+  return (terms || []).some(term => haystack.includes(String(term || '').toLowerCase()));
+}
+
+function categoryFilterMatch(entry, item, filter) {
+  if (!filter) return { matched: true, score: 0 };
+  const categoryText = cleanText(item && item.categoryName);
+  const descriptionText = aladinDescription(item);
+  const entryMeta = Array.isArray(entry && entry.meta) ? entry.meta.join(' ') : '';
+  const fullText = [
+    categoryText,
+    entry && entry.title,
+    entry && entry.author,
+    entryMeta,
+    entry && entry.collection,
+    Array.isArray(entry && entry.collectionTags) ? entry.collectionTags.join(' ') : '',
+    item && item.title,
+    item && item.author,
+    item && item.publisher,
+    descriptionText,
+  ].join(' ');
+  const categoryMatched = categoryText && includesAnyTerm(categoryText, [...filter.aliases, ...filter.keywords]);
+  const keywordHits = (filter.keywords || [])
+    .filter(keyword => includesAnyTerm(fullText, [keyword]))
+    .length;
+  const matched = Boolean(categoryMatched || keywordHits >= 1);
+  return {
+    matched,
+    score: (categoryMatched ? 36 : 0) + Math.min(keywordHits, 5) * 7,
+  };
+}
+
+function categoryFilterEntryScore(entry, filter) {
+  if (!filter) return 0;
+  return categoryFilterMatch(entry, null, filter).score;
+}
+
+function prioritizeCategoryPool(entries, filter, seed) {
+  if (!filter) return entries;
+  return [...entries]
+    .map(entry => ({
+      entry,
+      score: categoryFilterEntryScore(entry, filter) + stableFloat(seed, 'category-pool', entry && entry.isbn) * 0.01,
+    }))
+    .sort((a, b) => b.score - a.score)
+    .map(item => item.entry);
+}
+
+function prioritizeCategoryItems(items, filter, seed) {
+  if (!filter) return items;
+  const ranked = [...items]
+    .map(item => {
+      const match = categoryFilterMatch(item, item, filter);
+      return {
+        item: {
+          ...item,
+          categoryMatched: Boolean(item.categoryMatched || match.matched),
+          score: item.score + match.score,
+        },
+        categoryScore: match.score,
+      };
+    })
+    .sort((a, b) => {
+      if (b.item.categoryMatched !== a.item.categoryMatched) return b.item.categoryMatched ? 1 : -1;
+      return (b.item.score + b.categoryScore) - (a.item.score + a.categoryScore);
+    });
+
+  const matched = ranked.filter(item => item.item.categoryMatched).map(item => item.item);
+  const fallback = ranked.filter(item => !item.item.categoryMatched).map(item => item.item);
+  return matched.length ? [...matched, ...fallback] : ranked.map(item => item.item);
 }
 
 function requestExcludeIsbns(values) {
@@ -1676,6 +1870,7 @@ async function fetchAladinBestSellers(pool, limit = 6) {
 async function enrichCandidates(candidates, tags, maxResults, seed, options = {}) {
   const ttbKey = process.env.ALADIN_TTB_KEY || '';
   const enriched = [];
+  const categoryFilter = options.categoryFilter || null;
   const fallbackLimit = tags.includes('popular') ? POPULAR_ENRICH_LOOKUP_LIMIT : MAIN_ENRICH_LOOKUP_LIMIT;
   const requestedLimit = Number.parseInt(options.lookupLimit || fallbackLimit, 10) || fallbackLimit;
   const maxLookups = Math.min(candidates.length, Math.max(maxResults, requestedLimit));
@@ -1724,6 +1919,7 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
 
     for (const { entry, initial, item, cover, coverFallbacks, detailUrl, aladinLink } of lookedUp) {
       if (isExamPrepBook(entry) || isExamPrepBook(item)) continue;
+      const categoryMatch = categoryFilter ? categoryFilterMatch(entry, item, categoryFilter) : { matched: false, score: 0 };
       const text = [
         entry.title,
         entry.author,
@@ -1749,11 +1945,13 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
         coverFallbacks,
         link: (item && item.link) || aladinLink || '',
         isbn: entry.isbn,
+        categoryName: cleanText(item && item.categoryName),
+        categoryMatched: categoryMatch.matched,
         collection: entry.collection,
         collectionKeys: entry.collectionKeys || [],
         libraryCatalogUrl: detailUrl || catalogUrlForEntry(entry),
         matchedTags,
-        score: initial.score + enrichedScore.score + categoryBonus + descriptionBonus + (item ? 2 : 0) + (cover ? 3 : 0) + stableFloat(seed, 'enriched', entry.isbn) * 2,
+        score: initial.score + enrichedScore.score + categoryBonus + categoryMatch.score + descriptionBonus + (item ? 2 : 0) + (cover ? 3 : 0) + stableFloat(seed, 'enriched', entry.isbn) * 2,
       });
     }
   }
@@ -2010,6 +2208,7 @@ exports.handler = async function handler(event) {
     const limit = Math.min(10, Math.max(3, Number.parseInt(payload.limit || '6', 10) || 6));
     const popularLimit = Math.min(8, Math.max(3, Number.parseInt(payload.popularLimit || '5', 10) || 5));
     const tags = getAnswerTags(answers);
+    const categoryFilter = requestCategoryFilter(payload, answers);
     const requestExcludes = requestExcludeIsbns(payload.excludeIsbns);
     if (answers.length < 1 || tags.length < 1) {
       return json(400, { error: 'Answers are required.' });
@@ -2028,13 +2227,28 @@ exports.handler = async function handler(event) {
     const seed = `${API_VERSION}:${dateKey}:${clientSeed}:${tags.join(',')}:${answerKey}`;
     const recommendablePool = pool.filter(entry => !isExamPrepBook(entry));
     const filteredPool = recommendablePool.filter(entry => !isExcludedByIsbn(entry, requestExcludes));
-    const candidateSource = filteredPool.length >= Math.max(limit * 8, 24) ? filteredPool : recommendablePool;
+    const baseCandidateSource = filteredPool.length >= Math.max(limit * 8, 24) ? filteredPool : recommendablePool;
+    const candidateSource = prioritizeCategoryPool(baseCandidateSource, categoryFilter, seed);
+    const categoryLookupLimit = categoryFilter ? Math.max(MAIN_ENRICH_LOOKUP_LIMIT, Math.min(24, limit * 4)) : MAIN_ENRICH_LOOKUP_LIMIT;
+    const categoryCandidateLimit = categoryFilter ? Math.max(320, MAIN_CANDIDATE_POOL_LIMIT) : MAIN_CANDIDATE_POOL_LIMIT;
     const candidates = candidateSource
-      .map(entry => ({ entry, initial: scoreLibraryEntry(entry, tags, seed) }))
+      .map(entry => {
+        const initial = scoreLibraryEntry(entry, tags, seed);
+        initial.score += categoryFilterEntryScore(entry, categoryFilter);
+        return { entry, initial };
+      })
       .sort((a, b) => b.initial.score - a.initial.score)
-      .slice(0, Math.max(260, MAIN_CANDIDATE_POOL_LIMIT));
+      .slice(0, Math.max(260, categoryCandidateLimit));
 
-    const enriched = await fillMainCovers(await enrichCandidates(candidates, tags, limit, seed), limit);
+    const enriched = await fillMainCovers(prioritizeCategoryItems(
+      await enrichCandidates(candidates, tags, limit, seed, {
+        categoryFilter,
+        lookupLimit: categoryLookupLimit,
+        candidateLimit: categoryCandidateLimit,
+      }),
+      categoryFilter,
+      seed
+    ), limit);
     const chosenItems = chooseDiverse(enriched, limit, seed, requestExcludes, { collectionCaps: MAIN_COLLECTION_CAPS, coverPenalty: 18, preferCover: true });
     const items = await Promise.all(chosenItems.map(ensureAladinCover));
     items.forEach(book => {
@@ -2061,6 +2275,9 @@ exports.handler = async function handler(event) {
       source: 'Dong-A University Library collections + Aladin ItemLookUp',
       shelfTitle: makeShelfTitle(tags),
       summary: `답변 ${answers.length}개를 바탕으로 도서관 컬렉션의 추천 후보를 분석했습니다.`,
+      categoryFilter: categoryFilter
+        ? { id: categoryFilter.id, label: categoryFilter.label }
+        : { id: 'any', label: '아무거나(AI추천)' },
       poolCount: pool.length,
       items,
       popularItems,
