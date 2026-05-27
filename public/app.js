@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'aura-balanced'
   ];
   const CATEGORY_QUESTION_ID = 'preferred_category';
+  const ENABLE_CATEGORY_QUESTION = false;
   const FIXED_CATEGORY_QUESTION = {
     id:CATEGORY_QUESTION_ID,
     eyebrow:'추천 범위',
@@ -216,8 +217,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function withFixedCategoryQuestion(questions){
+    const baseQuestions = questions.filter(question=>question.id !== CATEGORY_QUESTION_ID).slice(0, 5);
+    if(!ENABLE_CATEGORY_QUESTION) return baseQuestions;
     return [
-      ...questions.filter(question=>question.id !== CATEGORY_QUESTION_ID).slice(0, 5),
+      ...baseQuestions,
       cloneQuestion(FIXED_CATEGORY_QUESTION)
     ];
   }
