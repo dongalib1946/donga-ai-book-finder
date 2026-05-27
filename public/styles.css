@@ -1957,6 +1957,9 @@ h1,h2,h3,p{margin-top:0}
     display:grid;
     grid-template-rows:auto auto auto auto 1fr auto auto;
   }
+  .stage.is-category-question{
+    grid-template-rows:auto auto auto 1fr auto auto;
+  }
   .progress{gap:8px; margin-bottom:12px}
   .progress-top{font-size:12px}
   .bar{height:8px}

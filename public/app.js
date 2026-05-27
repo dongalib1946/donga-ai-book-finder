@@ -319,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const selected = selectedChoice();
     const step = state.index + 1;
     setAuraClass(els.stage, 'aura-balanced');
+    els.stage.classList.toggle('is-category-question', q.layout === 'category-grid');
     els.stepPill.textContent = `${step} / ${QUESTIONS.length}`;
     els.stepText.textContent = `${step}번째 질문`;
     if(els.questionTotalText) els.questionTotalText.textContent = `${QUESTIONS.length}문항`;
