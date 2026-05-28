@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'aura-balanced'
   ];
   const CATEGORY_QUESTION_ID = 'preferred_category';
-  const ENABLE_CATEGORY_QUESTION = false;
+  const ENABLE_CATEGORY_QUESTION = true;
   const FIXED_CATEGORY_QUESTION = {
     id:CATEGORY_QUESTION_ID,
     eyebrow:'추천 범위',

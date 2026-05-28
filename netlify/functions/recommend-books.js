@@ -692,6 +692,7 @@ function mergeLibraryEntry(byIsbn, entry, options = {}) {
     author: cleanPersonName(primary.author) || cleanPersonName(secondary.author),
     meta: [...new Set([...(primary.meta || []), ...(secondary.meta || [])].map(cleanText).filter(Boolean))],
     cover: coverCandidates(primary.cover, secondary.cover)[0] || '',
+    aladin: primary.aladin || secondary.aladin || old.aladin || entry.aladin,
     collection: [...new Set(collectionNames)].join(', '),
     collectionKeys: [...new Set([...(old.collectionKeys || []), ...(entry.collectionKeys || [])])],
     collectionTags: [...new Set([...(old.collectionTags || []), ...(entry.collectionTags || [])])],
@@ -1280,13 +1281,48 @@ function includesAnyTerm(text, terms) {
   return (terms || []).some(term => haystack.includes(String(term || '').toLowerCase()));
 }
 
+function aladinCategoryIds(categoryName) {
+  const parts = String(categoryName || '')
+    .split('>')
+    .map(part => cleanText(part))
+    .filter(Boolean);
+  const top = parts[1] || parts[0] || '';
+  const text = parts.join('>');
+
+  if (!text) return [];
+  if (top === '인문학' && /심리학|정신분석|상담심리|심리치료/.test(text)) return ['psychology'];
+  if (top === '소설/시/희곡') return ['novel'];
+  if (top === '에세이' || /에세이|산문/.test(text)) return ['essay'];
+  if (top === '자기계발') return ['self_development'];
+  if (top === '경제경영' || /경상계열|재테크|투자|마케팅|세일즈|창업|비즈니스|CEO/.test(text)) return ['economy_business'];
+  if (
+    top === '과학'
+    || top === '컴퓨터/모바일'
+    || /자연과학계열|공학계열|기초과학|교양과학|생명과학|뇌과학|물리학|화학|수학|천문학|컴퓨터 공학/.test(text)
+  ) {
+    return ['science'];
+  }
+  if (
+    top === '인문학'
+    || top === '역사'
+    || top === '사회과학'
+    || top === '종교/역학'
+    || /인문계열|사회과학계열|어문학계열|철학|사상|문화|문학의 이해|책읽기\/글쓰기/.test(text)
+  ) {
+    return ['humanities_philosophy'];
+  }
+  return [];
+}
+
 function categoryFilterMatch(entry, item, filter) {
   if (!filter) return { matched: true, score: 0 };
-  const categoryText = cleanText(item && item.categoryName);
+  const entryAladin = entry && entry.aladin ? entry.aladin : {};
+  const categoryText = cleanText((item && item.categoryName) || entryAladin.categoryName || (entry && entry.categoryName));
   const descriptionText = aladinDescription(item);
   const entryMeta = Array.isArray(entry && entry.meta) ? entry.meta.join(' ') : '';
   const fullText = [
     categoryText,
+    entryAladin.categoryName,
     entry && entry.title,
     entry && entry.author,
     entryMeta,
@@ -1297,14 +1333,20 @@ function categoryFilterMatch(entry, item, filter) {
     item && item.publisher,
     descriptionText,
   ].join(' ');
-  const categoryMatched = categoryText && includesAnyTerm(categoryText, [...filter.aliases, ...filter.keywords]);
+  const categoryIds = aladinCategoryIds(categoryText);
+  const categoryMatched = categoryIds.length
+    ? categoryIds.includes(filter.id)
+    : categoryText && includesAnyTerm(categoryText, [...filter.aliases, ...filter.keywords]);
   const keywordHits = (filter.keywords || [])
     .filter(keyword => includesAnyTerm(fullText, [keyword]))
     .length;
-  const matched = Boolean(categoryMatched || keywordHits >= (filter.minKeywordHits || 1));
+  const matched = categoryText
+    ? Boolean(categoryMatched)
+    : Boolean(keywordHits >= (filter.minKeywordHits || 1));
+  const keywordScore = (!categoryText || categoryMatched) ? Math.min(keywordHits, 5) * 7 : 0;
   return {
     matched,
-    score: (categoryMatched ? 36 : 0) + Math.min(keywordHits, 5) * 7,
+    score: (categoryMatched ? 36 : 0) + keywordScore,
   };
 }
 
@@ -1681,6 +1723,28 @@ async function lookupBookInfo(ttbKey, isbn, title = '') {
   }
 }
 
+function cachedAladinInfo(entry) {
+  const aladin = entry && entry.aladin ? entry.aladin : null;
+  if (!aladin) return null;
+  const categoryName = cleanText(aladin.categoryName);
+  const link = cleanText(aladin.link);
+  const cover = largerAladinCover(aladin.cover || '');
+  if (!categoryName && !link && !cover) return null;
+
+  return {
+    item: {
+      title: entry.title || '',
+      author: entry.author || '',
+      publisher: firstPublisherValue(entry.meta || []),
+      categoryName,
+      link,
+      cover,
+    },
+    cover,
+    link,
+  };
+}
+
 function comparableTitle(value) {
   return cleanText(value)
     .toLowerCase()
@@ -1891,6 +1955,20 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
   for (let start = 0; start < selected.length; start += batchSize) {
     const batch = selected.slice(start, start + batchSize);
     const lookedUp = await Promise.all(batch.map(async ({ entry, initial }, index) => {
+      const cachedInfo = cachedAladinInfo(entry);
+      if (cachedInfo) {
+        const covers = coverCandidates(cachedInfo.cover, entry.cover, cachedInfo.item && cachedInfo.item.cover);
+        return {
+          entry,
+          initial,
+          item: cachedInfo.item,
+          cover: covers[0] || '',
+          coverFallbacks: covers.slice(1),
+          detailUrl: catalogUrlForEntry(entry),
+          aladinLink: cachedInfo.link || '',
+        };
+      }
+
       if (start + index >= maxLookups) {
         const covers = coverCandidates(entry.cover);
         return {
@@ -1928,11 +2006,13 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
     for (const { entry, initial, item, cover, coverFallbacks, detailUrl, aladinLink } of lookedUp) {
       if (isExamPrepBook(entry) || isExamPrepBook(item)) continue;
       const categoryMatch = categoryFilter ? categoryFilterMatch(entry, item, categoryFilter) : { matched: false, score: 0 };
+      const categoryName = cleanText((item && item.categoryName) || (entry.aladin && entry.aladin.categoryName));
       const text = [
         entry.title,
         entry.author,
         entry.meta.join(' '),
         entry.collection,
+        categoryName,
         item && item.title,
         item && item.author,
         item && item.publisher,
@@ -1941,7 +2021,7 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
       ].join(' ');
       const enrichedScore = scoreText(text, tags);
       const matchedTags = [...new Set([...initial.matched, ...enrichedScore.matched])];
-      const categoryBonus = item && item.categoryName ? 1.2 : 0;
+      const categoryBonus = categoryName ? 1.2 : 0;
       const itemDescription = aladinDescription(item);
       const descriptionBonus = itemDescription ? Math.min(2.5, itemDescription.length / 180) : 0;
       enriched.push({
@@ -1953,7 +2033,7 @@ async function enrichCandidates(candidates, tags, maxResults, seed, options = {}
         coverFallbacks,
         link: (item && item.link) || aladinLink || '',
         isbn: entry.isbn,
-        categoryName: cleanText(item && item.categoryName),
+        categoryName,
         categoryMatched: categoryMatch.matched,
         collection: entry.collection,
         collectionKeys: entry.collectionKeys || [],
@@ -2040,7 +2120,16 @@ function chooseCategoryAwareDiverse(items, limit, seed, excludeIsbns = new Set()
   if (!categoryFilter) return chooseDiverse(items, limit, seed, excludeIsbns, options);
 
   const categoryMatchedItems = items.filter(item => item && item.categoryMatched);
-  return chooseDiverse(categoryMatchedItems, limit, seed, excludeIsbns, options);
+  const selected = chooseDiverse(categoryMatchedItems, limit, seed, excludeIsbns, options);
+  if (selected.length >= limit) return selected;
+
+  const selectedIsbns = new Set(selected.map(item => item && item.isbn).filter(Boolean));
+  const fallbackExcludes = new Set([...excludeIsbns, ...selectedIsbns]);
+  const fallbackItems = items.filter(item => item && !selectedIsbns.has(item.isbn));
+  return [
+    ...selected,
+    ...chooseDiverse(fallbackItems, limit - selected.length, `${seed}:category-fallback`, fallbackExcludes, options),
+  ].slice(0, limit);
 }
 
 function hasAladinRecommendationLink(book) {
