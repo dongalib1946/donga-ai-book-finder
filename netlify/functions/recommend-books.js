@@ -2191,14 +2191,23 @@ function bookFromLibraryEntry(entry, matchedTags = ['동아인의 선택', '인�
 
 async function ensureAladinCover(book) {
   if (!book || !book.isbn || isExamPrepBook(book)) return book;
-  if (isAladinCoverUrl(book.cover)) return book;
+  const hasAladinCover = isAladinCoverUrl(book.cover);
+  const hasDescription = Boolean(cleanText(book.description));
+  if (hasAladinCover && hasDescription) return book;
+
   try {
+    const needsAladinInfo = !hasAladinCover || !hasDescription;
+    const needsCatalogDetails = !hasAladinCover;
     const [info, catalogDetails] = await Promise.all([
-      lookupBookInfo(process.env.ALADIN_TTB_KEY || '', book.isbn, book.title),
-      findCatalogDetails(book).catch(error => {
-        console.warn('[Popular library cover]', book.isbn, error.message);
-        return { catalogUrl: book.libraryCatalogUrl || catalogUrlForEntry(book), cover: '' };
-      }),
+      needsAladinInfo
+        ? lookupBookInfo(process.env.ALADIN_TTB_KEY || '', book.isbn, book.title)
+        : Promise.resolve({ item: null, cover: '', link: '' }),
+      needsCatalogDetails
+        ? findCatalogDetails(book).catch(error => {
+          console.warn('[Popular library cover]', book.isbn, error.message);
+          return { catalogUrl: book.libraryCatalogUrl || catalogUrlForEntry(book), cover: '' };
+        })
+        : Promise.resolve({ catalogUrl: book.libraryCatalogUrl || catalogUrlForEntry(book), cover: '' }),
     ]);
     const item = info && info.item;
     const covers = coverCandidates(
