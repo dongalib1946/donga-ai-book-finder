@@ -26,8 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { id:'self_development', emoji:'🚀', label:'자기계발', desc:'성장과 실천', categoryFilter:{ id:'self_development', label:'자기계발' } },
       { id:'humanities_philosophy', emoji:'🧠', label:'인문·철학', desc:'생각과 사유', categoryFilter:{ id:'humanities_philosophy', label:'인문·철학' } },
       { id:'psychology', emoji:'💭', label:'심리', desc:'마음과 관계', categoryFilter:{ id:'psychology', label:'심리' } },
-      { id:'economy_business', emoji:'📈', label:'경제·경영', desc:'시장과 일', categoryFilter:{ id:'economy_business', label:'경제·경영' } },
-      { id:'science', emoji:'🔬', label:'과학', desc:'지식과 발견', categoryFilter:{ id:'science', label:'과학' } }
+      { id:'economy_business', emoji:'📈', label:'경제·경영', desc:'시장과 일', categoryFilter:{ id:'economy_business', label:'경제·경영' } }
     ]
   };
 

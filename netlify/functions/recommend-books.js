@@ -2291,6 +2291,10 @@ function makeBookDescription(book) {
   return `${book.title || '이 책'}은 ${metaText ? `${metaText} 정보로 확인되는 ` : ''}추천 도서입니다. 알라딘 API에서 긴 책 소개가 제공되지 않아, 현재 화면에는 도서관 서지 정보와 추천 분석 결과를 우선 표시합니다.`;
 }
 
+function hasRealDescription(book) {
+  return Boolean(cleanText(book && book.description));
+}
+
 function tagGroupScore(tags, groupTags) {
   const group = new Set(groupTags);
   return (tags || []).reduce((score, tag) => score + (group.has(tag) ? 1 : 0), 0);
@@ -2369,7 +2373,18 @@ exports.handler = async function handler(event) {
     ), limit);
     const aladinLinkedEnriched = enriched.filter(hasAladinRecommendationLink);
     const chosenItems = chooseCategoryAwareDiverse(aladinLinkedEnriched, limit, seed, requestExcludes, { collectionCaps: MAIN_COLLECTION_CAPS, coverPenalty: 18, preferCover: true }, categoryFilter);
-    const items = await Promise.all(chosenItems.map(ensureAladinCover));
+    const describedItems = (await Promise.all(chosenItems.map(ensureAladinCover))).filter(hasRealDescription);
+    const items = describedItems.length >= 3
+      ? describedItems
+      : [
+        ...describedItems,
+        ...(await Promise.all(
+          aladinLinkedEnriched
+            .filter(item => !chosenItems.some(chosen => chosen && chosen.isbn === item.isbn))
+            .slice(0, Math.max(0, limit * 3))
+            .map(ensureAladinCover)
+        )).filter(hasRealDescription),
+      ].slice(0, limit);
     items.forEach(book => {
       book.description = makeBookDescription(book);
       book.matchedTags = book.matchedTags.map(tag => TAG_LABELS[tag] || tag).slice(0, 4);
