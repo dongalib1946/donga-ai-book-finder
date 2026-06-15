@@ -14,6 +14,7 @@ const BESTSELLER_CACHE_TTL_MS = Number.parseInt(process.env.BESTSELLER_CACHE_TTL
 const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION_PAGE_LIMIT || '1', 10) || 1);
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
 const ALADIN_LOOKUP_TIMEOUT_MS = Math.max(1800, Number.parseInt(process.env.ALADIN_LOOKUP_TIMEOUT_MS || '2500', 10) || 2500);
+const ALADIN_SHORT_DESCRIPTION_MAX_LENGTH = 260;
 const MAIN_ENRICH_LOOKUP_LIMIT = Math.max(6, Number.parseInt(process.env.MAIN_ENRICH_LOOKUP_LIMIT || '6', 10) || 6);
 const MAIN_CANDIDATE_POOL_LIMIT = Math.max(MAIN_ENRICH_LOOKUP_LIMIT, Number.parseInt(process.env.MAIN_CANDIDATE_POOL_LIMIT || '220', 10) || 220);
 const MAIN_ALADIN_LINKED_LOOKUP_LIMIT = Math.max(MAIN_ENRICH_LOOKUP_LIMIT, Number.parseInt(process.env.MAIN_ALADIN_LINKED_LOOKUP_LIMIT || '12', 10) || 12);
@@ -1232,7 +1233,6 @@ async function lookupAladin(ttbKey, isbn) {
   url.searchParams.set('ItemId', isbn);
   url.searchParams.set('ItemIdType', isbn.length === 13 ? 'ISBN13' : 'ISBN');
   url.searchParams.set('Cover', 'Big');
-  url.searchParams.set('OptResult', 'fulldescription,fulldescription2,Toc,Story,authors');
   url.searchParams.set('output', 'js');
   url.searchParams.set('Version', '20131101');
 
@@ -1244,61 +1244,18 @@ async function lookupAladin(ttbKey, isbn) {
   return (data.item || [])[0] || null;
 }
 
-function collectTextValues(value) {
-  if (Array.isArray(value)) return value.flatMap(collectTextValues);
-  if (value && typeof value === 'object') return Object.values(value).flatMap(collectTextValues);
-  return value == null ? [] : [cleanText(value)];
-}
+function shortAladinDescription(value, maxLength = ALADIN_SHORT_DESCRIPTION_MAX_LENGTH) {
+  const text = cleanText(value);
+  if (!text) return '';
+  if (text.length <= maxLength) return text;
 
-function labeledAladinPart(label, value, minLength = 20) {
-  const text = collectTextValues(value)
-    .filter(Boolean)
-    .join(' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-  if (text.length < minLength) return '';
-  return `${label}\n${text}`;
-}
-
-function combineDescriptionParts(parts, maxLength = 1400) {
-  const combined = [];
-  parts.map(cleanText).filter(Boolean).forEach(text => {
-    const duplicateIndex = combined.findIndex(part => part.includes(text) || text.includes(part));
-    if (duplicateIndex === -1) {
-      combined.push(text);
-    } else if (text.length > combined[duplicateIndex].length) {
-      combined[duplicateIndex] = text;
-    }
-  });
-
-  let result = '';
-  for (const part of combined) {
-    const next = result ? `${result}\n\n${part}` : part;
-    if (next.length > maxLength) {
-      if (!result) return `${part.slice(0, maxLength).trim()}...`;
-      break;
-    }
-    result = next;
-  }
-  return result;
+  const boundary = text.slice(0, maxLength + 1).search(/[.!?。！？]\s*[^.!?。！？]*$/);
+  if (boundary >= 80) return `${text.slice(0, boundary + 1).trim()}...`;
+  return `${text.slice(0, maxLength).trim()}...`;
 }
 
 function aladinDescription(item) {
-  const subInfo = item && item.subInfo ? item.subInfo : {};
-  const mainDescription = combineDescriptionParts([
-    item && item.fullDescription2,
-    item && item.fullDescription,
-    item && item.description,
-  ], 900);
-
-  const supplementary = [
-    labeledAladinPart('책 소개 보강', subInfo.bookinfo || subInfo.bookInfo || subInfo.itemDescription),
-    labeledAladinPart('목차', subInfo.toc || subInfo.Toc, 30),
-    labeledAladinPart('책 속에서', subInfo.story || subInfo.Story, 30),
-    labeledAladinPart('저자 소개', subInfo.authors || subInfo.authorInfo, 40),
-  ];
-
-  return combineDescriptionParts([mainDescription, ...supplementary], 1400);
+  return shortAladinDescription(item && item.description);
 }
 
 function largerAladinCover(url) {
