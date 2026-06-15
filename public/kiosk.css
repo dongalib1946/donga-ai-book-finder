@@ -23,11 +23,9 @@ body.kiosk-page .stage,
 body.kiosk-page .result-hero,
 body.kiosk-page .popular-section,
 body.kiosk-page .aladin-section,
-body.kiosk-page .library-news-section,
 body.kiosk-page .book-card,
 body.kiosk-page .popular-card,
-body.kiosk-page .aladin-card,
-body.kiosk-page .news-card{
+body.kiosk-page .aladin-card{
   backdrop-filter:none !important;
   box-shadow:0 12px 30px rgba(20, 33, 61, .08) !important;
 }
@@ -38,11 +36,9 @@ body.kiosk-page .result-hero::before,
 body.kiosk-page .loading-card::before,
 body.kiosk-page .popular-section::before,
 body.kiosk-page .aladin-section::before,
-body.kiosk-page .library-news-section::before,
 body.kiosk-page .book-card::before,
 body.kiosk-page .popular-card::before,
-body.kiosk-page .aladin-card::before,
-body.kiosk-page .news-card::before{
+body.kiosk-page .aladin-card::before{
   animation:none !important;
   filter:none !important;
   opacity:.28 !important;
@@ -182,13 +178,11 @@ body.kiosk-page .catalog-link,
 body.kiosk-page .aladin-book-link,
 body.kiosk-page .aladin-actions,
 body.kiosk-page .library-action,
-body.kiosk-page .aladin-link,
-body.kiosk-page .news-more{
+body.kiosk-page .aladin-link{
   display:none !important;
 }
 
-body.kiosk-page .popular-card,
-body.kiosk-page .news-card{
+body.kiosk-page .popular-card{
   cursor:default;
 }
 

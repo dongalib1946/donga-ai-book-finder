@@ -179,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
     books:document.getElementById('books'),
     aladinBestSellers:document.getElementById('aladinBestSellers'),
     popularBooks:document.getElementById('popularBooks'),
-    libraryNews:document.getElementById('libraryNews'),
     instagramFeed:document.getElementById('instagramFeed'),
     instagramProfileName:document.getElementById('instagramProfileName'),
     instagramProfilePhoto:document.getElementById('instagramProfilePhoto'),
@@ -1213,75 +1212,6 @@ document.addEventListener('DOMContentLoaded', () => {
       els.aladinBestSellers.appendChild(card);
     });
   }
-  function renderLibraryNews(items, options = {}){
-    if(!els.libraryNews) return;
-    els.libraryNews.innerHTML = '';
-    const notices = items || [];
-    if(!notices.length){
-      const empty = document.createElement('div');
-      empty.className = 'news-empty';
-      empty.textContent = options.message || '도서관 최신 공지를 불러오지 못했습니다. 전체보기에서 커뮤니티 페이지를 확인해 주세요.';
-      els.libraryNews.appendChild(empty);
-      return;
-    }
-    notices.slice(0, 5).forEach((notice, index)=>{
-      const link = document.createElement('a');
-      link.className = 'news-card';
-      link.href = notice.url || 'https://library.donga.ac.kr/community/';
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      const thumbnail = String(notice.thumbnail || notice.image || notice.imageUrl || '').trim();
-      link.innerHTML = `
-        <span class="news-media">
-          <img alt="" loading="lazy">
-          <span class="news-index"></span>
-        </span>
-        <span class="news-copy">
-          <strong></strong>
-          <small></small>
-        </span>
-        <span class="news-date"></span>
-      `;
-      const image = link.querySelector('img');
-      if(thumbnail){
-        image.src = thumbnail;
-        image.addEventListener('error', ()=>{
-          link.classList.add('no-thumb');
-          image.removeAttribute('src');
-        }, { once:true });
-      }else{
-        link.classList.add('no-thumb');
-      }
-      link.querySelector('.news-index').textContent = String(index + 1).padStart(2, '0');
-      link.querySelector('strong').textContent = notice.title || '도서관 공지';
-      link.querySelector('small').textContent = [notice.author, notice.views].filter(Boolean).join(' · ') || '동아대학교 도서관';
-      link.querySelector('.news-date').textContent = notice.date || '';
-      els.libraryNews.appendChild(link);
-    });
-  }
-  async function refreshLibraryNews(currentItems = []){
-    if(!currentItems.length){
-      renderLibraryNews([], { message:'도서관 최신 공지를 확인하는 중입니다.' });
-    }
-    try{
-      const res = await fetch(`/.netlify/functions/library-news?limit=5&_=${Date.now()}`, {
-        cache:'no-store',
-        headers:{ accept:'application/json' }
-      });
-      const data = await res.json().catch(()=>({}));
-      if(!res.ok) throw new Error(data.error || '도서관 소식을 불러오지 못했습니다.');
-      const notices = Array.isArray(data.notices) ? data.notices : [];
-      if(notices.length){
-        renderLibraryNews(notices);
-        if(currentRecommendation) currentRecommendation = { ...currentRecommendation, notices };
-      }else if(!currentItems.length){
-        renderLibraryNews([]);
-      }
-    }catch(error){
-      console.warn('Library news refresh failed', error);
-      if(!currentItems.length) renderLibraryNews([]);
-    }
-  }
   function formatInstagramDate(value){
     const date = new Date(value);
     if(Number.isNaN(date.getTime())) return '';
@@ -1463,7 +1393,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMainBooks([]);
     renderAladinBestSellers([]);
     renderPopularBooks([]);
-    renderLibraryNews([]);
     renderLibraryInstructions([]);
     resetEmailForm();
     if(els.printResultBtn) els.printResultBtn.disabled = true;
@@ -1512,8 +1441,6 @@ document.addEventListener('DOMContentLoaded', () => {
     rememberRecommendedBooks(data.items || []);
     renderAladinBestSellers(data.aladinBestSellers || []);
     renderPopularBooks(data.popularItems || []);
-    renderLibraryNews(data.notices || []);
-    refreshLibraryNews(data.notices || []);
     refreshInstagramFeed();
     if(!(data.items || []).length){
       setError(els.resultError, '추천할 수 있는 도서를 찾지 못했습니다. 잠시 뒤 다시 시도해 주세요.');

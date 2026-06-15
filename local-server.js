@@ -6,7 +6,6 @@ const recommend = require('./netlify/functions/recommend-books.js');
 const questions = require('./netlify/functions/questions.js');
 const sharedResult = require('./netlify/functions/shared-result.js');
 const emailResult = require('./netlify/functions/email-result.js');
-const libraryNews = require('./netlify/functions/library-news.js');
 const instagramFeed = require('./netlify/functions/instagram-feed.js');
 
 const ROOT = __dirname;
@@ -88,16 +87,6 @@ const server = http.createServer(async (req, res) => {
         path: url.pathname,
         rawUrl: url.toString(),
         body,
-      });
-      return send(res, result.statusCode, result.headers || {}, result.body || '');
-    }
-    if (url.pathname === '/.netlify/functions/library-news') {
-      const result = await libraryNews.handler({
-        httpMethod: req.method,
-        headers: req.headers,
-        path: url.pathname,
-        rawUrl: url.toString(),
-        body: '',
       });
       return send(res, result.statusCode, result.headers || {}, result.body || '');
     }

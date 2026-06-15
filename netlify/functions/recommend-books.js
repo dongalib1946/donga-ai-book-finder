@@ -1,21 +1,15 @@
 const crypto = require('crypto');
-const { connectNewsSnapshot, readNewsSnapshot } = require('./library-news-snapshot.js');
 
 const ALADIN_LOOKUP_URL = 'https://www.aladin.co.kr/ttb/api/ItemLookUp.aspx';
 const ALADIN_ITEM_LIST_URL = 'https://www.aladin.co.kr/ttb/api/ItemList.aspx';
 const ALADIN_SEARCH_URL = 'https://www.aladin.co.kr/search/wsearchresult.aspx';
 const ALADIN_PRODUCT_URL = 'https://www.aladin.co.kr/shop/wproduct.aspx';
-const LIBRARY_COMMUNITY_URL = 'https://library.donga.ac.kr/community/notice/';
-const LIBRARY_POSTS_API_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/posts';
-const LIBRARY_FEED_URL = 'https://library.donga.ac.kr/feed/';
 const LIBRARY_CATALOG_URL = 'https://library.donga.ac.kr/resource/library-catalog/';
 const LIBRARY_CATALOG_REST_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/pages/17';
 const LIBRARY_PAGES_REST_URL = 'https://library.donga.ac.kr/wp-json/wp/v2/pages/';
 const PURCHASE_REQUEST_URL = 'https://library.donga.ac.kr/libaray-services/using-materials/purchase-request/#';
 const FETCH_TIMEOUT_MS = Number.parseInt(process.env.FETCH_TIMEOUT_MS || '2500', 10);
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000;
-const NOTICE_CACHE_TTL_MS = Math.max(0, Number.parseInt(process.env.NOTICE_CACHE_TTL_MS || String(60 * 1000), 10) || 0);
-const NOTICE_FETCH_TIMEOUT_MS = Math.min(1200, Math.max(500, Number.parseInt(process.env.NOTICE_FETCH_TIMEOUT_MS || '900', 10) || 900));
 const BESTSELLER_CACHE_TTL_MS = Number.parseInt(process.env.BESTSELLER_CACHE_TTL_MS || String(60 * 1000), 10);
 const COLLECTION_PAGE_LIMIT = Math.max(1, Number.parseInt(process.env.COLLECTION_PAGE_LIMIT || '1', 10) || 1);
 const COLLECTION_RECORD_PER_PAGE = Math.min(120, Math.max(12, Number.parseInt(process.env.COLLECTION_RECORD_PER_PAGE || '120', 10) || 120));
@@ -31,8 +25,6 @@ const API_VERSION = 'ai-book-finder-v1';
 const MAIN_COLLECTION_CAPS = { new: 4, popular: 2, monthly: 2, recommend: 2, classic: 2, gallery: 2 };
 
 let poolCache = null;
-let noticeCache = null;
-let lastNoticeSource = '';
 let bestSellerCache = null;
 let snapshotPoolCache = null;
 
@@ -91,49 +83,6 @@ const FALLBACK_ENTRIES = [
   { isbn: '9788994478258', title: '왜 세계는 불평등한가 :탐욕스러운 1%가 99%의 삶을 파괴한다', author: '', publisher: '', tags: ['society', 'history', 'knowledge', 'deep'] },
   { isbn: '9788964061503', title: '미디어의 이해 :인간의 확장', author: 'Marshall McLuhan', publisher: '커뮤니케이션북스', tags: ['society', 'technology', 'knowledge', 'humanities'] },
   { isbn: '9791194530701', title: '괴테는 모든 것을 말했다', author: '鈴木悠衣', publisher: '리프', tags: ['literature', 'classic', 'deep', 'art'] },
-];
-
-const FALLBACK_NOTICES = [
-  {
-    title: '북크닉 추첨 당첨자 발표',
-    url: 'https://library.donga.ac.kr/community/notice/?pid=36700&ks=',
-    author: '도서관',
-    date: '2026.05.20',
-    views: '',
-    summary: '',
-  },
-  {
-    title: '북스타그램 ‘랜덤가챠북’ 이벤트 안내',
-    url: 'https://library.donga.ac.kr/community/notice/?pid=36674&ks=',
-    author: '도서관',
-    date: '2026.05.19',
-    views: '',
-    summary: '',
-  },
-  {
-    title: '[학술DB] 윕스 서비스 일시 중단 안내 (5/22~25)',
-    url: 'https://library.donga.ac.kr/community/notice/?pid=36426&ks=',
-    author: '도서관',
-    date: '2026.05.15',
-    views: '',
-    summary: '',
-  },
-  {
-    title: '2026 전자정보 박람회 경품당첨자 발표',
-    url: 'https://library.donga.ac.kr/community/notice/?pid=36545&ks=',
-    author: '도서관',
-    date: '2026.05.14',
-    views: '',
-    summary: '',
-  },
-  {
-    title: '[월간 학술DB] ICPSR DB & KSDC DB (2026년 5월)',
-    url: 'https://library.donga.ac.kr/community/notice/?pid=36571&ks=',
-    author: '도서관',
-    date: '2026.05.14',
-    views: '',
-    summary: '',
-  },
 ];
 
 const TAG_RULES = {
@@ -810,14 +759,6 @@ async function fetchWithTimeout(url, options = {}) {
   throw enhancedFetchError(lastError, url, resolvedTimeoutMs);
 }
 
-function libraryPostsApiUrl(limit = 5) {
-  const url = new URL(LIBRARY_POSTS_API_URL);
-  url.searchParams.set('per_page', String(Math.min(20, Math.max(1, limit))));
-  url.searchParams.set('_fields', 'id,link,title,date,modified');
-  url.searchParams.set('_', String(Date.now()));
-  return url.toString();
-}
-
 async function fetchText(url, options = {}) {
   const res = await fetchWithTimeout(url, {
     headers: {
@@ -1046,190 +987,6 @@ function fieldFromClass(innerHtml, className) {
   const re = new RegExp(`<[^>]+class=["'][^"']*\\b${className}\\b[^"']*["'][^>]*>([\\s\\S]*?)<\\/[^>]+>`, 'i');
   const match = String(innerHtml || '').match(re);
   return cleanText(match ? match[1] : '');
-}
-
-function firstTagWithClass(html, tagName, className) {
-  const pattern = new RegExp(`<${tagName}\\b[^>]*\\bclass=["'][^"']*\\b${className}\\b[^"']*["'][^>]*>`, 'i');
-  const match = String(html || '').match(pattern);
-  return match ? match[0] : '';
-}
-
-function attrValue(tag, attrName) {
-  const pattern = new RegExp(`\\b${attrName}=["']([^"']+)["']`, 'i');
-  const match = String(tag || '').match(pattern);
-  return match ? match[1] : '';
-}
-
-function communityNoticeUrl(value) {
-  const url = new URL(String(value || LIBRARY_COMMUNITY_URL).replace(/&amp;/g, '&'), LIBRARY_COMMUNITY_URL);
-  const pid = url.searchParams.get('pid') || url.searchParams.get('p');
-  if (pid) {
-    const canonical = new URL(LIBRARY_COMMUNITY_URL);
-    canonical.searchParams.set('pid', pid);
-    canonical.searchParams.set('ks', url.searchParams.get('ks') || '');
-    return canonical.toString();
-  }
-  return url.toString();
-}
-
-function firstImageUrlFromHtml(value, baseUrl = LIBRARY_COMMUNITY_URL) {
-  const imgTag = String(value || '').match(/<img\b[^>]*>/i)?.[0] || '';
-  const src = attrValue(imgTag, 'src') || attrValue(imgTag, 'data-src');
-  return src ? normalizeCoverUrl(src, baseUrl) : '';
-}
-
-function formatNoticeDate(value) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return '';
-  const parts = new Intl.DateTimeFormat('ko-KR', {
-    timeZone: 'Asia/Seoul',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).formatToParts(date);
-  const year = parts.find(part => part.type === 'year')?.value || '';
-  const month = parts.find(part => part.type === 'month')?.value || '';
-  const day = parts.find(part => part.type === 'day')?.value || '';
-  return year && month && day ? `${year}.${month}.${day}` : '';
-}
-
-function extractCommunityNotices(html, limit) {
-  const blocks = String(html || '').split(/<div\b[^>]*class=["'][^"']*\bboard-list-cell\b/i).slice(1);
-  const notices = [];
-  for (const rawBlock of blocks) {
-    const block = `<div class="board-list-cell${rawBlock}`;
-    if (/badge-list-notice/i.test(block)) continue;
-
-    const linkTag = firstTagWithClass(block, 'a', 'btn-board-list-item');
-    const href = attrValue(linkTag, 'href');
-    const title = fieldFromClass(block, 'txt').replace(/\s+N$/, '');
-    if (!href || !title) continue;
-
-    const optionMatches = [...block.matchAll(/<div\b[^>]*class=["'][^"']*\bitem-option-cell\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)]
-      .map(match => cleanText(match[1]));
-    const summary = fieldFromClass(block, 'item-info');
-    const thumbnail = firstImageUrlFromHtml(block, href);
-    notices.push({
-      title,
-      url: communityNoticeUrl(href),
-      thumbnail,
-      author: optionMatches[0] || '',
-      date: optionMatches[1] || '',
-      views: optionMatches[2] || '',
-      summary,
-    });
-    if (notices.length >= limit) break;
-  }
-  return notices;
-}
-
-function extractFeedNotices(xml, limit) {
-  const items = String(xml || '').split(/<item\b[^>]*>/i).slice(1);
-  const notices = [];
-  for (const item of items) {
-    const title = cleanText((item.match(/<title><!\[CDATA\[([\s\S]*?)\]\]><\/title>/i) || item.match(/<title>([\s\S]*?)<\/title>/i) || [])[1]);
-    const link = cleanText((item.match(/<link><!\[CDATA\[([\s\S]*?)\]\]><\/link>/i) || item.match(/<link>([\s\S]*?)<\/link>/i) || [])[1]);
-    const guid = cleanText((item.match(/<guid\b[^>]*><!\[CDATA\[([\s\S]*?)\]\]><\/guid>/i) || item.match(/<guid\b[^>]*>([\s\S]*?)<\/guid>/i) || [])[1]);
-    const pubDate = cleanText((item.match(/<pubDate>([\s\S]*?)<\/pubDate>/i) || [])[1]);
-    const content = (item.match(/<content:encoded><!\[CDATA\[([\s\S]*?)\]\]><\/content:encoded>/i) || item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/i) || [])[1];
-    if (!title || !link) continue;
-    notices.push({
-      title,
-      url: communityNoticeUrl(guid || link),
-      thumbnail: firstImageUrlFromHtml(content, link),
-      author: '도서관',
-      date: formatNoticeDate(pubDate),
-      views: '',
-      summary: '',
-    });
-    if (notices.length >= limit) break;
-  }
-  return notices;
-}
-
-function rememberNotices(notices, source) {
-  lastNoticeSource = source;
-  noticeCache = { savedAt: Date.now(), items: notices, source };
-  return notices;
-}
-
-async function fetchCommunityNotices(limit = 5, options = {}) {
-  const timeoutMs = Math.max(500, Number.parseInt(options.timeoutMs || String(NOTICE_FETCH_TIMEOUT_MS), 10) || NOTICE_FETCH_TIMEOUT_MS);
-  const fetchOptions = {
-    timeoutMs,
-    retries: options.retries,
-    retryDelayMs: options.retryDelayMs,
-  };
-  if (!options.fresh && noticeCache && Date.now() - noticeCache.savedAt < NOTICE_CACHE_TTL_MS) {
-    lastNoticeSource = noticeCache.source ? `cache:${noticeCache.source}` : 'cache';
-    return noticeCache.items.slice(0, limit);
-  }
-
-  try {
-    const feed = await fetchText(LIBRARY_FEED_URL, fetchOptions);
-    const notices = extractFeedNotices(feed, limit);
-    if (notices.length) {
-      return rememberNotices(notices, 'rss');
-    }
-  } catch (error) {
-    console.warn('[Library notices feed]', error.message);
-  }
-
-  if (options.fastFallback !== false) {
-    const fallback = FALLBACK_NOTICES.slice(0, limit);
-    return rememberNotices(fallback, 'snapshot');
-  }
-
-  try {
-    const posts = await fetchJson(libraryPostsApiUrl(Math.max(limit, 8)), fetchOptions);
-    const notices = (Array.isArray(posts) ? posts : [])
-      .map(post => ({
-        title: cleanText(post && post.title && post.title.rendered),
-        url: post && post.id ? communityNoticeUrl(`${LIBRARY_COMMUNITY_URL}?pid=${post.id}&ks=`) : communityNoticeUrl(post && post.link),
-        thumbnail: firstImageUrlFromHtml(post && post.content && post.content.rendered, post && post.link),
-        author: '도서관',
-        date: post && post.date ? String(post.date).slice(0, 10).replace(/-/g, '.') : '',
-        views: '',
-        summary: '',
-      }))
-      .filter(notice => notice.title)
-      .slice(0, limit);
-    if (notices.length) {
-      return rememberNotices(notices, 'api');
-    }
-  } catch (error) {
-    console.warn('[Library notices API]', error.message);
-  }
-
-  try {
-    const html = await fetchText(LIBRARY_COMMUNITY_URL, fetchOptions);
-    const notices = extractCommunityNotices(html, limit);
-    if (notices.length) {
-      return rememberNotices(notices, 'html');
-    }
-  } catch (error) {
-    console.warn('[Library notices HTML]', error.message);
-  }
-
-  return [];
-}
-
-async function getCommunityNotices(limit = 5) {
-  const snapshot = await readNewsSnapshot(limit);
-  if (snapshot && snapshot.notices.length) {
-    return rememberNotices(snapshot.notices, 'scheduled-snapshot');
-  }
-  return fetchCommunityNotices(limit);
-}
-
-async function fetchCommunityNoticeResult(limit = 5, options = {}) {
-  lastNoticeSource = '';
-  const notices = await fetchCommunityNotices(limit, options);
-  return {
-    notices,
-    source: lastNoticeSource || 'empty',
-    isLive: ['rss', 'api', 'html'].includes(lastNoticeSource),
-  };
 }
 
 function stableNumber(...parts) {
@@ -2323,7 +2080,6 @@ exports.handler = async function handler(event) {
   if (event.httpMethod !== 'POST') return json(405, { error: 'Method not allowed' });
 
   try {
-    connectNewsSnapshot(event);
     const payload = JSON.parse(event.body || '{}');
     const answers = Array.isArray(payload.answers) ? payload.answers : [];
     const limit = Math.min(10, Math.max(3, Number.parseInt(payload.limit || '6', 10) || 6));
@@ -2399,10 +2155,7 @@ exports.handler = async function handler(event) {
       matchedTags: ['동아인의 선택', '인기도서'],
     })), popularCandidates, popularLimit);
 
-    const [notices, aladinBestSellers] = await Promise.all([
-      getCommunityNotices(5),
-      fetchAladinBestSellers(pool, 6),
-    ]);
+    const aladinBestSellers = await fetchAladinBestSellers(pool, 6);
 
     return json(200, {
       apiVersion: API_VERSION,
@@ -2416,7 +2169,6 @@ exports.handler = async function handler(event) {
       items,
       popularItems,
       aladinBestSellers,
-      notices,
       seed: clientSeed,
       aladinEnabled: Boolean(process.env.ALADIN_TTB_KEY),
       updatedAt: new Date().toISOString(),
@@ -2429,6 +2181,4 @@ exports.handler = async function handler(event) {
   }
 };
 
-exports.fetchCommunityNotices = fetchCommunityNotices;
-exports.fetchCommunityNoticeResult = fetchCommunityNoticeResult;
 exports.fetchLibraryPoolSnapshot = fetchLibraryPoolSnapshot;
