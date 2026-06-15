@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const fs = require('fs/promises');
 const path = require('path');
-const { getStore } = require('@netlify/blobs');
+const { connectLambda, getStore } = require('@netlify/blobs');
 
 const STORE_NAME = 'shared-results';
 const TTL_MS = 7 * 24 * 60 * 60 * 1000;
@@ -33,6 +33,13 @@ function storeOptions() {
     options.token = process.env.NETLIFY_AUTH_TOKEN;
   }
   return options;
+}
+
+function getBlobStore(event) {
+  if (event && event.blobs) {
+    connectLambda(event);
+  }
+  return getStore(storeOptions());
 }
 
 function safeResultId(value) {
@@ -73,18 +80,18 @@ function compactResult(result) {
   };
 }
 
-async function setEntry(id, payload) {
+async function setEntry(id, payload, event) {
   if (useLocalStore()) {
     await fs.mkdir(LOCAL_STORE_DIR, { recursive: true });
     await fs.writeFile(path.join(LOCAL_STORE_DIR, `${id}.json`), JSON.stringify(payload), 'utf8');
     return;
   }
 
-  const store = getStore(storeOptions());
+  const store = getBlobStore(event);
   await store.setJSON(id, payload);
 }
 
-async function getEntry(id) {
+async function getEntry(id, event) {
   if (useLocalStore()) {
     try {
       const file = await fs.readFile(path.join(LOCAL_STORE_DIR, `${id}.json`), 'utf8');
@@ -95,17 +102,17 @@ async function getEntry(id) {
     }
   }
 
-  const store = getStore(storeOptions());
+  const store = getBlobStore(event);
   return store.get(id, { type: 'json', consistency: 'strong' });
 }
 
-async function deleteEntry(id) {
+async function deleteEntry(id, event) {
   if (useLocalStore()) {
     await fs.rm(path.join(LOCAL_STORE_DIR, `${id}.json`), { force: true });
     return;
   }
 
-  const store = getStore(storeOptions());
+  const store = getBlobStore(event);
   await store.delete(id);
 }
 
@@ -125,7 +132,7 @@ async function createSharedResult(event) {
     result,
   };
 
-  await setEntry(id, payload);
+  await setEntry(id, payload, event);
   return json(200, { id, expiresAt: payload.expiresAt });
 }
 
@@ -134,11 +141,11 @@ async function readSharedResult(event) {
   const id = safeResultId(url.searchParams.get('id'));
   if (!id) return json(400, { error: 'A valid result id is required.' });
 
-  const payload = await getEntry(id);
+  const payload = await getEntry(id, event);
   if (!payload) return json(404, { error: 'Shared result not found.' });
 
   if (Date.parse(payload.expiresAt || '') <= Date.now()) {
-    await deleteEntry(id);
+    await deleteEntry(id, event);
     return json(410, { error: 'Shared result has expired.' });
   }
 
