@@ -26,17 +26,22 @@ function useLocalStore() {
   return process.env.AI_BOOK_FINDER_LOCAL_STORE === '1';
 }
 
+function hasApiStoreConfig() {
+  return Boolean(process.env.NETLIFY_SITE_ID && process.env.NETLIFY_AUTH_TOKEN);
+}
+
 function storeOptions() {
-  const options = { name: STORE_NAME, consistency: 'strong' };
-  if (process.env.NETLIFY_SITE_ID && process.env.NETLIFY_AUTH_TOKEN) {
+  const options = { name: STORE_NAME };
+  if (hasApiStoreConfig()) {
     options.siteID = process.env.NETLIFY_SITE_ID;
     options.token = process.env.NETLIFY_AUTH_TOKEN;
+    options.consistency = 'strong';
   }
   return options;
 }
 
 function getBlobStore(event) {
-  if (event && event.blobs) {
+  if (!hasApiStoreConfig() && event && event.blobs) {
     connectLambda(event);
   }
   return getStore(storeOptions());
@@ -103,7 +108,11 @@ async function getEntry(id, event) {
   }
 
   const store = getBlobStore(event);
-  return store.get(id, { type: 'json', consistency: 'strong' });
+  const options = { type: 'json' };
+  if (hasApiStoreConfig()) {
+    options.consistency = 'strong';
+  }
+  return store.get(id, options);
 }
 
 async function deleteEntry(id, event) {
