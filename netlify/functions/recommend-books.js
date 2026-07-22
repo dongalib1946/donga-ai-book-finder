@@ -22,6 +22,7 @@ const MAIN_EXTRA_COVER_LOOKUP_LIMIT = Math.max(0, Number.parseInt(process.env.MA
 const POPULAR_ENRICH_LOOKUP_LIMIT = Math.max(5, Number.parseInt(process.env.POPULAR_ENRICH_LOOKUP_LIMIT || '5', 10) || 5);
 const POPULAR_COVER_LOOKUP_LIMIT = Math.max(0, Number.parseInt(process.env.POPULAR_COVER_LOOKUP_LIMIT || '5', 10) || 0);
 const BESTSELLER_HOLDING_TIMEOUT_MS = Math.max(2500, Number.parseInt(process.env.BESTSELLER_HOLDING_TIMEOUT_MS || '10000', 10) || 10000);
+const MAX_BODY_BYTES = Math.max(1024, Number.parseInt(process.env.RECOMMEND_MAX_BODY_BYTES || String(64 * 1024), 10) || 64 * 1024);
 const API_VERSION = 'ai-book-finder-v1';
 const MAIN_COLLECTION_CAPS = { new: 4, popular: 2, monthly: 2, recommend: 2, classic: 2, gallery: 2 };
 
@@ -2037,6 +2038,9 @@ exports.handler = async function handler(event) {
   if (event.httpMethod !== 'POST') return json(405, { error: 'Method not allowed' });
 
   try {
+    if (Buffer.byteLength(event.body || '', 'utf8') > MAX_BODY_BYTES) {
+      return json(413, { error: 'Request body is too large.' });
+    }
     const payload = JSON.parse(event.body || '{}');
     const answers = Array.isArray(payload.answers) ? payload.answers : [];
     const limit = Math.min(10, Math.max(3, Number.parseInt(payload.limit || '6', 10) || 6));

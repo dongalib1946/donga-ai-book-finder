@@ -63,6 +63,13 @@ function = "hotlink-guard"
   [edge_functions.header]
   sec-fetch-site = "cross-site"
 
+[[edge_functions]]
+path = "/.netlify/functions/*"
+function = "hotlink-guard"
+
+  [edge_functions.header]
+  sec-fetch-site = "cross-site"
+
 [[headers]]
 for = "/*"
 
