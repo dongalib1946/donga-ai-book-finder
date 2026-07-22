@@ -5,7 +5,7 @@
   "description": "Question based book recommendation service for Dong-A University Library.",
   "scripts": {
     "start": "node local-server.js",
-    "check": "node --check public/app.js && node --check local-server.js && node --check scripts/update-library-pool-snapshot.js && node --check scripts/prune-library-catalog-pool.js && node --check netlify/functions/questions.js && node --check netlify/functions/recommend-books.js && node --check netlify/functions/shared-result.js && node --check netlify/functions/email-result.js && node --check netlify/functions/instagram-feed.js",
+    "check": "node --check public/app.js && node --check local-server.js && node --check scripts/update-library-pool-snapshot.js && node --check scripts/prune-library-catalog-pool.js && node --check netlify/functions/questions.js && node --check netlify/functions/recommend-books.js && node --check netlify/functions/shared-result.js && node --check netlify/functions/email-result.js && node --check netlify/functions/instagram-feed.js && node --check netlify/edge-functions/traffic-guard.js && node --check netlify/edge-functions/hotlink-guard.js",
     "prune:catalog": "node scripts/prune-library-catalog-pool.js"
   },
   "dependencies": {

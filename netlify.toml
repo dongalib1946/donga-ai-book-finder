@@ -26,9 +26,42 @@ functions = "netlify/functions"
   [build.services]
 
 [functions]
-included_files = ["netlify/data/*.json"]
 
   [functions."*"]
+
+  [functions."recommend-books"]
+  included_files = ["netlify/data/library-pool.json", "netlify/data/library-catalog-pool.json"]
+
+  [functions."questions"]
+  included_files = ["netlify/data/questions.json"]
+
+[[edge_functions]]
+path = "/*"
+function = "traffic-guard"
+
+  [edge_functions.header]
+  netlify-agent-category = "^(ai-agent|crawler|tooling|none)(;.*)?$"
+
+[[edge_functions]]
+path = "/img/*"
+function = "hotlink-guard"
+
+  [edge_functions.header]
+  sec-fetch-site = "cross-site"
+
+[[edge_functions]]
+path = "/*.js"
+function = "hotlink-guard"
+
+  [edge_functions.header]
+  sec-fetch-site = "cross-site"
+
+[[edge_functions]]
+path = "/*.css"
+function = "hotlink-guard"
+
+  [edge_functions.header]
+  sec-fetch-site = "cross-site"
 
 [[headers]]
 for = "/*"
@@ -36,6 +69,7 @@ for = "/*"
   [headers.values]
   X-Content-Type-Options = "nosniff"
   Referrer-Policy = "strict-origin-when-cross-origin"
+  X-Robots-Tag = "noindex, nofollow, noarchive"
 
 [[headers]]
 for = "/img/*"

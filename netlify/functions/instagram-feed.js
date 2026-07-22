@@ -9,6 +9,8 @@ function json(statusCode, body, cacheControl = 'public, max-age=300, s-maxage=18
     headers: {
       'content-type': 'application/json; charset=utf-8',
       'cache-control': cacheControl,
+      'cdn-cache-control': cacheControl,
+      'netlify-cdn-cache-control': cacheControl,
       'access-control-allow-origin': '*',
       'access-control-allow-methods': 'GET,OPTIONS',
       'access-control-allow-headers': 'content-type',

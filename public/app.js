@@ -179,12 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
     books:document.getElementById('books'),
     aladinBestSellers:document.getElementById('aladinBestSellers'),
     popularBooks:document.getElementById('popularBooks'),
-    instagramFeed:document.getElementById('instagramFeed'),
-    instagramProfileName:document.getElementById('instagramProfileName'),
-    instagramProfilePhoto:document.getElementById('instagramProfilePhoto'),
-    instagramPostCount:document.getElementById('instagramPostCount'),
-    instagramFollowerCount:document.getElementById('instagramFollowerCount'),
-    instagramFollowingCount:document.getElementById('instagramFollowingCount'),
     resultTitle:document.getElementById('resultTitle'),
     resultSummary:document.getElementById('resultSummary'),
     restartBtn:document.getElementById('restartBtn'),
@@ -251,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(!questions.length) throw new Error('사용할 수 있는 질문이 없습니다.');
     return {
       questions:withFixedCategoryQuestion(questions),
-      seed:data.seed || newSeed()
+      seed:newSeed()
     };
   }
 
@@ -650,9 +644,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const request = beginRecommendationRequest();
 
     try{
-      const res = await fetch(`/.netlify/functions/recommend-books?_=${Date.now()}`, {
+      const res = await fetch('/.netlify/functions/recommend-books', {
         method:'POST',
-        cache:'no-store',
         signal:request.signal,
         headers:{'content-type':'application/json'},
         body:JSON.stringify({
@@ -1212,105 +1205,6 @@ document.addEventListener('DOMContentLoaded', () => {
       els.aladinBestSellers.appendChild(card);
     });
   }
-  function formatInstagramDate(value){
-    const date = new Date(value);
-    if(Number.isNaN(date.getTime())) return '';
-    return new Intl.DateTimeFormat('ko-KR', {
-      timeZone:'Asia/Seoul',
-      month:'2-digit',
-      day:'2-digit'
-    }).format(date);
-  }
-  function formatInstagramNumber(value){
-    if(value === null || value === undefined || value === '') return '-';
-    const number = Number(value);
-    if(!Number.isFinite(number)) return '-';
-    return new Intl.NumberFormat('ko-KR', {
-      notation:number >= 10000 ? 'compact' : 'standard'
-    }).format(number);
-  }
-  function instagramTypeLabel(value){
-    if(value === 'VIDEO') return 'VIDEO';
-    if(value === 'REELS') return 'REELS';
-    if(value === 'CAROUSEL_ALBUM') return 'ALBUM';
-    return 'POST';
-  }
-  function renderInstagramProfile(profile){
-    if(!els.instagramProfileName) return;
-    const data = profile || {};
-    els.instagramProfileName.textContent = data.username || 'dongalibrary';
-    if(els.instagramProfilePhoto) els.instagramProfilePhoto.src = data.profilePictureUrl || 'img/instagram.png';
-    if(els.instagramPostCount) els.instagramPostCount.textContent = formatInstagramNumber(data.mediaCount);
-    if(els.instagramFollowerCount) els.instagramFollowerCount.textContent = formatInstagramNumber(data.followersCount);
-    if(els.instagramFollowingCount) els.instagramFollowingCount.textContent = formatInstagramNumber(data.followsCount);
-  }
-  function renderInstagramFeed(items, options = {}){
-    if(!els.instagramFeed) return;
-    els.instagramFeed.innerHTML = '';
-    const posts = items || [];
-    if(!posts.length){
-      const empty = document.createElement('div');
-      empty.className = 'instagram-empty';
-      empty.textContent = options.message || 'Instagram 피드를 불러오지 못했습니다.';
-      els.instagramFeed.appendChild(empty);
-      return;
-    }
-    posts.slice(0, 6).forEach((post)=>{
-      const link = document.createElement('a');
-      link.className = 'instagram-card';
-      link.href = post.permalink || 'https://www.instagram.com/dongalibrary/';
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      const imageUrl = String(post.thumbnailUrl || post.mediaUrl || '').trim();
-      link.innerHTML = `
-        <span class="instagram-media">
-          <img alt="" loading="lazy">
-          <span class="instagram-badge"></span>
-        </span>
-        <span class="instagram-copy">
-          <small></small>
-          <strong></strong>
-        </span>
-      `;
-      const image = link.querySelector('img');
-      if(imageUrl){
-        image.src = imageUrl;
-        image.addEventListener('error', ()=>{
-          link.classList.add('no-thumb');
-          image.removeAttribute('src');
-        }, { once:true });
-      }else{
-        link.classList.add('no-thumb');
-      }
-      const caption = String(post.caption || '').trim();
-      link.querySelector('.instagram-badge').textContent = instagramTypeLabel(post.mediaType);
-      link.querySelector('small').textContent = [post.username ? `@${post.username}` : '@dongalibrary', formatInstagramDate(post.timestamp)].filter(Boolean).join(' · ');
-      link.querySelector('strong').textContent = caption || '도서관 인스타그램 게시물';
-      els.instagramFeed.appendChild(link);
-    });
-  }
-  async function refreshInstagramFeed(){
-    if(!els.instagramFeed) return;
-    renderInstagramFeed([], { message:'Instagram 피드를 확인하는 중입니다.' });
-    try{
-      const res = await fetch(`/.netlify/functions/instagram-feed?limit=6&_=${Date.now()}`, {
-        cache:'no-store',
-        headers:{ accept:'application/json' }
-      });
-      const data = await res.json().catch(()=>({}));
-      if(!res.ok) throw new Error(data.error || 'Instagram 피드를 불러오지 못했습니다.');
-      const items = Array.isArray(data.items) ? data.items : [];
-      renderInstagramProfile(data.profile);
-      if(items.length){
-        renderInstagramFeed(items);
-      }else{
-        renderInstagramFeed([], { message:data.configured === false ? 'Instagram 연동 준비 중입니다.' : '표시할 Instagram 게시물이 없습니다.' });
-      }
-    }catch(error){
-      console.warn('Instagram feed refresh failed', error);
-      renderInstagramFeed([]);
-    }
-  }
   function serviceUrl(){
     return window.location.origin + window.location.pathname;
   }
@@ -1441,7 +1335,6 @@ document.addEventListener('DOMContentLoaded', () => {
     rememberRecommendedBooks(data.items || []);
     renderAladinBestSellers(data.aladinBestSellers || []);
     renderPopularBooks(data.popularItems || []);
-    refreshInstagramFeed();
     if(!(data.items || []).length){
       setError(els.resultError, '추천할 수 있는 도서를 찾지 못했습니다. 잠시 뒤 다시 시도해 주세요.');
     }

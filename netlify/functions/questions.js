@@ -15,12 +15,14 @@ const PSYCH_QUESTION_IDS = new Set([
   'offline-pocket',
 ]);
 
-function json(statusCode, body) {
+function json(statusCode, body, cacheControl = 'public, max-age=300, s-maxage=900, stale-while-revalidate=1800') {
   return {
     statusCode,
     headers: {
       'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'no-store',
+      'cache-control': cacheControl,
+      'cdn-cache-control': cacheControl,
+      'netlify-cdn-cache-control': cacheControl,
       'access-control-allow-origin': '*',
       'access-control-allow-methods': 'GET,OPTIONS',
       'access-control-allow-headers': 'content-type',
@@ -65,15 +67,15 @@ function balancedQuestionSet(pool, limit) {
 }
 
 exports.handler = async function handler(event) {
-  if (event.httpMethod === 'OPTIONS') return json(204, {});
-  if (event.httpMethod !== 'GET') return json(405, { error: 'Method not allowed' });
+  if (event.httpMethod === 'OPTIONS') return json(204, {}, 'no-store');
+  if (event.httpMethod !== 'GET') return json(405, { error: 'Method not allowed' }, 'no-store');
 
   const url = new URL(event.rawUrl || `http://localhost${event.path || '/.netlify/functions/questions'}`);
   const limit = Math.min(10, Math.max(1, Number.parseInt(url.searchParams.get('limit') || '5', 10) || 5));
   const pool = questions.filter(validQuestion);
 
   if (!pool.length) {
-    return json(500, { error: 'No questions are configured.' });
+    return json(500, { error: 'No questions are configured.' }, 'no-store');
   }
 
   return json(200, {
