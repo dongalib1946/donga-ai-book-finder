@@ -337,7 +337,7 @@
     const entry = scored && scored.entry || {};
     const aladin = entry.aladin || {};
     const aladinInfo = scored && scored.aladinInfo || {};
-    return Boolean(cleanText(entry.cover || aladin.cover || aladinInfo.cover));
+    return Boolean(cleanText(entry.cover || aladin.cover || aladinInfo.cover) || scored && scored.isbn);
   }
 
   function scoredHasBookIntro(scored){
@@ -397,6 +397,19 @@
       remaining.splice(pickIndex, 1);
     }
     return selected;
+  }
+
+  function mergeRecommendationSources(groups){
+    const seen = new Set();
+    const merged = [];
+    groups.forEach((group, groupIndex)=>{
+      (group || []).forEach(item=>{
+        if(!item || seen.has(item.isbn)) return;
+        seen.add(item.isbn);
+        merged.push(groupIndex ? { ...item, score:item.score - groupIndex * 18 } : item);
+      });
+    });
+    return merged;
   }
 
   function shelfTitle(tags, categoryId){
@@ -497,12 +510,21 @@
         return true;
       });
 
-    const limit = Math.min(10, Math.max(3, Number.parseInt(payload.limit || '6', 10) || 6));
+    const requestedLimit = Math.min(10, Math.max(3, Number.parseInt(payload.limit || '6', 10) || 6));
+    const limit = Math.min(5, requestedLimit);
     const popularLimit = Math.min(8, Math.max(3, Number.parseInt(payload.popularLimit || '5', 10) || 5));
     const completeScored = scored.filter(item=>scoredHasBookIntro(item) && scoredHasCover(item));
-    const recommendationSource = categoryId === 'any'
+    const categoryScored = categoryId === 'any'
       ? completeScored
-      : completeScored.filter(item=>item.categoryMatched && scoredMatchesRequestedCategory(item, categoryId));
+      : completeScored.filter(item=>scoredMatchesRequestedCategory(item, categoryId));
+    const categoryAnswerScored = categoryScored.filter(item=>item.categoryMatched || item.matched.length);
+    const answerScored = completeScored.filter(item=>item.categoryMatched || item.matched.length);
+    const recommendationSource = mergeRecommendationSources([
+      categoryAnswerScored,
+      categoryScored,
+      answerScored,
+      completeScored
+    ]);
     const items = chooseDiverse(recommendationSource.sort((a,b)=>b.score - a.score), limit, tags);
     const itemIsbns = new Set(items.map(item=>item.isbn));
     const popularScored = completeScored
