@@ -29,6 +29,21 @@ jobs:
         with:
           enablement: true
 
+      - name: Prepare secret page config
+        env:
+          HIDDEN_PAGE_PIN: ${{ secrets.HIDDEN_PAGE_PIN }}
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const crypto = require('crypto');
+          const pin = String(process.env.HIDDEN_PAGE_PIN || '').trim();
+          if (!/^\d{4}$/.test(pin)) {
+            throw new Error('HIDDEN_PAGE_PIN secret must be exactly 4 digits.');
+          }
+          const pinHash = crypto.createHash('sha256').update(pin).digest('hex');
+          fs.writeFileSync('public/secret-config.js', `window.DONGA_SECRET_CONFIG=${JSON.stringify({ pinHash })};\n`, 'utf8');
+          NODE
+
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:

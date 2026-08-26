@@ -1388,7 +1388,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function initStartEasterEgg(){
-    const destination = 'secret.html?v=20260826-linefix2';
+    const destination = 'secret.html?v=20260826-secret-pin';
     document.querySelectorAll('.start-secret-hitbox').forEach(trigger=>{
       let clickCount = 0;
       let resetTimer = 0;
