@@ -257,7 +257,17 @@
     };
   }
 
-  function scoreEntry(entry, tags, categoryId, seed, excludeSet){
+  function descriptionForEntry(entry, descriptions){
+    const isbn = normalizeIsbn(entry && entry.isbn);
+    const found = isbn ? descriptions.get(isbn) : null;
+    return cleanText(
+      entry && entry.description
+      || entry && entry.aladin && entry.aladin.description
+      || found && found.description
+    );
+  }
+
+  function scoreEntry(entry, tags, categoryId, seed, excludeSet, descriptions = new Map()){
     const isbn = normalizeIsbn(entry && entry.isbn);
     if(!entry || !isbn || excludeSet.has(isbn) || isExamPrepBook(entry)) return null;
     const entryTags = new Set([...(entry.collectionTags || []), ...(entry.collectionKeys || [])].map(String));
@@ -282,9 +292,11 @@
     if((entry.collectionKeys || []).includes('new')) score += 5;
     if(entry.cover || (entry.aladin && entry.aladin.cover)) score += 4;
     if(entry.aladin && entry.aladin.link) score += 3;
+    const description = descriptionForEntry(entry, descriptions);
+    if(description) score += 30;
     score += stableFloat(seed, isbn, tags.join(',')) * 6;
 
-    return { entry, isbn, score, matched, categoryMatched:category.matched };
+    return { entry, isbn, score, matched, categoryMatched:category.matched, description };
   }
 
   function bookFromEntry(scored, fallbackTags){
@@ -299,7 +311,7 @@
       title: cleanText(entry.title) || '제목 정보 없음',
       author: cleanText(entry.author),
       publisher: cleanText(entry.publisher || aladin.publisher || firstPublisher(entry)),
-      description: makeDescription(entry, matchedTags),
+      description: scored.description || makeDescription(entry, matchedTags),
       cover: cleanText(entry.cover || aladin.cover),
       coverFallbacks: [entry.cover, aladin.cover].filter(Boolean),
       link: cleanText(aladin.link),
@@ -427,15 +439,19 @@
 
     const seed = String(payload.seed || randomId());
     const excludeSet = new Set((payload.excludeIsbns || []).map(normalizeIsbn).filter(Boolean));
-    const [libraryPool, catalogPool, bestSellerData] = await Promise.all([
+    const [libraryPool, catalogPool, bestSellerData, descriptionData] = await Promise.all([
       loadJson('library-pool.json'),
       loadJson('library-catalog-pool.json').catch(()=>[]),
-      loadJson('aladin-bestsellers.json').catch(()=>({ items:[] }))
+      loadJson('aladin-bestsellers.json').catch(()=>({ items:[] })),
+      loadJson('aladin-descriptions.json').catch(()=>({ items:[] }))
     ]);
+    const descriptions = new Map((Array.isArray(descriptionData && descriptionData.items) ? descriptionData.items : [])
+      .map(item=>[normalizeIsbn(item && item.isbn), item])
+      .filter(([isbn, item])=>isbn && item && item.description));
     const source = [...libraryPool, ...catalogPool];
     const seen = new Set();
     const scored = source
-      .map(entry=>scoreEntry(entry, tags, categoryId, seed, excludeSet))
+      .map(entry=>scoreEntry(entry, tags, categoryId, seed, excludeSet, descriptions))
       .filter(Boolean)
       .filter(item=>{
         if(seen.has(item.isbn)) return false;
@@ -463,7 +479,7 @@
     const cachedBestSellers = Array.isArray(bestSellerData && bestSellerData.items) ? bestSellerData.items : [];
     const fallbackBestSellers = source
       .filter(entry=>entry && entry.aladin && entry.aladin.link && !isExamPrepBook(entry))
-      .map((entry, index)=>scoreEntry(entry, ['popular', 'readable'], 'any', `${seed}:best:${index}`, new Set()))
+      .map((entry, index)=>scoreEntry(entry, ['popular', 'readable'], 'any', `${seed}:best:${index}`, new Set(), descriptions))
       .filter(Boolean)
       .sort((a,b)=>b.score - a.score)
       .slice(0, 6)
@@ -493,6 +509,7 @@
       seed,
       aladinEnabled:hasAladinData,
       aladinUpdatedAt:bestSellerData && bestSellerData.generatedAt || '',
+      aladinDescriptionCount:descriptions.size,
       updatedAt:new Date().toISOString()
     });
   }

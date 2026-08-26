@@ -72,6 +72,7 @@ async function fetchBestsellers(ttbKey) {
       title: cleanText(item.title),
       author: cleanText(item.author),
       publisher: cleanText(item.publisher),
+      description: cleanText(item.description),
       cover: largerCover(item.cover),
       link: cleanText(item.link),
       isbn: normalizeIsbn(item.isbn13 || item.isbn),
