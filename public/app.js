@@ -1387,7 +1387,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function initStartEasterEgg(){
+    const destination = 'secret.html';
+    document.querySelectorAll('.start-secret-hitbox').forEach(trigger=>{
+      let clickCount = 0;
+      let resetTimer = 0;
+      trigger.addEventListener('click', event=>{
+        event.preventDefault();
+        event.stopPropagation();
+        clickCount += 1;
+        window.clearTimeout(resetTimer);
+        if(clickCount >= 2){
+          clickCount = 0;
+          window.location.href = destination;
+          return;
+        }
+        resetTimer = window.setTimeout(()=>{
+          clickCount = 0;
+        }, 520);
+      });
+    });
+  }
+
   window.startQuiz = startQuiz;
+  initStartEasterEgg();
   els.startBtn.disabled = true;
   els.startBtn.textContent = '질문 준비 중';
   loadSharedResultFromUrl();

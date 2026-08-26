@@ -302,6 +302,18 @@ main{
   pointer-events:none;
   z-index:2;
 }
+.start-secret-hitbox{
+  position:absolute;
+  left:43.5%;
+  top:10%;
+  width:13%;
+  height:17%;
+  z-index:4;
+  border-radius:999px;
+  pointer-events:auto;
+  cursor:default;
+  -webkit-tap-highlight-color:transparent;
+}
 .stage-logo,.result-mark{
   position:absolute;
   right:clamp(8px,3vw,42px);
