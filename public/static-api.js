@@ -340,6 +340,31 @@
     return Boolean(cleanText(entry.cover || aladin.cover || aladinInfo.cover));
   }
 
+  function scoredHasBookIntro(scored){
+    const aladinInfo = scored && scored.aladinInfo || {};
+    return Boolean(cleanText(aladinInfo.description || scored && scored.description));
+  }
+
+  function scoredMatchesRequestedCategory(scored, categoryId){
+    if(!categoryId || categoryId === 'any') return true;
+    const aladinInfo = scored && scored.aladinInfo || {};
+    const categoryName = cleanText(aladinInfo.categoryName || scored && scored.entry && scored.entry.aladin && scored.entry.aladin.categoryName);
+    if(!categoryName) return Boolean(scored && scored.categoryMatched);
+    const tests = {
+      novel: /소설\/시\/희곡|한국소설|일본소설|영미소설|독일소설|과학소설|추리\/미스터리소설|로맨스소설|시>/,
+      essay: /에세이|산문|건강에세이/,
+      self_development: /자기계발|성공|리더십|습관|협상|설득|화술|인간관계|기획\/보고/,
+      humanities_philosophy: /인문학|철학|역사|신화|종교학|문화\/문화이론|문명|고전/,
+      psychology: /심리학|정신분석|교양심리학|인지심리학/,
+      economy_business: /경제경영|경제학|기업 경영|재테크|투자|금융|마케팅/,
+      science: /국내도서>과학|컴퓨터\/모바일|인공지능|공학계열|전기전자공학|반도체공학|물리학|수학/,
+      society: /사회과학|사회학|정치|행정|언론정보|젠더|위기관리/,
+      art_culture: /예술\/대중문화|미술|음악|영화|건축|디자인|미학|예술이론/,
+      travel_hobby: /여행|기행|건강\/취미|취미|요리/
+    };
+    return tests[categoryId] ? tests[categoryId].test(categoryName) : Boolean(scored && scored.categoryMatched);
+  }
+
   function makeDescription(entry, matchedTags){
     const topic = matchedTags && matchedTags.length ? `${matchedTags.join(', ')} 흐름과 잘 맞는` : '선택한 답변과 잘 맞는';
     const author = cleanText(entry.author);
@@ -474,13 +499,13 @@
 
     const limit = Math.min(10, Math.max(3, Number.parseInt(payload.limit || '6', 10) || 6));
     const popularLimit = Math.min(8, Math.max(3, Number.parseInt(payload.popularLimit || '5', 10) || 5));
-    const categoryPreferred = categoryId === 'any' ? scored : scored.filter(item=>item.categoryMatched);
-    const mainSource = categoryPreferred.length >= limit ? categoryPreferred : scored;
-    const coverReadyMainSource = mainSource.filter(scoredHasCover);
-    const recommendationSource = coverReadyMainSource.length >= limit ? coverReadyMainSource : mainSource;
+    const completeScored = scored.filter(item=>scoredHasBookIntro(item) && scoredHasCover(item));
+    const recommendationSource = categoryId === 'any'
+      ? completeScored
+      : completeScored.filter(item=>item.categoryMatched && scoredMatchesRequestedCategory(item, categoryId));
     const items = chooseDiverse(recommendationSource.sort((a,b)=>b.score - a.score), limit, tags);
     const itemIsbns = new Set(items.map(item=>item.isbn));
-    const popularScored = scored
+    const popularScored = completeScored
       .filter(item=>!itemIsbns.has(item.isbn))
       .map(item=>({
         ...item,
@@ -489,9 +514,7 @@
           + ((item.entry.collectionTags || []).includes('readable') ? 8 : 0)
       }))
       .sort((a,b)=>b.score - a.score);
-    const coverReadyPopularScored = popularScored.filter(scoredHasCover);
-    const popularSource = coverReadyPopularScored.length >= popularLimit ? coverReadyPopularScored : popularScored;
-    const popularItems = chooseDiverse(popularSource, popularLimit, ['popular', 'readable'])
+    const popularItems = chooseDiverse(popularScored, popularLimit, ['popular', 'readable'])
       .map(item=>({ ...item, matchedTags:['동아인의 선택', '인기도서'] }));
     const cachedBestSellers = Array.isArray(bestSellerData && bestSellerData.items) ? bestSellerData.items : [];
     const fallbackBestSellers = source
