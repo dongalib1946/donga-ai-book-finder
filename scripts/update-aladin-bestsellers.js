@@ -43,6 +43,14 @@ function writeJson(filePath, value) {
   fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
+function readJson(filePath, fallback) {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch {
+    return fallback;
+  }
+}
+
 async function fetchBestsellers(ttbKey) {
   const url = new URL(ALADIN_ITEM_LIST_URL);
   url.searchParams.set('ttbkey', ttbKey);
@@ -54,7 +62,10 @@ async function fetchBestsellers(ttbKey) {
   url.searchParams.set('Version', '20131101');
 
   const response = await fetch(url, {
-    headers: { accept: 'application/json' },
+    headers: {
+      accept: 'application/json',
+      'user-agent': 'donga-ai-book-finder/1.0 (+https://github.com/dongalib1946/donga-ai-book-finder)',
+    },
   });
   const text = await response.text();
   if (!response.ok) throw new Error(`Aladin API failed: HTTP ${response.status}`);
@@ -93,7 +104,15 @@ async function main() {
   }
 
   const generatedAt = new Date().toISOString();
-  const items = await fetchBestsellers(ttbKey);
+  let items;
+  try {
+    items = await fetchBestsellers(ttbKey);
+  } catch (error) {
+    const existing = readJson(NETLIFY_OUTPUT, { items: [] });
+    if (!Array.isArray(existing.items) || !existing.items.length) throw error;
+    items = existing.items;
+    console.warn(`Aladin bestseller refresh failed. Keeping ${items.length} existing books. ${error.message}`);
+  }
   const output = {
     version: 'aladin-bestsellers-v1',
     source: 'Aladin ItemList Bestseller API',
