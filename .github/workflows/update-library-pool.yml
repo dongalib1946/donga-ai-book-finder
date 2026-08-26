@@ -22,6 +22,7 @@ jobs:
       POOL_SNAPSHOT_FETCH_RETRIES: '2'
       POOL_SNAPSHOT_RETRY_DELAY_MS: '1500'
       POOL_SNAPSHOT_STALE_PAGE_LIMIT: '2'
+      ALADIN_TTB_KEY: ${{ secrets.ALADIN_TTB_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -38,21 +39,25 @@ jobs:
       - name: Update snapshot
         run: node scripts/update-library-pool-snapshot.js
 
+      - name: Update Aladin bestsellers
+        run: node scripts/update-aladin-bestsellers.js
+
       - name: Sync public data
         run: |
           mkdir -p public/data
           cp netlify/data/questions.json public/data/questions.json
           cp netlify/data/library-pool.json public/data/library-pool.json
           cp netlify/data/library-catalog-pool.json public/data/library-catalog-pool.json
+          cp netlify/data/aladin-bestsellers.json public/data/aladin-bestsellers.json
 
       - name: Commit snapshot
         run: |
-          if git diff --quiet -- netlify/data/library-pool.json public/data/questions.json public/data/library-pool.json public/data/library-catalog-pool.json; then
+          if git diff --quiet -- netlify/data/library-pool.json netlify/data/aladin-bestsellers.json public/data/questions.json public/data/library-pool.json public/data/library-catalog-pool.json public/data/aladin-bestsellers.json; then
             echo "No library pool changes to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add netlify/data/library-pool.json public/data/questions.json public/data/library-pool.json public/data/library-catalog-pool.json
+          git add netlify/data/library-pool.json netlify/data/aladin-bestsellers.json public/data/questions.json public/data/library-pool.json public/data/library-catalog-pool.json public/data/aladin-bestsellers.json
           git commit -m "Update library book pool snapshot"
           git push

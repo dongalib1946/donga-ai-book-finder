@@ -427,9 +427,10 @@
 
     const seed = String(payload.seed || randomId());
     const excludeSet = new Set((payload.excludeIsbns || []).map(normalizeIsbn).filter(Boolean));
-    const [libraryPool, catalogPool] = await Promise.all([
+    const [libraryPool, catalogPool, bestSellerData] = await Promise.all([
       loadJson('library-pool.json'),
-      loadJson('library-catalog-pool.json').catch(()=>[])
+      loadJson('library-catalog-pool.json').catch(()=>[]),
+      loadJson('aladin-bestsellers.json').catch(()=>({ items:[] }))
     ]);
     const source = [...libraryPool, ...catalogPool];
     const seen = new Set();
@@ -459,7 +460,8 @@
       .sort((a,b)=>b.score - a.score);
     const popularItems = chooseDiverse(popularScored, popularLimit, ['popular', 'readable'])
       .map(item=>({ ...item, matchedTags:['동아인의 선택', '인기도서'] }));
-    const aladinBestSellers = source
+    const cachedBestSellers = Array.isArray(bestSellerData && bestSellerData.items) ? bestSellerData.items : [];
+    const fallbackBestSellers = source
       .filter(entry=>entry && entry.aladin && entry.aladin.link && !isExamPrepBook(entry))
       .map((entry, index)=>scoreEntry(entry, ['popular', 'readable'], 'any', `${seed}:best:${index}`, new Set()))
       .filter(Boolean)
@@ -473,10 +475,14 @@
         actionLabel:'도서관 소장 확인',
         actionUrl:item.entry.catalogUrl || ''
       }));
+    const aladinBestSellers = cachedBestSellers.length
+      ? cachedBestSellers.slice(0, 6)
+      : fallbackBestSellers;
+    const hasAladinData = aladinBestSellers.length > 0 || source.some(entry=>entry && entry.aladin && entry.aladin.link);
 
     return apiResponse(200, {
       apiVersion:'static-ai-book-finder-v1',
-      source:'GitHub Pages static data',
+      source: cachedBestSellers.length ? 'GitHub Pages static data + Aladin ItemList snapshot' : 'GitHub Pages static data',
       shelfTitle:shelfTitle(tags, categoryId),
       summary:`답변 ${answers.length}개를 바탕으로 도서관 소장 자료를 분석했습니다.`,
       categoryFilter:payload.categoryFilter || { id:categoryId, label:categoryId === 'any' ? '아무거나(AI추천)' : categoryId },
@@ -485,7 +491,8 @@
       popularItems,
       aladinBestSellers,
       seed,
-      aladinEnabled:false,
+      aladinEnabled:hasAladinData,
+      aladinUpdatedAt:bestSellerData && bestSellerData.generatedAt || '',
       updatedAt:new Date().toISOString()
     });
   }
