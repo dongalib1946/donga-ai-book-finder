@@ -267,6 +267,11 @@
     );
   }
 
+  function aladinInfoForEntry(entry, descriptions){
+    const isbn = normalizeIsbn(entry && entry.isbn);
+    return isbn ? descriptions.get(isbn) || {} : {};
+  }
+
   function scoreEntry(entry, tags, categoryId, seed, excludeSet, descriptions = new Map()){
     const isbn = normalizeIsbn(entry && entry.isbn);
     if(!entry || !isbn || excludeSet.has(isbn) || isExamPrepBook(entry)) return null;
@@ -290,18 +295,20 @@
     if(categoryId !== 'any' && !category.matched) score -= 14;
     if((entry.collectionKeys || []).includes('popular')) score += 8;
     if((entry.collectionKeys || []).includes('new')) score += 5;
-    if(entry.cover || (entry.aladin && entry.aladin.cover)) score += 4;
-    if(entry.aladin && entry.aladin.link) score += 3;
+    const aladinInfo = aladinInfoForEntry(entry, descriptions);
+    if(entry.cover || (entry.aladin && entry.aladin.cover) || aladinInfo.cover) score += 4;
+    if((entry.aladin && entry.aladin.link) || aladinInfo.link) score += 3;
     const description = descriptionForEntry(entry, descriptions);
     if(description) score += 8;
     score += stableFloat(seed, isbn, tags.join(',')) * 6;
 
-    return { entry, isbn, score, matched, categoryMatched:category.matched, description };
+    return { entry, isbn, score, matched, categoryMatched:category.matched, description, aladinInfo };
   }
 
   function bookFromEntry(scored, fallbackTags){
     const entry = scored.entry;
     const aladin = entry.aladin || {};
+    const aladinInfo = scored.aladinInfo || {};
     const matchedTags = (scored.matched.length ? scored.matched : fallbackTags)
       .map(tag=>TAG_LABELS[tag] || tag)
       .filter(Boolean)
@@ -309,14 +316,14 @@
     const meta = Array.isArray(entry.meta) ? entry.meta : [];
     return {
       title: cleanText(entry.title) || '제목 정보 없음',
-      author: cleanText(entry.author),
-      publisher: cleanText(entry.publisher || aladin.publisher || firstPublisher(entry)),
+      author: cleanText(entry.author || aladinInfo.author),
+      publisher: cleanText(entry.publisher || aladin.publisher || aladinInfo.publisher || firstPublisher(entry)),
       description: scored.description || makeDescription(entry, matchedTags),
-      cover: cleanText(entry.cover || aladin.cover),
-      coverFallbacks: [entry.cover, aladin.cover].filter(Boolean),
-      link: cleanText(aladin.link),
+      cover: cleanText(entry.cover || aladin.cover || aladinInfo.cover),
+      coverFallbacks: [entry.cover, aladin.cover, aladinInfo.cover].filter(Boolean),
+      link: cleanText(aladin.link || aladinInfo.link),
       isbn: scored.isbn,
-      categoryName: cleanText(aladin.categoryName),
+      categoryName: cleanText(aladin.categoryName || aladinInfo.categoryName),
       categoryMatched: scored.categoryMatched,
       collection: cleanText(entry.collection || '도서관 소장자료'),
       collectionKeys: entry.collectionKeys || [],
@@ -324,6 +331,13 @@
       matchedTags,
       score: scored.score
     };
+  }
+
+  function scoredHasCover(scored){
+    const entry = scored && scored.entry || {};
+    const aladin = entry.aladin || {};
+    const aladinInfo = scored && scored.aladinInfo || {};
+    return Boolean(cleanText(entry.cover || aladin.cover || aladinInfo.cover));
   }
 
   function makeDescription(entry, matchedTags){
@@ -462,7 +476,9 @@
     const popularLimit = Math.min(8, Math.max(3, Number.parseInt(payload.popularLimit || '5', 10) || 5));
     const categoryPreferred = categoryId === 'any' ? scored : scored.filter(item=>item.categoryMatched);
     const mainSource = categoryPreferred.length >= limit ? categoryPreferred : scored;
-    const items = chooseDiverse(mainSource.sort((a,b)=>b.score - a.score), limit, tags);
+    const coverReadyMainSource = mainSource.filter(scoredHasCover);
+    const recommendationSource = coverReadyMainSource.length >= limit ? coverReadyMainSource : mainSource;
+    const items = chooseDiverse(recommendationSource.sort((a,b)=>b.score - a.score), limit, tags);
     const itemIsbns = new Set(items.map(item=>item.isbn));
     const popularScored = scored
       .filter(item=>!itemIsbns.has(item.isbn))
@@ -473,7 +489,9 @@
           + ((item.entry.collectionTags || []).includes('readable') ? 8 : 0)
       }))
       .sort((a,b)=>b.score - a.score);
-    const popularItems = chooseDiverse(popularScored, popularLimit, ['popular', 'readable'])
+    const coverReadyPopularScored = popularScored.filter(scoredHasCover);
+    const popularSource = coverReadyPopularScored.length >= popularLimit ? coverReadyPopularScored : popularScored;
+    const popularItems = chooseDiverse(popularSource, popularLimit, ['popular', 'readable'])
       .map(item=>({ ...item, matchedTags:['동아인의 선택', '인기도서'] }));
     const cachedBestSellers = Array.isArray(bestSellerData && bestSellerData.items) ? bestSellerData.items : [];
     const fallbackBestSellers = source

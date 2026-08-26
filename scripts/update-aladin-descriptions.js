@@ -82,7 +82,7 @@ function writeJson(filePath, value) {
 }
 
 function isUsefulExisting(item) {
-  return item && normalizeIsbn(item.isbn) && cleanText(item.description);
+  return item && normalizeIsbn(item.isbn) && cleanText(item.description) && largerCover(item.cover) && cleanText(item.link);
 }
 
 function entryPriority(entry, sourceName, index) {
@@ -192,7 +192,12 @@ async function lookupDescription(ttbKey, candidate) {
   return {
     isbn: candidate.isbn,
     title: cleanText(item.title || candidate.title),
+    author: cleanText(item.author || candidate.author),
+    publisher: cleanText(item.publisher || candidate.publisher),
     description,
+    link: cleanText(item.link || candidate.link),
+    cover: largerCover(item.cover || candidate.cover),
+    categoryName: cleanText(item.categoryName || candidate.categoryName),
     updatedAt: new Date().toISOString(),
   };
 }
@@ -222,7 +227,12 @@ async function main() {
         return {
           isbn: candidate.isbn,
           title: candidate.title || cleanText(existingItem.title),
+          author: candidate.author || cleanText(existingItem.author),
+          publisher: candidate.publisher || cleanText(existingItem.publisher),
           description: compactDescription(existingItem.description),
+          link: candidate.link || cleanText(existingItem.link),
+          cover: candidate.cover || largerCover(existingItem.cover),
+          categoryName: candidate.categoryName || cleanText(existingItem.categoryName),
           updatedAt: existingItem.updatedAt || new Date().toISOString(),
           reused: true,
         };
