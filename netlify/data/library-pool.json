@@ -5481,6 +5481,48 @@
     }
   },
   {
+    "isbn": "9791176820240",
+    "title": "빵 굽는 철학자 :내 안의 퍼블릭 사피엔스에게",
+    "author": "김문식",
+    "meta": [
+      "미다스북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946346",
+    "ranks": {
+      "new": 34
+    }
+  },
+  {
+    "isbn": "9791124598160",
+    "title": "(2027 대비) 5년간 최신판례정리 :수사와 증거",
+    "author": "신호진",
+    "meta": [
+      "LEX STUDY 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946347",
+    "ranks": {
+      "new": 35
+    }
+  },
+  {
     "isbn": "8937460777",
     "title": "1984",
     "author": "Orwell,George",
