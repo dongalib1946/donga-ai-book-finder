@@ -293,7 +293,7 @@
     if(entry.cover || (entry.aladin && entry.aladin.cover)) score += 4;
     if(entry.aladin && entry.aladin.link) score += 3;
     const description = descriptionForEntry(entry, descriptions);
-    if(description) score += 30;
+    if(description) score += 8;
     score += stableFloat(seed, isbn, tags.join(',')) * 6;
 
     return { entry, isbn, score, matched, categoryMatched:category.matched, description };
@@ -439,16 +439,15 @@
 
     const seed = String(payload.seed || randomId());
     const excludeSet = new Set((payload.excludeIsbns || []).map(normalizeIsbn).filter(Boolean));
-    const [libraryPool, catalogPool, bestSellerData, descriptionData] = await Promise.all([
+    const [libraryPool, bestSellerData, descriptionData] = await Promise.all([
       loadJson('library-pool.json'),
-      loadJson('library-catalog-pool.json').catch(()=>[]),
       loadJson('aladin-bestsellers.json').catch(()=>({ items:[] })),
       loadJson('aladin-descriptions.json').catch(()=>({ items:[] }))
     ]);
     const descriptions = new Map((Array.isArray(descriptionData && descriptionData.items) ? descriptionData.items : [])
       .map(item=>[normalizeIsbn(item && item.isbn), item])
       .filter(([isbn, item])=>isbn && item && item.description));
-    const source = [...libraryPool, ...catalogPool];
+    const source = Array.isArray(libraryPool) ? libraryPool : [];
     const seen = new Set();
     const scored = source
       .map(entry=>scoreEntry(entry, tags, categoryId, seed, excludeSet, descriptions))
@@ -463,12 +462,7 @@
     const popularLimit = Math.min(8, Math.max(3, Number.parseInt(payload.popularLimit || '5', 10) || 5));
     const categoryPreferred = categoryId === 'any' ? scored : scored.filter(item=>item.categoryMatched);
     const mainSource = categoryPreferred.length >= limit ? categoryPreferred : scored;
-    const describedMainSource = mainSource.filter(item=>item.description);
-    const describedFallbackSource = scored.filter(item=>item.description && !describedMainSource.some(candidate=>candidate.isbn === item.isbn));
-    const recommendationSource = describedMainSource.length >= limit
-      ? describedMainSource
-      : [...describedMainSource, ...describedFallbackSource, ...mainSource];
-    const items = chooseDiverse(recommendationSource, limit, tags);
+    const items = chooseDiverse(mainSource.sort((a,b)=>b.score - a.score), limit, tags);
     const itemIsbns = new Set(items.map(item=>item.isbn));
     const popularScored = scored
       .filter(item=>!itemIsbns.has(item.isbn))
@@ -503,7 +497,7 @@
 
     return apiResponse(200, {
       apiVersion:'static-ai-book-finder-v1',
-      source: cachedBestSellers.length ? 'GitHub Pages static data + Aladin ItemList snapshot' : 'GitHub Pages static data',
+      source: cachedBestSellers.length ? 'GitHub Pages static data + compact Aladin snapshots' : 'GitHub Pages static data',
       shelfTitle:shelfTitle(tags, categoryId),
       summary:`답변 ${answers.length}개를 바탕으로 도서관 소장 자료를 분석했습니다.`,
       categoryFilter:payload.categoryFilter || { id:categoryId, label:categoryId === 'any' ? '아무거나(AI추천)' : categoryId },
