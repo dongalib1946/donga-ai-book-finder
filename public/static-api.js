@@ -463,7 +463,12 @@
     const popularLimit = Math.min(8, Math.max(3, Number.parseInt(payload.popularLimit || '5', 10) || 5));
     const categoryPreferred = categoryId === 'any' ? scored : scored.filter(item=>item.categoryMatched);
     const mainSource = categoryPreferred.length >= limit ? categoryPreferred : scored;
-    const items = chooseDiverse(mainSource, limit, tags);
+    const describedMainSource = mainSource.filter(item=>item.description);
+    const describedFallbackSource = scored.filter(item=>item.description && !describedMainSource.some(candidate=>candidate.isbn === item.isbn));
+    const recommendationSource = describedMainSource.length >= limit
+      ? describedMainSource
+      : [...describedMainSource, ...describedFallbackSource, ...mainSource];
+    const items = chooseDiverse(recommendationSource, limit, tags);
     const itemIsbns = new Set(items.map(item=>item.isbn));
     const popularScored = scored
       .filter(item=>!itemIsbns.has(item.isbn))
