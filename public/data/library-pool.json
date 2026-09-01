@@ -5128,7 +5128,7 @@
     "title": "갑자기 수학이 잘되는 수학책 :공식 없이 그림으로 쉽게 꿰뚫는 아이디어 수학",
     "author": "송명진",
     "meta": [
-      "백도씨 2026"
+      "블랙피쉬 2026"
     ],
     "cover": "",
     "collection": "신착도서",
@@ -5503,7 +5503,7 @@
   },
   {
     "isbn": "9791124598160",
-    "title": "(2027 대비) 5년간 최신판례정리 :수사와 증거",
+    "title": "(2027 대비) 5년간 최신판례정리 :수사와 증거 :21년 7월~26년 6월",
     "author": "신호진",
     "meta": [
       "LEX STUDY 2026"
@@ -5523,1851 +5523,3384 @@
     }
   },
   {
-    "isbn": "8937460777",
-    "title": "1984",
-    "author": "Orwell,George",
+    "isbn": "9791194891178",
+    "title": "빵충 사육 준수 사항 :김혜영 장편소설",
+    "author": "김혜영",
     "meta": [
-      "민음사",
-      "대출횟수 : 4"
+      "안전가옥 2026"
     ],
     "cover": "",
-    "collection": "인기도서",
+    "collection": "신착도서",
     "collectionKeys": [
-      "popular"
+      "new"
     ],
     "collectionTags": [
-      "popular",
-      "readable"
+      "new",
+      "fresh"
     ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=413746",
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946348",
     "ranks": {
-      "popular": 1
+      "new": 36
     }
   },
   {
-    "isbn": "9788937461491",
-    "title": "무진기행 :김승옥 소설집",
-    "author": "김승옥",
+    "isbn": "9788961964692",
+    "title": "구름들 :미술과 과학, 그리고 하늘",
+    "author": "Graham, Edward",
     "meta": [
-      "민음사",
-      "대출횟수 : 4"
+      "아트북스 2026"
     ],
     "cover": "",
-    "collection": "인기도서",
+    "collection": "신착도서",
     "collectionKeys": [
-      "popular"
+      "new"
     ],
     "collectionTags": [
-      "popular",
-      "readable"
+      "new",
+      "fresh"
     ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=631746",
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946349",
     "ranks": {
-      "popular": 2
+      "new": 37
     }
   },
   {
-    "isbn": "9788997336579",
-    "title": "맥을 잡아주는 세계사 =(The) flow of the world history",
-    "author": "맥세계사편찬위원회",
-    "meta": [
-      "느낌이있는책",
-      "대출횟수 : 4"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=802903",
-    "ranks": {
-      "popular": 3
-    }
-  },
-  {
-    "isbn": "9788990982704",
-    "title": "용의자 X의 헌신",
-    "author": "東野圭吾",
-    "meta": [
-      "재인",
-      "대출횟수 : 4"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=837650",
-    "ranks": {
-      "popular": 4
-    }
-  },
-  {
-    "isbn": "9788998441012",
-    "title": "모순 :양귀자 장편소설",
-    "author": "양귀자",
-    "meta": [
-      "쓰다",
-      "대출횟수 : 4"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=866981",
-    "ranks": {
-      "popular": 5
-    }
-  },
-  {
-    "isbn": "9791161571188",
-    "title": "불편한 편의점 :김호연 장편소설.1~2",
-    "author": "김호연",
-    "meta": [
-      "나무옆의자",
-      "대출횟수 : 4"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=900434",
-    "ranks": {
-      "popular": 6
-    }
-  },
-  {
-    "isbn": "9788925588735",
-    "title": "프로젝트 헤일메리",
-    "author": "Weir,Andy",
-    "meta": [
-      "RHK",
-      "대출횟수 : 4"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=907139",
-    "ranks": {
-      "popular": 7
-    }
-  },
-  {
-    "isbn": "9788937473401",
-    "title": "급류 :정대건 장편소설",
-    "author": "정대건",
-    "meta": [
-      "민음사",
-      "대출횟수 : 4"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=919213",
-    "ranks": {
-      "popular": 8
-    }
-  },
-  {
-    "isbn": "9788936439743",
-    "title": "혼모노 :성해나 소설집",
-    "author": "성해나",
-    "meta": [
-      "창비",
-      "대출횟수 : 4"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=936562",
-    "ranks": {
-      "popular": 9
-    }
-  },
-  {
-    "isbn": "9791141602376",
-    "title": "안녕이라 그랬어 :김애란 소설",
-    "author": "김애란",
-    "meta": [
-      "문학동네",
-      "대출횟수 : 4"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=938287",
-    "ranks": {
-      "popular": 10
-    }
-  },
-  {
-    "isbn": "9791141602451",
-    "title": "절창 :구병모 장편소설",
-    "author": "구병모",
-    "meta": [
-      "문학동네",
-      "대출횟수 : 4"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=940074",
-    "ranks": {
-      "popular": 11
-    }
-  },
-  {
-    "isbn": "0023250208",
-    "title": "Introduction to logic",
-    "author": "Copi,IrvingM.",
-    "meta": [
-      "MACMILLAN",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=495094",
-    "ranks": {
-      "popular": 14
-    }
-  },
-  {
-    "isbn": "0534089283",
-    "title": "concise introduction to logic",
-    "author": "Hurley,PatrickJ.",
-    "meta": [
-      "WADSWORTHPUBCO",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=495375",
-    "ranks": {
-      "popular": 15
-    }
-  },
-  {
-    "isbn": "9788937461798",
-    "title": "브람스를 좋아하세요",
-    "author": "Sagan,Françoise",
-    "meta": [
-      "민음사",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=650846",
-    "ranks": {
-      "popular": 16
-    }
-  },
-  {
-    "isbn": "9788990982513",
-    "title": "한 여름의 방정식",
-    "author": "東野圭吾",
-    "meta": [
-      "재인",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=775534",
-    "ranks": {
-      "popular": 17
-    }
-  },
-  {
-    "isbn": "9788990982612",
-    "title": "백야행.1~2 :하얀 어둠 속을 걷다",
-    "author": "東野圭吾",
-    "meta": [
-      "재인",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=828731",
-    "ranks": {
-      "popular": 18
-    }
-  },
-  {
-    "isbn": "9788936437978",
-    "title": "대도시의 사랑법 :박상영 연작소설",
-    "author": "박상영",
-    "meta": [
-      "창비",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=869934",
-    "ranks": {
-      "popular": 20
-    }
-  },
-  {
-    "isbn": "9788990982940",
-    "title": "허상의 어릿광대",
-    "author": "東野圭吾",
-    "meta": [
-      "재인",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=907374",
-    "ranks": {
-      "popular": 23
-    }
-  },
-  {
-    "isbn": "9791130341798",
-    "title": "형사기록의 이해",
-    "author": "박광서",
-    "meta": [
-      "박영사",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=910250",
-    "ranks": {
-      "popular": 24
-    }
-  },
-  {
-    "isbn": "9791167372864",
-    "title": "구의 증명 :최진영 소설",
-    "author": "최진영",
-    "meta": [
-      "은행나무",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=919543",
-    "ranks": {
-      "popular": 25
-    }
-  },
-  {
-    "isbn": "9791198547514",
-    "title": "수족관 :유래혁 장편소설",
-    "author": "유래혁",
-    "meta": [
-      "POSTERSHOP",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=925310",
-    "ranks": {
-      "popular": 26
-    }
-  },
-  {
-    "isbn": "9791199305304",
-    "title": "자몽살구클럽",
-    "author": "한로로",
-    "meta": [
-      "어센틱",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=939101",
-    "ranks": {
-      "popular": 28
-    }
-  },
-  {
-    "isbn": "9791139721973",
-    "title": "(명화와 함께 읽는) 오디세이아 :고대 그리스어 완역본",
-    "author": "Homeros",
-    "meta": [
-      "현대지성",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=942534",
-    "ranks": {
-      "popular": 29
-    }
-  },
-  {
-    "isbn": "9791168584914",
-    "title": "형사법 기록형 :이해와 해설",
-    "author": "한상규",
-    "meta": [
-      "정독",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=944756",
-    "ranks": {
-      "popular": 32
-    }
-  },
-  {
-    "isbn": "9791130398440",
-    "title": "형사법 사례형 해설",
-    "author": "조균석",
-    "meta": [
-      "박영사",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=945301",
-    "ranks": {
-      "popular": 33
-    }
-  },
-  {
-    "isbn": "9791176441704",
-    "title": "(해커스변호사) 상법 :맥 암기장",
-    "author": "공태용",
-    "meta": [
-      "해커스변호사",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=945716",
-    "ranks": {
-      "popular": 34
-    }
-  },
-  {
-    "isbn": "9788937477478",
-    "title": "악마는 열심히 산다 :김화진 장편소설",
-    "author": "김화진",
-    "meta": [
-      "민음사",
-      "대출횟수 : 3"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946063",
-    "ranks": {
-      "popular": 35
-    }
-  },
-  {
-    "isbn": "8937460610",
-    "title": "동아대학보.1",
-    "author": "동아대학교.동아대학보사",
-    "meta": [
-      "동아대학교",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=186493",
-    "ranks": {
-      "popular": 36
-    }
-  },
-  {
-    "isbn": "8976967038",
-    "title": "식민지의 회색지대",
-    "author": "윤해동",
-    "meta": [
-      "역사비평사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=386517",
-    "ranks": {
-      "popular": 37
-    }
-  },
-  {
-    "isbn": "9788937460708",
-    "title": "체호프 단편선",
-    "author": "Чехов,АнтонПавлович",
-    "meta": [
-      "민음사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=413735",
-    "ranks": {
-      "popular": 38
-    }
-  },
-  {
-    "isbn": "8935912182",
-    "title": "돈키호테",
-    "author": "CervantesSaavedra,Miguelde",
-    "meta": [
-      "신원문화사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=556955",
-    "ranks": {
-      "popular": 39
-    }
-  },
-  {
-    "isbn": "8988825802",
-    "title": "화학공학 열역학",
-    "author": "Smith,J.M.",
-    "meta": [
-      "한국맥그로힐",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=570100",
-    "ranks": {
-      "popular": 40
-    }
-  },
-  {
-    "isbn": "8971992417",
-    "title": "한국전쟁 :38선 충돌과 전쟁의 형성",
-    "author": "정병준",
-    "meta": [
-      "돌베개",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=574928",
-    "ranks": {
-      "popular": 41
-    }
-  },
-  {
-    "isbn": "9788935661039",
-    "title": "프랑스혁명에 관한 성찰",
-    "author": "Burke,Edmund",
-    "meta": [
-      "한길사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=667439",
-    "ranks": {
-      "popular": 42
-    }
-  },
-  {
-    "isbn": "9788990982360",
-    "title": "성녀의 구제 :히가시노 게이고 장편 소설",
-    "author": "東野圭吾",
-    "meta": [
-      "재인",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=684331",
-    "ranks": {
-      "popular": 43
-    }
-  },
-  {
-    "isbn": "9788991219274",
-    "title": "(쉽게 이해하는) 심장초음파심전도 판독법",
-    "author": "일색고명",
-    "meta": [
-      "대한의학서적",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=732469",
-    "ranks": {
-      "popular": 44
-    }
-  },
-  {
-    "isbn": "9788973815579",
-    "title": "잡동사니",
-    "author": "강국향직",
-    "meta": [
-      "소담출판사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=757710",
-    "ranks": {
-      "popular": 45
-    }
-  },
-  {
-    "isbn": "9791156100003",
-    "title": "Civil BIM:with autodesk civil 3D",
-    "author": "강태욱",
-    "meta": [
-      "씨아이알",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=773155",
-    "ranks": {
-      "popular": 46
-    }
-  },
-  {
-    "isbn": "9791156100119",
-    "title": "암반역학의 원리",
-    "author": "이인모",
-    "meta": [
-      "씨아이알",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=774149",
-    "ranks": {
-      "popular": 47
-    }
-  },
-  {
-    "isbn": "9788963480091",
-    "title": "마지막 수업 외",
-    "author": "Daudet,Alphonse",
-    "meta": [
-      "THETEXT",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=775178",
-    "ranks": {
-      "popular": 48
-    }
-  },
-  {
-    "isbn": "9788965702450",
-    "title": "경영의 모험 :빌 게이츠가 극찬한 금세기 최고의 경영서",
-    "author": "브룩스존",
-    "meta": [
-      "쌤앤파커스",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=788956",
-    "ranks": {
-      "popular": 49
-    }
-  },
-  {
-    "isbn": "9788954620147",
-    "title": "데미안 :에밀 싱클레어의 청춘 이야기 :헤르만 헤세 소설",
-    "author": "Hesse,Hermann",
-    "meta": [
-      "문학동네",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=815515",
-    "ranks": {
-      "popular": 51
-    }
-  },
-  {
-    "isbn": "9788934972204",
-    "title": "여름은 오래 그곳에 남아",
-    "author": "松家仁之",
-    "meta": [
-      "비채",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=815915",
-    "ranks": {
-      "popular": 52
-    }
-  },
-  {
-    "isbn": "9788937433818",
-    "title": "노르웨이의 숲",
-    "author": "무라카미하루키",
-    "meta": [
-      "민음사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=819586",
-    "ranks": {
-      "popular": 53
-    }
-  },
-  {
-    "isbn": "9788934977841",
-    "title": "호모 데우스 :미래의 역사",
-    "author": "Harari,YuvalNoah",
-    "meta": [
-      "김영사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=826487",
-    "ranks": {
-      "popular": 54
-    }
-  },
-  {
-    "isbn": "9788964212936",
-    "title": "최적설계입문",
-    "author": "Arora,JasbirSingh",
-    "meta": [
-      "한티미디어",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=828057",
-    "ranks": {
-      "popular": 55
-    }
-  },
-  {
-    "isbn": "9788937473166",
-    "title": "해가 지는 곳으로 :최진영 장편소설",
-    "author": "최진영",
-    "meta": [
-      "민음사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=828852",
-    "ranks": {
-      "popular": 56
-    }
-  },
-  {
-    "isbn": "9791185658261",
-    "title": "(임상의를 위한) 심장학",
-    "author": "Mizuno,Kyoichi",
-    "meta": [
-      "우리의학서적",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=837972",
-    "ranks": {
-      "popular": 57
-    }
-  },
-  {
-    "isbn": "9788954651820",
-    "title": "내게 무해한 사람 :최은영 소설",
-    "author": "최은영",
-    "meta": [
-      "문학동네",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=846420",
-    "ranks": {
-      "popular": 58
-    }
-  },
-  {
-    "isbn": "9791159553479",
-    "title": "(처음 시작하는) 상부 소화기내시경 manual =Invitation for digestive endoscopy",
-    "author": "등성광홍",
-    "meta": [
-      "군자",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=859235",
-    "ranks": {
-      "popular": 59
-    }
-  },
-  {
-    "isbn": "9788954656160",
-    "title": "빛과 물질에 관한 이론 :앤드루 포터 소설",
-    "author": "Porter,Andrew",
-    "meta": [
-      "문학동네",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=866363",
-    "ranks": {
-      "popular": 60
-    }
-  },
-  {
-    "isbn": "9791190090018",
-    "title": "우리가 빛의 속도로 갈 수 없다면 :김초엽 소설",
-    "author": "김초엽",
-    "meta": [
-      "허블",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=869817",
-    "ranks": {
-      "popular": 61
-    }
-  },
-  {
-    "isbn": "9788931011579",
-    "title": "도련님",
-    "author": "夏目漱石",
-    "meta": [
-      "문예",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=877831",
-    "ranks": {
-      "popular": 62
-    }
-  },
-  {
-    "isbn": "9788937473289",
-    "title": "내가 말하고 있잖아 :정용준 장편소설",
-    "author": "정용준",
-    "meta": [
-      "민음사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=888340",
-    "ranks": {
-      "popular": 63
-    }
-  },
-  {
-    "isbn": "9791190090261",
-    "title": "천 개의 파랑 :천선란 장편소설",
-    "author": "천선란",
-    "meta": [
-      "허블",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=889802",
-    "ranks": {
-      "popular": 64
-    }
-  },
-  {
-    "isbn": "9791166470677",
-    "title": "반도체 제조기술의 이해 :현장 최고 전문가들의 결정체 :반도체 비급 전서",
-    "author": "곽노열",
-    "meta": [
-      "한올",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=901105",
-    "ranks": {
-      "popular": 65
-    }
-  },
-  {
-    "isbn": "9791155642351",
-    "title": "사는 법이 있으면 좋겠습니다 :고민 덕후 변호사의 슬기로운 인생 상담",
-    "author": "배태준",
-    "meta": [
-      "북스토리",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=901854",
-    "ranks": {
-      "popular": 66
-    }
-  },
-  {
-    "isbn": "9791162571606",
-    "title": "일반 화약학",
-    "author": "이원주",
-    "meta": [
-      "구미서관",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=901879",
-    "ranks": {
-      "popular": 67
-    }
-  },
-  {
-    "isbn": "9788954682152",
-    "title": "작별하지 않는다 :한강 장편소설",
-    "author": "한강",
-    "meta": [
-      "문학동네",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=903806",
-    "ranks": {
-      "popular": 68
-    }
-  },
-  {
-    "isbn": "9791190473767",
-    "title": "이방인",
-    "author": "Camus,Albert",
-    "meta": [
-      "새움출판사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=909053",
-    "ranks": {
-      "popular": 70
-    }
-  },
-  {
-    "isbn": "9791191347685",
-    "title": "마음의 법칙 :사람의 마음을 사로잡는 51가지 심리학",
-    "author": "Kitz,Volker",
-    "meta": [
-      "포레스트",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=909560",
-    "ranks": {
-      "popular": 71
-    }
-  },
-  {
-    "isbn": "9788950969325",
-    "title": "설득의 심리학",
-    "author": "Cialdini,RobertB.",
-    "meta": [
-      "21세기북스",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=909613",
-    "ranks": {
-      "popular": 72
-    }
-  },
-  {
-    "isbn": "9791168340510",
-    "title": "파친코 :이민진 장편소설",
-    "author": "이민진",
-    "meta": [
-      "인플루엔셜",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=912653",
-    "ranks": {
-      "popular": 73
-    }
-  },
-  {
-    "isbn": "9788936434540",
-    "title": "피프티 피플 :정세랑 장편소설",
-    "author": "정세랑",
-    "meta": [
-      "창비",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=917617",
-    "ranks": {
-      "popular": 74
-    }
-  },
-  {
-    "isbn": "9791197865022",
-    "title": "(검사출신 로스쿨 교수가 쓴) 형사기록 쉽게 이해하는법",
-    "author": "박재평",
-    "meta": [
-      "재일북스",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=917955",
-    "ranks": {
-      "popular": 75
-    }
-  },
-  {
-    "isbn": "9791192483146",
-    "title": "희망의 끈",
-    "author": "東野圭吾",
-    "meta": [
-      "재인",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=918157",
-    "ranks": {
-      "popular": 76
-    }
-  },
-  {
-    "isbn": "9791190299770",
-    "title": "모든 삶은 흐른다",
-    "author": "Devillairs,Laurence",
-    "meta": [
-      "FIKA",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=918700",
-    "ranks": {
-      "popular": 77
-    }
-  },
-  {
-    "isbn": "9788954691581",
-    "title": "고래 :천명관 장편소설",
-    "author": "천명관",
-    "meta": [
-      "문학동네",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=919253",
-    "ranks": {
-      "popular": 78
-    }
-  },
-  {
-    "isbn": "9791140703302",
-    "title": "(코딩 자율학습) 나도코딩의 파이썬 입문",
-    "author": "나도코딩",
-    "meta": [
-      "길벗",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=921572",
-    "ranks": {
-      "popular": 79
-    }
-  },
-  {
-    "isbn": "9788936134533",
-    "title": "이만큼 가까이 :정세랑 장편소설",
-    "author": "정세랑",
-    "meta": [
-      "창비",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=922788",
-    "ranks": {
-      "popular": 81
-    }
-  },
-  {
-    "isbn": "9788964452257",
-    "title": "제국의 브로커들 :일제강점기의 일본 정착민 식민주의 1876~1945",
-    "author": "内田じゅん",
-    "meta": [
-      "길",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=924899",
-    "ranks": {
-      "popular": 83
-    }
-  },
-  {
-    "isbn": "9791198682505",
-    "title": "나를 소모하지 않는 현명한 태도에 관하여",
-    "author": "Nöllke,Matthias",
-    "meta": [
-      "퍼스트펭귄",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=925531",
-    "ranks": {
-      "popular": 84
-    }
-  },
-  {
-    "isbn": "9788952776372",
-    "title": "리틀 라이프.1~2 :한야 야나기하라 장편소설",
-    "author": "Yanagihara,Hanya",
-    "meta": [
-      "시공사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=925537",
-    "ranks": {
-      "popular": 85
-    }
-  },
-  {
-    "isbn": "9788947549417",
-    "title": "명화의 탄생 그때 그 사람",
-    "author": "성수영",
-    "meta": [
-      "한경ARTE",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=926365",
-    "ranks": {
-      "popular": 86
-    }
-  },
-  {
-    "isbn": "9791167902580",
-    "title": "적산가옥의 유령 :조예은 소설",
-    "author": "조예은",
-    "meta": [
-      "현대문학",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=929064",
-    "ranks": {
-      "popular": 87
-    }
-  },
-  {
-    "isbn": "9791197646676",
-    "title": "무역실무 물류과외",
-    "author": "김성식",
-    "meta": [
-      "무꿈사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=929367",
-    "ranks": {
-      "popular": 88
-    }
-  },
-  {
-    "isbn": "9788972750031",
-    "title": "악의",
-    "author": "東野圭吾",
-    "meta": [
-      "현대문학",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=931096",
-    "ranks": {
-      "popular": 89
-    }
-  },
-  {
-    "isbn": "9791193851500",
-    "title": "형법요론 :이론판례사례 기본서.-",
+    "isbn": "9791124598146",
+    "title": "(2027 대비) 5년간 최신판례정리 :형법 :21년 7월~26년 6월",
     "author": "신호진",
     "meta": [
-      "LEXSTUDY",
-      "대출횟수 : 2"
+      "LEX STUDY 2026"
     ],
     "cover": "",
-    "collection": "인기도서",
+    "collection": "신착도서",
     "collectionKeys": [
-      "popular"
+      "new"
     ],
     "collectionTags": [
-      "popular",
-      "readable"
+      "new",
+      "fresh"
     ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=932591",
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946350",
     "ranks": {
-      "popular": 90
+      "new": 38
     }
   },
   {
-    "isbn": "9791130348995",
-    "title": "형법사용설명서",
-    "author": "임동민",
+    "isbn": "9791124598153",
+    "title": "(2027 대비) 5년간 최신판례정리 :형사소송법 :21년 7월~26년 6월",
+    "author": "신호진",
     "meta": [
-      "박영사",
-      "대출횟수 : 2"
+      "LEX STUDY 2026"
     ],
     "cover": "",
-    "collection": "인기도서",
+    "collection": "신착도서",
     "collectionKeys": [
-      "popular"
+      "new"
     ],
     "collectionTags": [
-      "popular",
-      "readable"
+      "new",
+      "fresh"
     ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=936482",
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946351",
     "ranks": {
-      "popular": 91
+      "new": 39
     }
   },
   {
-    "isbn": "9791192483238",
-    "title": "침묵의 퍼레이드",
-    "author": "東野圭吾",
+    "isbn": "9788935215157",
+    "title": "사고 싶은 마음의 공식 :파는 사람이라면 꼭 알아야 할 8가지 소비 심리 키워드",
+    "author": "차현나",
     "meta": [
-      "재인",
-      "대출횟수 : 2"
+      "청림 2026"
     ],
     "cover": "",
-    "collection": "인기도서",
+    "collection": "신착도서",
     "collectionKeys": [
-      "popular"
+      "new"
     ],
     "collectionTags": [
-      "popular",
-      "readable"
+      "new",
+      "fresh"
     ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=936835",
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946352",
     "ranks": {
-      "popular": 92
+      "new": 40
     }
   },
   {
-    "isbn": "9788998441029",
-    "title": "천년의 사랑 :양귀자 장편소설",
-    "author": "양귀자",
+    "isbn": "9791139233773",
+    "title": "사라진 여우를 찾아서 :우리가 잃어버린 숲의 이웃을 찾아가는 기록",
+    "author": "송병철",
     "meta": [
-      "쓰다",
-      "대출횟수 : 2"
+      "지식과감성# 2026"
     ],
     "cover": "",
-    "collection": "인기도서",
+    "collection": "신착도서",
     "collectionKeys": [
-      "popular"
+      "new"
     ],
     "collectionTags": [
-      "popular",
-      "readable"
+      "new",
+      "fresh"
     ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=936983",
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946353",
     "ranks": {
-      "popular": 93
+      "new": 41
     }
   },
   {
-    "isbn": "9791194591436",
-    "title": "바빌론 부자들의 돈 버는 지혜 :시대를 초월한 자산관리 바이블",
-    "author": "Clason,GeorgeSamuel",
-    "meta": [
-      "더스토리",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=937015",
-    "ranks": {
-      "popular": 94
-    }
-  },
-  {
-    "isbn": "9788937464515",
-    "title": "8월은 악마의 달",
-    "author": "O'Brien,Edna",
-    "meta": [
-      "민음사",
-      "대출횟수 : 2"
-    ],
-    "cover": "",
-    "collection": "인기도서",
-    "collectionKeys": [
-      "popular"
-    ],
-    "collectionTags": [
-      "popular",
-      "readable"
-    ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=937750",
-    "ranks": {
-      "popular": 95
-    }
-  },
-  {
-    "isbn": "9791167903068",
-    "title": "매듭의 끝 :정해연 장편소설",
+    "isbn": "9791169087476",
+    "title": "굿 게임 굿 럭",
     "author": "정해연",
     "meta": [
-      "현대문학",
-      "대출횟수 : 2"
+      "Originals 2026"
     ],
     "cover": "",
-    "collection": "인기도서",
+    "collection": "신착도서",
     "collectionKeys": [
-      "popular"
+      "new"
     ],
     "collectionTags": [
-      "popular",
-      "readable"
+      "new",
+      "fresh"
     ],
-    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=938075",
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946354",
     "ranks": {
-      "popular": 96
+      "new": 42
+    }
+  },
+  {
+    "isbn": "9791174951045",
+    "title": "최근 3년 형법판례 OX",
+    "author": "이인규",
+    "meta": [
+      "학연 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946355",
+    "ranks": {
+      "new": 43
+    }
+  },
+  {
+    "isbn": "9791194127475",
+    "title": "사랑에는 돈이 들어 :사랑을 해킹당한 시대의 잔혹동화 미스터리",
+    "author": "박하익",
+    "meta": [
+      "나비클럽 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946356",
+    "ranks": {
+      "new": 44
+    }
+  },
+  {
+    "isbn": "9791173744655",
+    "title": "그루잠 :박보미 장편소설",
+    "author": "박보미",
+    "meta": [
+      "하움 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946357",
+    "ranks": {
+      "new": 45
+    }
+  },
+  {
+    "isbn": "9791171103584",
+    "title": "민사법 2개년 최신판례",
+    "author": "박승수",
+    "meta": [
+      "에듀비 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946358",
+    "ranks": {
+      "new": 46
+    }
+  },
+  {
+    "isbn": "9791194099734",
+    "title": "(2027) 작은 상법의 정초 보험법 에센스",
+    "author": "장원석",
+    "meta": [
+      "나눔에듀 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946359",
+    "ranks": {
+      "new": 47
+    }
+  },
+  {
+    "isbn": "9791175983670",
+    "title": "기氣는 나무의 몸에 자신의 의지를 각인한다 :대지의 기운이 생명을 지배하고 설계하는 기氣의 과학",
+    "author": "이본기",
+    "meta": [
+      "북랩 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946360",
+    "ranks": {
+      "new": 48
+    }
+  },
+  {
+    "isbn": "9791124248324",
+    "title": "기억상회 :전민식 소설",
+    "author": "전민식",
+    "meta": [
+      "상상스퀘어 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946361",
+    "ranks": {
+      "new": 49
+    }
+  },
+  {
+    "isbn": "9791187875666",
+    "title": "사랑이라 믿었던 지배 :병리적 인간이 당신을 선택하고 놓아주지 않는 이유",
+    "author": "Macaluso, Nadine",
+    "meta": [
+      "생각지도 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946362",
+    "ranks": {
+      "new": 50
+    }
+  },
+  {
+    "isbn": "9791194099710",
+    "title": "(2027) 작은 어음·수표법",
+    "author": "장원석",
+    "meta": [
+      "나눔에듀 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946363",
+    "ranks": {
+      "new": 51
+    }
+  },
+  {
+    "isbn": "9791124038604",
+    "title": "기억의 무늬 :백희성 장편소설",
+    "author": "백희성",
+    "meta": [
+      "북로망스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946364",
+    "ranks": {
+      "new": 52
+    }
+  },
+  {
+    "isbn": "9791166894312",
+    "title": "기후로 보는 한국사 :기후가 바꾼 5천년, 새롭게 보는 우리 역사",
+    "author": "박정제",
+    "meta": [
+      "바다 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946366",
+    "ranks": {
+      "new": 54
+    }
+  },
+  {
+    "isbn": "9791141617509",
+    "title": "나를 우습게 봤겠지만 :베라 쿠리안 장편소설",
+    "author": "Kurian, Vera",
+    "meta": [
+      "문학동네 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946367",
+    "ranks": {
+      "new": 55
+    }
+  },
+  {
+    "isbn": "9791157404971",
+    "title": "산군 :당산나무 기담 :박해로 장편소설",
+    "author": "박해로",
+    "meta": [
+      "네오픽션 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946368",
+    "ranks": {
+      "new": 56
+    }
+  },
+  {
+    "isbn": "9791192410630",
+    "title": "나를 지키고 싶을 때 미술관에 갑니다",
+    "author": "오희승",
+    "meta": [
+      "그래도봄 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946369",
+    "ranks": {
+      "new": 57
+    }
+  },
+  {
+    "isbn": "9791172134556",
+    "title": "상처에 시럽 뿌리기",
+    "author": "이영주",
+    "meta": [
+      "한겨레엔 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946370",
+    "ranks": {
+      "new": 58
+    }
+  },
+  {
+    "isbn": "9791166572364",
+    "title": "나를 지키는 뇌과학",
+    "author": "여르미",
+    "meta": [
+      "센시오 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946371",
+    "ranks": {
+      "new": 59
+    }
+  },
+  {
+    "isbn": "9791176213820",
+    "title": "나무가 기억하는 시간",
+    "author": "서명석",
+    "meta": [
+      "바른북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946372",
+    "ranks": {
+      "new": 60
+    }
+  },
+  {
+    "isbn": "9791141617776",
+    "title": "새들의 사회성 :편혜영 소설",
+    "author": "편혜영",
+    "meta": [
+      "문학동네 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946373",
+    "ranks": {
+      "new": 61
+    }
+  },
+  {
+    "isbn": "9791193301135",
+    "title": "생명과학의 눈으로 보면 기후의 미래가 바뀐다 :38억 년 생명의 법칙으로 다시 읽는 기후 위기",
+    "author": "김미정",
+    "meta": [
+      "지상의책 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946374",
+    "ranks": {
+      "new": 62
+    }
+  },
+  {
+    "isbn": "9788959409020",
+    "title": "나의 우아한 목기 시대 :목공에서 발견한 무르고 단단한 삶에 관하여",
+    "author": "이정환",
+    "meta": [
+      "시대의창 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946375",
+    "ranks": {
+      "new": 63
+    }
+  },
+  {
+    "isbn": "9791194096726",
+    "title": "(세상에서 가장 재미있는) 레오나르도 다빈치 이야기",
+    "author": "杉全 美帆子",
+    "meta": [
+      "사람과나무사이 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946376",
+    "ranks": {
+      "new": 64
+    }
+  },
+  {
+    "isbn": "9791156062936",
+    "title": "내가 바라본 모든 세상은 詩였다 :서홍석 시집",
+    "author": "서홍석",
+    "meta": [
+      "작가마을 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946377",
+    "ranks": {
+      "new": 65
+    }
+  },
+  {
+    "isbn": "9791199517554",
+    "title": "내 목소리가 너에게 닿기를 :달콤한 미성 너머 차갑게 버텨온 성우 정재헌의 다정한 노력 이야기",
+    "author": "정재헌",
+    "meta": [
+      "스미다 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946378",
+    "ranks": {
+      "new": 66
+    }
+  },
+  {
+    "isbn": "9791198972705",
+    "title": "(2026) K-외식 패러다임 대전환 :데이터가 알려준 외식업의 새로운 게임룰 :트렌드F포럼 전문도서",
+    "author": "웰토리 트렌드 연구회",
+    "meta": [
+      "엠큐브파트너스 2025"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946379",
+    "ranks": {
+      "new": 67
+    }
+  },
+  {
+    "isbn": "9791130312088",
+    "title": "교정학 :행형론과 수용자 처우",
+    "author": "금용명",
+    "meta": [
+      "박영사 2021"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946381",
+    "ranks": {
+      "new": 69
+    }
+  },
+  {
+    "isbn": "9791168625037",
+    "title": "세포를 가까이서 들여다보니 놀라웠다 :세포로 이해하는 우리 몸의 구석구석",
+    "author": "小倉加奈子",
+    "meta": [
+      "시그마북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946382",
+    "ranks": {
+      "new": 70
+    }
+  },
+  {
+    "isbn": "9791171259601",
+    "title": "넥스트 시티 :집·일자리·문명을 바꾸는 AI 미래도시",
+    "author": "이현욱",
+    "meta": [
+      "SIGONGSA 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946383",
+    "ranks": {
+      "new": 71
+    }
+  },
+  {
+    "isbn": "9791167903662",
+    "title": "매스커레이드 라이프 :히가시노 게이고 장편소설",
+    "author": "東野圭吾",
+    "meta": [
+      "현대문학 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946384",
+    "ranks": {
+      "new": 72
+    }
+  },
+  {
+    "isbn": "9791130347578",
+    "title": "블록체인과 증권.1~2",
+    "author": "김종현",
+    "meta": [
+      "박영사 2024-2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946385",
+    "ranks": {
+      "new": 73
+    }
+  },
+  {
+    "isbn": "9791192647999",
+    "title": "열망의 법학 :식민주의와 결별하며",
+    "author": "이재승",
+    "meta": [
+      "앨피 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946386",
+    "ranks": {
+      "new": 74
+    }
+  },
+  {
+    "isbn": "9791199799547",
+    "title": "소금호수, 우리가 사랑한 이상한 세계",
+    "author": "Tracey, Caroline",
+    "meta": [
+      "일레븐 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946387",
+    "ranks": {
+      "new": 75
+    }
+  },
+  {
+    "isbn": "9791160322743",
+    "title": "노력의 종말 :우리 세대는 어떻게 노력의 의미를 잃게 되었는가",
+    "author": "Babeau, Olivier",
+    "meta": [
+      "더웨이브 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946388",
+    "ranks": {
+      "new": 76
+    }
+  },
+  {
+    "isbn": "9788976464996",
+    "title": "육조시대 불교조상이 한반도와 일본에 미친 영향",
+    "author": "费泳",
+    "meta": [
+      "예문서원 2025"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946389",
+    "ranks": {
+      "new": 77
+    }
+  },
+  {
+    "isbn": "9791124796009",
+    "title": "소련의 서기장들 :블라디미르 레닌부터 미하일 고르바초프까지",
+    "author": "최경식",
+    "meta": [
+      "갈라북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946390",
+    "ranks": {
+      "new": 78
+    }
+  },
+  {
+    "isbn": "9788965404446",
+    "title": "(압도적 업무 생산성) 노션 x AI",
+    "author": "지니언트",
+    "meta": [
+      "프리렉 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946392",
+    "ranks": {
+      "new": 80
+    }
+  },
+  {
+    "isbn": "9791192836317",
+    "title": "한국고전문학사 강의",
+    "author": "박희병",
+    "meta": [
+      "돌베개 2023"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946393",
+    "ranks": {
+      "new": 81
+    }
+  },
+  {
+    "isbn": "9788946084681",
+    "title": "수도원 맥주 이야기:유럽 역사를 빚다",
+    "author": "고상균",
+    "meta": [
+      "한울엠플러스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946394",
+    "ranks": {
+      "new": 82
+    }
+  },
+  {
+    "isbn": "9788972971696",
+    "title": "헤어지다 죽은 여자들 :가장 조용한 참사, 교제폭력을 말하다",
+    "author": "경향신문.여성서사아카이브 플랫",
+    "meta": [
+      "동녘 2025"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946395",
+    "ranks": {
+      "new": 83
+    }
+  },
+  {
+    "isbn": "9791129065193",
+    "title": "농경지에서 만나는 곤충들",
+    "author": "국립농업과학원",
+    "meta": [
+      "진한엠엔비 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946396",
+    "ranks": {
+      "new": 84
+    }
+  },
+  {
+    "isbn": "9791193941744",
+    "title": "수상할 정도로 고양이",
+    "author": "이도훈",
+    "meta": [
+      "클랩북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946397",
+    "ranks": {
+      "new": 85
+    }
+  },
+  {
+    "isbn": "9791194425243",
+    "title": "(All-in-one) 헌법",
+    "author": "유시완",
+    "meta": [
+      "두빛나래 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946398",
+    "ranks": {
+      "new": 86
+    }
+  },
+  {
+    "isbn": "9791124248386",
+    "title": "슈퍼블룸 :닿을수록 멀어지는 과잉 연결",
+    "author": "Carr, Nicholas G.",
+    "meta": [
+      "상상스퀘어 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946399",
+    "ranks": {
+      "new": 87
+    }
+  },
+  {
+    "isbn": "9791194768166",
+    "title": "(Compact) 형사법 최신판례",
+    "author": "김기용",
+    "meta": [
+      "타임노트 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946400",
+    "ranks": {
+      "new": 88
+    }
+  },
+  {
+    "isbn": "9791175611498",
+    "title": "Essential 최근 3개년 민사법 판례정리",
+    "author": "김남훈",
+    "meta": [
+      "윌비스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946401",
+    "ranks": {
+      "new": 89
+    }
+  },
+  {
+    "isbn": "9791124575260",
+    "title": "슈퍼호스트 :박희종 장편소설",
+    "author": "박희종",
+    "meta": [
+      "팩토리나인 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946402",
+    "ranks": {
+      "new": 90
+    }
+  },
+  {
+    "isbn": "9791167923196",
+    "title": "High-end 형법 사례형",
+    "author": "박지훈",
+    "meta": [
+      "필통북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946403",
+    "ranks": {
+      "new": 91
+    }
+  },
+  {
+    "isbn": "9791193591543",
+    "title": "슬픔의 발견 :상실, 그 이후의 삶을 헤아려본 과학의 응답",
+    "author": "Blatchley, Barbara",
+    "meta": [
+      "디플롯 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946404",
+    "ranks": {
+      "new": 92
+    }
+  },
+  {
+    "isbn": "9791124093481",
+    "title": "TRS 형사법 쟁점답안지",
+    "author": "김지수",
+    "meta": [
+      "랩스탠다드 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946405",
+    "ranks": {
+      "new": 93
+    }
+  },
+  {
+    "isbn": "9791168585096",
+    "title": "(로스쿨) 가족법의 정석",
+    "author": "정연석",
+    "meta": [
+      "정독 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946406",
+    "ranks": {
+      "new": 94
+    }
+  },
+  {
+    "isbn": "9788962627244",
+    "title": "시뮬레이션 우주 :스스로 계산하는 가장 거대한 양자컴퓨터",
+    "author": "박권",
+    "meta": [
+      "동아시아 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946407",
+    "ranks": {
+      "new": 95
+    }
+  },
+  {
+    "isbn": "9791174011183",
+    "title": "(로스쿨) 국제법강의 :부록 국제법기본조약",
+    "author": "박병도",
+    "meta": [
+      "피앤씨미디어 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946408",
+    "ranks": {
+      "new": 96
+    }
+  },
+  {
+    "isbn": "9788965968405",
+    "title": "뇌가 만든 천재들 :광기와 창조성은 어떻게 연결되는가",
+    "author": "Walter, Mario de la Piedra",
+    "meta": [
+      "흐름 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946409",
+    "ranks": {
+      "new": 97
+    }
+  },
+  {
+    "isbn": "9791124255186",
+    "title": "식물이 바꾼 지구의 역사 :식물과 동물, 그리고 진화의 위대한 로맨스",
+    "author": "Black, Riley",
+    "meta": [
+      "세종서적 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946410",
+    "ranks": {
+      "new": 98
+    }
+  },
+  {
+    "isbn": "9791192788685",
+    "title": "신화는 어떻게 미래가 되는가 :AI부터 양자역학, 청색기술까지, 오래된 상상력의 비밀",
+    "author": "이인식",
+    "meta": [
+      "드림셀러 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946411",
+    "ranks": {
+      "new": 99
+    }
+  },
+  {
+    "isbn": "9791124649855",
+    "title": "씽크 브레이커 :보이지 않던 세상을 다시 읽는 사고법",
+    "author": "양중훈",
+    "meta": [
+      "모티브 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946412",
+    "ranks": {
+      "new": 100
+    }
+  },
+  {
+    "isbn": "9791171103591",
+    "title": "민사법 기록형 단기완성",
+    "author": "박승수",
+    "meta": [
+      "에듀비 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946413",
+    "ranks": {
+      "new": 101
+    }
+  },
+  {
+    "isbn": "9791193777497",
+    "title": "(2026) 변호사 상법 5년간 최신판례",
+    "author": "하영태",
+    "meta": [
+      "무지개BOOKS 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946414",
+    "ranks": {
+      "new": 102
+    }
+  },
+  {
+    "isbn": "9791199694019",
+    "title": "(누구나 꼭 읽어야 할) 과학사의 이해",
+    "author": "백귀찬",
+    "meta": [
+      "케미북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946415",
+    "ranks": {
+      "new": 103
+    }
+  },
+  {
+    "isbn": "9791193777503",
+    "title": "(2026) 변호사 상법 정지문 조문판례",
+    "author": "하영태",
+    "meta": [
+      "무지개BOOKS 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946416",
+    "ranks": {
+      "new": 104
+    }
+  },
+  {
+    "isbn": "9791199693845",
+    "title": "아무도 이야기 하지 않는 도시 :우리는 어떻게 살아남았는가",
+    "author": "김승귀",
+    "meta": [
+      "뜻있는도서출판 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946417",
+    "ranks": {
+      "new": 105
+    }
+  },
+  {
+    "isbn": "9791168585072",
+    "title": "商法要解",
+    "author": "김선광",
+    "meta": [
+      "정독 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946418",
+    "ranks": {
+      "new": 106
+    }
+  },
+  {
+    "isbn": "9791130396491",
+    "title": "일본소비세법 :한ㆍ일 부가가치세제 비교 연구",
+    "author": "박정민",
+    "meta": [
+      "박영사 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946419",
+    "ranks": {
+      "new": 107
+    }
+  },
+  {
+    "isbn": "9788973435944",
+    "title": "다락방 미술관 :그 그림엔 사연이 있다",
+    "author": "문하연",
+    "meta": [
+      "평단 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946420",
+    "ranks": {
+      "new": 108
+    }
+  },
+  {
+    "isbn": "9791167846372",
+    "title": "조세법 쟁론",
+    "author": "강석규",
+    "meta": [
+      "삼일인포마인 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946421",
+    "ranks": {
+      "new": 109
+    }
+  },
+  {
+    "isbn": "9791199952126",
+    "title": "아티스트 플랜 :창작으로 먹고 사는 법",
+    "author": "손만승",
+    "meta": [
+      "더씬 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946422",
+    "ranks": {
+      "new": 110
+    }
+  },
+  {
+    "isbn": "9791199721838",
+    "title": "알파벳 퍼즐러즈",
+    "author": "大山誠一郎",
+    "meta": [
+      "톰캣 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946423",
+    "ranks": {
+      "new": 111
+    }
+  },
+  {
+    "isbn": "9791124812020",
+    "title": "다이아몬드가 된 사람 :진정한 가치로 다시 태어나는 법",
+    "author": "박혜영",
+    "meta": [
+      "흰빛 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946424",
+    "ranks": {
+      "new": 112
+    }
+  },
+  {
+    "isbn": "9788981098964",
+    "title": "주석 민법 :총칙",
+    "author": "김용덕",
+    "meta": [
+      "韓國司法行政學會 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946425",
+    "ranks": {
+      "new": 113
+    }
+  },
+  {
+    "isbn": "9791141603632",
+    "title": "애거사 크리스티 미스터리 :마리 베니딕트 장편소설",
+    "author": "Benedict, Marie",
+    "meta": [
+      "문학동네 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946426",
+    "ranks": {
+      "new": 114
+    }
+  },
+  {
+    "isbn": "9791174951069",
+    "title": "(2027 대비) 최근 3년 헌법판례 OX",
+    "author": "황남기",
+    "meta": [
+      "학연 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946427",
+    "ranks": {
+      "new": 115
+    }
+  },
+  {
+    "isbn": "9791160024982",
+    "title": "야구를 읽는 관전의 기술 :야구는 '왜'를 묻는 순간 시작된다",
+    "author": "김양희",
+    "meta": [
+      "메이트북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946428",
+    "ranks": {
+      "new": 116
+    }
+  },
+  {
+    "isbn": "9791174951052",
+    "title": "(최근 5년) 상법판례 OX",
+    "author": "장원석",
+    "meta": [
+      "학연 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946429",
+    "ranks": {
+      "new": 117
+    }
+  },
+  {
+    "isbn": "9791166845345",
+    "title": "담론의 질서",
+    "author": "Foucault, Michel",
+    "meta": [
+      "세창 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946431",
+    "ranks": {
+      "new": 119
+    }
+  },
+  {
+    "isbn": "9791176446136",
+    "title": "(해커스변호사 Law man) 형법 :최근 3개년 판례정리",
+    "author": "이재철",
+    "meta": [
+      "해커스변호사 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946432",
+    "ranks": {
+      "new": 120
+    }
+  },
+  {
+    "isbn": "9791124684023",
+    "title": "야수의 산 :홍진희 장편소설",
+    "author": "홍진희",
+    "meta": [
+      "클레하우스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946433",
+    "ranks": {
+      "new": 1
+    }
+  },
+  {
+    "isbn": "9788972188742",
+    "title": "양자가 온다 세상이 바뀐다",
+    "author": "권영헌",
+    "meta": [
+      "한양대학교출판부 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946434",
+    "ranks": {
+      "new": 2
+    }
+  },
+  {
+    "isbn": "9791196831349",
+    "title": "당신의 죄를 지켜드립니다",
+    "author": "정명섭",
+    "meta": [
+      "위키드위키 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946435",
+    "ranks": {
+      "new": 3
+    }
+  },
+  {
+    "isbn": "9791170437727",
+    "title": "더 기묘한 한국사 :소설보다 기이하고 영화보다 충격적인 한국사 미스터리",
+    "author": "김재완",
+    "meta": [
+      "믹스커피 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946436",
+    "ranks": {
+      "new": 4
+    }
+  },
+  {
+    "isbn": "9788961095761",
+    "title": "어른의 미술관 :명화로 읽는 나의 인생",
+    "author": "김지영",
+    "meta": [
+      "지식여행 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946437",
+    "ranks": {
+      "new": 5
+    }
+  },
+  {
+    "isbn": "9791176820233",
+    "title": "더 커맨더 :지능을 외주 준 시대, 주도권을 지켜내는 법",
+    "author": "김태이",
+    "meta": [
+      "미다스북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946438",
+    "ranks": {
+      "new": 6
+    }
+  },
+  {
+    "isbn": "9791176446051",
+    "title": "(해커스변호사 Law man) 형사소송법 :최근 3개년 판례정리",
+    "author": "이재철",
+    "meta": [
+      "해커스변호사 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946439",
+    "ranks": {
+      "new": 7
+    }
+  },
+  {
+    "isbn": "9791130682594",
+    "title": "에티의 여름 :루시 스티즈 장편소설",
+    "author": "Steeds, Lucy",
+    "meta": [
+      "다산책방 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946440",
+    "ranks": {
+      "new": 8
+    }
+  },
+  {
+    "isbn": "9791124712023",
+    "title": "더 크래쉬",
+    "author": "Mcfadden, Freida",
+    "meta": [
+      "BOOKPLAZA 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946441",
+    "ranks": {
+      "new": 9
+    }
+  },
+  {
+    "isbn": "9791160548365",
+    "title": "도선과 왕건, 그리고 장보고 :고려 태조 왕건은 해상왕 장보고의 후손이었는가",
+    "author": "최홍",
+    "meta": [
+      "렛츠북 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946442",
+    "ranks": {
+      "new": 10
+    }
+  },
+  {
+    "isbn": "9791176446280",
+    "title": "(해커스변호사) 상법 :핵심 지문의 脈",
+    "author": "공태용",
+    "meta": [
+      "해커스 2022"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946444",
+    "ranks": {
+      "new": 12
+    }
+  },
+  {
+    "isbn": "9788901300283",
+    "title": "독성 인간 :그들의 다크 심리를 무력화하는 7가지 심리 전략",
+    "author": "Brinke, Leanne ten",
+    "meta": [
+      "웅진 지식하우스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946445",
+    "ranks": {
+      "new": 13
+    }
+  },
+  {
+    "isbn": "9791199945920",
+    "title": "여론 법정 :승리를 이끄는 소송 커뮤니케이션",
+    "author": "Haggerty, James F.",
+    "meta": [
+      "슈츠커뮤니케이션 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946447",
+    "ranks": {
+      "new": 15
+    }
+  },
+  {
+    "isbn": "9791175773721",
+    "title": "뒤틀린 사랑 :아나 황 장편소설",
+    "author": "Huang Ana",
+    "meta": [
+      "오팬하우스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946448",
+    "ranks": {
+      "new": 16
+    }
+  },
+  {
+    "isbn": "9791193378731",
+    "title": "디자인 뮤지엄 :디자인으로 읽는 인간 욕망의 역사",
+    "author": "김신",
+    "meta": [
+      "북트리거 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946451",
+    "ranks": {
+      "new": 19
+    }
+  },
+  {
+    "isbn": "9791175611566",
+    "title": "헌법 집중 :최근 3개년 판례정리",
+    "author": "선동주",
+    "meta": [
+      "윌비스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946452",
+    "ranks": {
+      "new": 20
+    }
+  },
+  {
+    "isbn": "9791167923226",
+    "title": "헌법 최종정리 OX",
+    "author": "강성민",
+    "meta": [
+      "필통북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946453",
+    "ranks": {
+      "new": 21
+    }
+  },
+  {
+    "isbn": "9791124637128",
+    "title": "딥테크 오디세이 :초지능에서 바이오까지, 빅테크와 신기술이 만드는 부의 지도",
+    "author": "권순용",
+    "meta": [
+      "경이로움 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946454",
+    "ranks": {
+      "new": 22
+    }
+  },
+  {
+    "isbn": "9791124153611",
+    "title": "헌법 판례특강 :3개년 최신판례",
+    "author": "서창교",
+    "meta": [
+      "경연 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946455",
+    "ranks": {
+      "new": 23
+    }
+  },
+  {
+    "isbn": "9791160548358",
+    "title": "역사기행 :한국문화의 원류를 찾아서",
+    "author": "박순진",
+    "meta": [
+      "렛츠북 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946457",
+    "ranks": {
+      "new": 25
+    }
+  },
+  {
+    "isbn": "9791168554948",
+    "title": "떠난 것들의 초상(肖像) :박선형 장편소설",
+    "author": "박선형",
+    "meta": [
+      "청어 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946458",
+    "ranks": {
+      "new": 26
+    }
+  },
+  {
+    "isbn": "9791162938669",
+    "title": "(2027) 형사소송법 3개년 최신판례 및 개정법령",
+    "author": "홍형철",
+    "meta": [
+      "새흐름 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946459",
+    "ranks": {
+      "new": 27
+    }
+  },
+  {
+    "isbn": "9791173841569",
+    "title": "(황변과 함께하는) 법조윤리",
+    "author": "황정현",
+    "meta": [
+      "법률저널 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946460",
+    "ranks": {
+      "new": 28
+    }
+  },
+  {
+    "isbn": "9791197336133",
+    "title": "(영웅의 귀환) 오뒷세이아 :고전학자가 들려주는 모험과 귀향의 서사시",
+    "author": "강대진",
+    "meta": [
+      "도도네 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946461",
+    "ranks": {
+      "new": 29
+    }
+  },
+  {
+    "isbn": "9791173966521",
+    "title": "레트로, 뉴트로, 테크노 :문학예술로 본 북한 사회",
+    "author": "남북문학예술연구회",
+    "meta": [
+      "역락 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946462",
+    "ranks": {
+      "new": 30
+    }
+  },
+  {
+    "isbn": "9788937449635",
+    "title": "오뒷세이아, 어떻게 읽을 것인가 :위대한 영웅의 여정에서 내 인생의 길을 찾다",
+    "author": "김태진",
+    "meta": [
+      "민음사 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946463",
+    "ranks": {
+      "new": 31
+    }
+  },
+  {
+    "isbn": "9791199914018",
+    "title": "로컬에서 뭐 할래? :로컬·콘텐츠·AI로 내 일을 만드는 법",
+    "author": "김태관",
+    "meta": [
+      "호미북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946464",
+    "ranks": {
+      "new": 32
+    }
+  },
+  {
+    "isbn": "9791171521487",
+    "title": "오버 더 리테일 :거래에서 시스템까지, 리테일 진화의 모든 것",
+    "author": "이용준",
+    "meta": [
+      "파지트 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946465",
+    "ranks": {
+      "new": 33
+    }
+  },
+  {
+    "isbn": "9791176213660",
+    "title": "왕은 혼자 다스리지 않았다 :조선왕조실록에서 읽는 리더십과 조직 운영의 원리",
+    "author": "이성관",
+    "meta": [
+      "바른북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946466",
+    "ranks": {
+      "new": 34
+    }
+  },
+  {
+    "isbn": "9791194522454",
+    "title": "왕의 심리학 :영조·사도세자·정조 편",
+    "author": "한민",
+    "meta": [
+      "시크릿하우스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946467",
+    "ranks": {
+      "new": 35
+    }
+  },
+  {
+    "isbn": "9791194630876",
+    "title": "왜 내가 쓰는 AI만 멍청해 보일까?",
+    "author": "이한빛",
+    "meta": [
+      "생능북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946468",
+    "ranks": {
+      "new": 36
+    }
+  },
+  {
+    "isbn": "9788965968450",
+    "title": "왜 우리는 멈추지 못할까 :애착으로 읽는 중독의 심리학",
+    "author": "주세진",
+    "meta": [
+      "흐름출판 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946469",
+    "ranks": {
+      "new": 37
+    }
+  },
+  {
+    "isbn": "9788962627220",
+    "title": "왜 재활용은 실패하는가 :플라스틱 순환경제 현장 7년의 기록",
+    "author": "이은애",
+    "meta": [
+      "동아시아 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946470",
+    "ranks": {
+      "new": 38
+    }
+  },
+  {
+    "isbn": "9791170614227",
+    "title": "웃는 숲 :오기와라 히로시 장편소설",
+    "author": "荻原浩",
+    "meta": [
+      "북다 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946471",
+    "ranks": {
+      "new": 39
+    }
+  },
+  {
+    "isbn": "9791199032378",
+    "title": "위로의 역사",
+    "author": "Attali, Jacques",
+    "meta": [
+      "이니티오 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946472",
+    "ranks": {
+      "new": 40
+    }
+  },
+  {
+    "isbn": "9791176214049",
+    "title": "이미지와 텍스트의 대화",
+    "author": "전씨 영애",
+    "meta": [
+      "바른북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946473",
+    "ranks": {
+      "new": 41
+    }
+  },
+  {
+    "isbn": "9791175773783",
+    "title": "이상한 외딴섬 :이세진 장편소설",
+    "author": "이세진",
+    "meta": [
+      "한끼 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946474",
+    "ranks": {
+      "new": 42
+    }
+  },
+  {
+    "isbn": "9791199605923",
+    "title": "이스라엘을 고발한다 :팔레스타인 제도사이드에 대한 어느 유대인의 목소리",
+    "author": "Rabkin, 랍킨",
+    "meta": [
+      "PB미디어 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946475",
+    "ranks": {
+      "new": 43
+    }
+  },
+  {
+    "isbn": "9791199831070",
+    "title": "이집트 대박물관 :영원의 시간을 걷다 :고대 문명 7천 년 역사를 담은 이집트 대표 유물 도슨트 북",
+    "author": "양보미",
+    "meta": [
+      "클로브 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946476",
+    "ranks": {
+      "new": 44
+    }
+  },
+  {
+    "isbn": "9791199966901",
+    "title": "인간설계도 :인간의 딸을 사랑한 AI",
+    "author": "김태욱",
+    "meta": [
+      "현대기업서비스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946477",
+    "ranks": {
+      "new": 45
+    }
+  },
+  {
+    "isbn": "9791167376749",
+    "title": "인 더 메가처치 :아사이 료 장편소설",
+    "author": "朝井リョウ",
+    "meta": [
+      "은행나무 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946478",
+    "ranks": {
+      "new": 46
+    }
+  },
+  {
+    "isbn": "9791175780347",
+    "title": "인생에 한번은 오디세이아 :삶이 흔들릴 때 나를 지키는 고전 수업",
+    "author": "Akbar, Sam",
+    "meta": [
+      "부키 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946479",
+    "ranks": {
+      "new": 47
+    }
+  },
+  {
+    "isbn": "9788997169733",
+    "title": "리더는 어떻게 역사를 만드는가 :13가지 역사로 읽는 리더십과 전략의 본질",
+    "author": "Gutmann, Martin",
+    "meta": [
+      "고반 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946480",
+    "ranks": {
+      "new": 48
+    }
+  },
+  {
+    "isbn": "9791124587010",
+    "title": "마지막 키스 :피츠제럴드 단편선",
+    "author": "Fitzgerald, F.Scott",
+    "meta": [
+      "북커스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946481",
+    "ranks": {
+      "new": 49
+    }
+  },
+  {
+    "isbn": "9791124505120",
+    "title": "매운맛 쫌 본 세계사 :고추와 후추, 향신료가 바꾼 역사와 문화 이야기",
+    "author": "이영숙",
+    "meta": [
+      "미래인 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946482",
+    "ranks": {
+      "new": 50
+    }
+  },
+  {
+    "isbn": "9791173744631",
+    "title": "멈춰진 순간에서 다시 시작하는 이야기",
+    "author": "김지유",
+    "meta": [
+      "하움 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946483",
+    "ranks": {
+      "new": 51
+    }
+  },
+  {
+    "isbn": "9791193282878",
+    "title": "멘헤라를 위한 책 :우울과 불안을 다스리는 마음 처방전 :흔들리는 마음의 안정제가 되어줄 책",
+    "author": "하루네",
+    "meta": [
+      "다크인사이트 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946484",
+    "ranks": {
+      "new": 52
+    }
+  },
+  {
+    "isbn": "9791173327377",
+    "title": "인생의 단맛을 보여주마 :김영민 소설집",
+    "author": "김영민",
+    "meta": [
+      "김영사 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946485",
+    "ranks": {
+      "new": 53
+    }
+  },
+  {
+    "isbn": "9791188366460",
+    "title": "멸종 위기의 사고 :AI시대, 인간은 어떻게 스스로를 포기하는가",
+    "author": "Sadin, Éric",
+    "meta": [
+      "헤이북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946486",
+    "ranks": {
+      "new": 54
+    }
+  },
+  {
+    "isbn": "9791176213837",
+    "title": "일하는 인간 :호모 라보란스의 1만 년",
+    "author": "이서담",
+    "meta": [
+      "바른북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946487",
+    "ranks": {
+      "new": 55
+    }
+  },
+  {
+    "isbn": "9788925569178",
+    "title": "명화 속 잊혀진 사람들 :찬란한 걸작이 말하지 않는 비밀",
+    "author": "김선지",
+    "meta": [
+      "RHK 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946488",
+    "ranks": {
+      "new": 56
+    }
+  },
+  {
+    "isbn": "9791192149769",
+    "title": "몽탄강 :심영의 소설집",
+    "author": "심영의",
+    "meta": [
+      "prsg 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946489",
+    "ranks": {
+      "new": 57
+    }
+  },
+  {
+    "isbn": "9791199757684",
+    "title": "우리는 가장 밝은 밤에 헤어졌다 :백야",
+    "author": "Достоевский, Федор",
+    "meta": [
+      "윌마 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946490",
+    "ranks": {
+      "new": 58
+    }
+  },
+  {
+    "isbn": "9791173830563",
+    "title": "물고기처럼 노래하라 :물속 생명을 조율하는 소리, 그 경이로움에 대하여",
+    "author": "Kingdon, Amorina",
+    "meta": [
+      "문학수첩 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946491",
+    "ranks": {
+      "new": 59
+    }
+  },
+  {
+    "isbn": "9791169095846",
+    "title": "미국 중심 세계의 탄생 :미국식 발전의 복음과 글로벌 패권의 탄생",
+    "author": "Ekbladh, David",
+    "meta": [
+      "글항아리 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946493",
+    "ranks": {
+      "new": 61
+    }
+  },
+  {
+    "isbn": "9791199685246",
+    "title": "미술관에서 노년을 만났습니다 :명화가 건네는 늙어감, 돌봄, 죽음 그리고 삶",
+    "author": "주지현",
+    "meta": [
+      "혜윰터 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946494",
+    "ranks": {
+      "new": 62
+    }
+  },
+  {
+    "isbn": "9791155819494",
+    "title": "미술관 여행자를 위한 도슨트 북 Ⅱ :그리스 로마 신화 특별전",
+    "author": "Jouneaux, Camille",
+    "meta": [
+      "윌북 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946495",
+    "ranks": {
+      "new": 63
+    }
+  },
+  {
+    "isbn": "9791199438392",
+    "title": "잃어버린 문명을 찾아서 :태평양에 가라앉은 환상의 대제국 무 대륙",
+    "author": "Churchward, James",
+    "meta": [
+      "나래북 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946496",
+    "ranks": {
+      "new": 64
+    }
+  },
+  {
+    "isbn": "9788925568560",
+    "title": "미야자키 하야오라는 세계",
+    "author": "Rapold, NIcolas",
+    "meta": [
+      "RHK 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946497",
+    "ranks": {
+      "new": 65
+    }
+  },
+  {
+    "isbn": "9791176214131",
+    "title": "바다로 간 대통령 :신용대 장편소설",
+    "author": "신용대",
+    "meta": [
+      "바른북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946498",
+    "ranks": {
+      "new": 66
+    }
+  },
+  {
+    "isbn": "9791195879489",
+    "title": "바다 목장 :우리 바다의 맛과 영양",
+    "author": "김기태",
+    "meta": [
+      "희담 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946499",
+    "ranks": {
+      "new": 67
+    }
+  },
+  {
+    "isbn": "9791173400773",
+    "title": "바로 쓰는 프롬프트 엔지니어링 :AI와 함께 일하는 법 :프롬프트 설계부터 업무 자동화까지, 비즈니스 실무자를 위한 LLM 활용법",
+    "author": "박진수",
+    "meta": [
+      "한빛 아카데미 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946500",
+    "ranks": {
+      "new": 68
+    }
+  },
+  {
+    "isbn": "9791141603236",
+    "title": "자신을 죽인 남자",
+    "author": "Symons, Julian",
+    "meta": [
+      "문학동네 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946501",
+    "ranks": {
+      "new": 69
+    }
+  },
+  {
+    "isbn": "9791199386655",
+    "title": "다음은 당신 차례입니다",
+    "author": "이동현",
+    "meta": [
+      "eastend 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946502",
+    "ranks": {
+      "new": 70
+    }
+  },
+  {
+    "isbn": "9791190582865",
+    "title": "번영의 대가 :인간 문명의 그늘",
+    "author": "Amrith, Sunil",
+    "meta": [
+      "이봄 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946503",
+    "ranks": {
+      "new": 71
+    }
+  },
+  {
+    "isbn": "9788947502979",
+    "title": "부자와 결혼하는 법 :소피 어윈 장편소설",
+    "author": "Irwin, Sophie",
+    "meta": [
+      "마시멜로 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946504",
+    "ranks": {
+      "new": 72
+    }
+  },
+  {
+    "isbn": "9791185153780",
+    "title": "재를 찾아서 :붕괴된 콘크리트 아래 감춰진 진실을 추적하는 사회파 미스터리",
+    "author": "Michell, Hannah",
+    "meta": [
+      "정은문고 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946505",
+    "ranks": {
+      "new": 73
+    }
+  },
+  {
+    "isbn": "9788977468474",
+    "title": "제도 밖의 권력, 영부인 리스크 :실세 영부인, 인성인가 시스템인가",
+    "author": "김종성",
+    "meta": [
+      "내일을여는책 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946506",
+    "ranks": {
+      "new": 74
+    }
+  },
+  {
+    "isbn": "9791164162802",
+    "title": "조선괴담실록 :실제 역사 기록에서 찾아낸 기이한 이야기",
+    "author": "유정호",
+    "meta": [
+      "책들의정원 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946507",
+    "ranks": {
+      "new": 75
+    }
+  },
+  {
+    "isbn": "9791170614234",
+    "title": "조선범죄실록 :조선을 뒤흔든 범죄, 수사, 재판 이야기",
+    "author": "정명섭",
+    "meta": [
+      "교보문고 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946508",
+    "ranks": {
+      "new": 76
+    }
+  },
+  {
+    "isbn": "9791164500710",
+    "title": "주목받지 못한 곤충",
+    "author": "백문기",
+    "meta": [
+      "자연과생태 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946509",
+    "ranks": {
+      "new": 77
+    }
+  },
+  {
+    "isbn": "9791176820219",
+    "title": "죽을 것 같아도, 커피는 내립니다 :번아웃 속에서도 나를 지켜낸 작은 루틴들",
+    "author": "우재윤",
+    "meta": [
+      "미다스북스 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946510",
+    "ranks": {
+      "new": 78
+    }
+  },
+  {
+    "isbn": "9791194832591",
+    "title": "지도의 역사",
+    "author": "홍시환",
+    "meta": [
+      "전파과학사 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946511",
+    "ranks": {
+      "new": 79
+    }
+  },
+  {
+    "isbn": "9788925568492",
+    "title": "지리의 기원 :세계 질서와 부의 운명을 뒤바꾼 방향의 역사",
+    "author": "Brotton, Jerry",
+    "meta": [
+      "알에이치코리아 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946512",
+    "ranks": {
+      "new": 80
+    }
+  },
+  {
+    "isbn": "9791168344044",
+    "title": "지푸라기 왕관을 쓴 여자 :박상영 장편소설",
+    "author": "박상영",
+    "meta": [
+      "래빗홀 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946513",
+    "ranks": {
+      "new": 81
+    }
+  },
+  {
+    "isbn": "9791169050616",
+    "title": "차지드 :대자연을 지배하는 놀라운 전기 현상",
+    "author": "Pollack, Gerald H.",
+    "meta": [
+      "어문학사 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946514",
+    "ranks": {
+      "new": 82
+    }
+  },
+  {
+    "isbn": "9791174576422",
+    "title": "축구하는 여자 처음 봐서요 :머리카락을 가르는 바람의 맛, 여자축구의 야만적 즐거움",
+    "author": "이의진",
+    "meta": [
+      "드루 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946515",
+    "ranks": {
+      "new": 83
+    }
+  },
+  {
+    "isbn": "9791124656020",
+    "title": "취미는 수학 :어려워 보이지만 기분 좋게 풀리는 도형 퍼즐",
+    "author": "まさし",
+    "meta": [
+      "한빛라이프 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946516",
+    "ranks": {
+      "new": 84
+    }
+  },
+  {
+    "isbn": "9791130682556",
+    "title": "칵테일을 마시는 철학자들 :삶의 자유를 포기하지 않았던 실존주의자들의 살아 있는 철학 이야기",
+    "author": "Bakewell, Sarah",
+    "meta": [
+      "다산초당 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946517",
+    "ranks": {
+      "new": 85
+    }
+  },
+  {
+    "isbn": "9791194374909",
+    "title": "테슬라 딥다이브 :기술,전략,비전 그리고 한국의 기회",
+    "author": "박형근",
+    "meta": [
+      "클 2026"
+    ],
+    "cover": "",
+    "collection": "신착도서",
+    "collectionKeys": [
+      "new"
+    ],
+    "collectionTags": [
+      "new",
+      "fresh"
+    ],
+    "catalogUrl": "https://library.donga.ac.kr/resource/library-catalog/?app=mirtech&mod=detail&record_id=946518",
+    "ranks": {
+      "new": 86
     }
   },
   {
