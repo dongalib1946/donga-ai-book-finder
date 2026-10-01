@@ -1,11 +1,22 @@
 {
   "version": "aladin-descriptions-v1",
   "source": "Aladin ItemLookUp API",
-  "generatedAt": "2026-09-15T08:45:06.751Z",
+  "generatedAt": "2026-10-01T10:27:06.792Z",
   "lookupLimit": 120,
   "descriptionMaxLength": 180,
-  "total": 37,
+  "total": 107,
   "items": [
+    {
+      "isbn": "9791141691370",
+      "title": "가호",
+      "author": "무라카미 하루키 (지은이), 홍은주 (옮긴이)",
+      "publisher": "문학동네",
+      "description": "무라카미 하루키가 3년 만에 선보인 장편 『가호』의 한국어판이 10월 정식 출간된다. 2026년 7월 현지 발매 후 4일 만에 발행 부수 30만 부를 기록하고 주요 서점 베스트셀러에 등극하며 거장 하루키의 힘을 보여준 작품이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=403216369&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/40321/63/cover500/k242131684_2.jpg",
+      "categoryName": "국내도서>소설/시/희곡>일본소설>1950년대 이후 일본소설",
+      "updatedAt": "2026-10-01T10:26:32.457Z"
+    },
     {
       "isbn": "9791199489561",
       "title": "세네카, 오늘을 빼앗기고 있는 당신에게",
@@ -16,6 +27,17 @@
       "cover": "https://image.aladin.co.kr/product/39640/49/cover500/k872130175_1.jpg",
       "categoryName": "국내도서>인문학>서양철학>고대철학>고대철학 일반",
       "updatedAt": "2026-08-26T01:56:15.734Z"
+    },
+    {
+      "isbn": "9791124137635",
+      "title": "한국사 이상현상 연구원",
+      "author": "최인서 (지은이)",
+      "publisher": "다이브",
+      "description": "궁궐과 고분, 사찰과 종갓집에서 발생하는 이상현상을 추적하는 비밀 기관의 기록을 담은 《한국사 이상현상 연구원》은 한국의 역사를 공포의 배경으로 소비하는 대신, 공식 기록에서 누락된 삶이 어떻게 현재로 돌아오는지를 묻는 장편소설이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=400909759&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/40090/97/cover500/k962130440_3.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-10-01T10:26:32.939Z"
     },
     {
       "isbn": "9788937460586",
@@ -29,26 +51,37 @@
       "updatedAt": "2026-08-26T01:56:17.944Z"
     },
     {
-      "isbn": "9791141618575",
-      "title": "그랬다고 적었다",
-      "author": "김애란 (지은이)",
-      "publisher": "문학동네",
-      "description": "소설가 김애란이 새 책과 함께 여름 인사를 건넨다. 장편소설 『이중 하나는 거짓말』(2024)과 소설집 『안녕이라 그랬어』(2025)를 펴내며 허구의 세계 안에서 지금 한국사회의 풍경을 세밀하게 그리는 데 집중해온 작가가 이번에 새 이야기를 담아낸 그릇은 소설이 아니라 산문이다.",
-      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=400193697&partner=openAPI&start=api",
-      "cover": "https://image.aladin.co.kr/product/40019/36/cover500/k742130236_1.jpg",
-      "categoryName": "국내도서>에세이>한국에세이",
-      "updatedAt": "2026-08-26T01:56:13.770Z"
+      "isbn": "9791175488854",
+      "title": "흔한남매 23",
+      "author": "흔한남매 (지은이), 백난도 (글), 유난희 (그림), 흔한컴퍼니 (감수)",
+      "publisher": "미래엔아이세움",
+      "description": "'흔한남매'는 유튜브 구독자 수가 307만 명, 누적 조회 수가 44억 회를 넘어서는 인기 크리에이터로, 흔한컴퍼니에 소속되어 있다. 상황극 콩트 등을 통해 어린이들에게 큰 사랑을 받고 있으며, 주로 남매 사이에서 일어날 수 있는 현실적인 에피소드를 코믹하게 그려 내어 웃음과 공감을 이끌어 내고 있다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=401810677&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/40181/6/cover500/k252131871_1.jpg",
+      "categoryName": "국내도서>어린이>TV/만화/영화>만화 일반",
+      "updatedAt": "2026-10-01T10:26:33.395Z"
     },
     {
-      "isbn": "9788932476469",
-      "title": "오뒷세이아 - 영원한 고전, 철저한 고증, 크리스토퍼 놀란 감독 영화 <오디세이> 그리스어 원전 완역본",
-      "author": "호메로스 (지은이), 김헌 (옮긴이)",
-      "publisher": "을유문화사",
-      "description": "『오뒷세이아』는 ‘오뒷세우스의 노래’라는 뜻이다. 그러나 제목이 적나라하게 보여 주는 것과는 달리, 이 작품은 그의 이름을 꼭꼭 숨기며 시작한다. 신들이 그의 귀향을 결정했다는 사실이 밝혀진 후에야 마침내 그의 이름은 작품에 등장한다....",
-      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=399401298&partner=openAPI&start=api",
-      "cover": "https://image.aladin.co.kr/product/39940/12/cover500/8932476462_2.jpg",
-      "categoryName": "국내도서>인문학>교양 인문학",
-      "updatedAt": "2026-08-26T01:56:18.664Z"
+      "isbn": "9788901300702",
+      "title": "박완서의 낱말들 - 아름다운 낱말 하나를 얻는 순간 세계는 곱절로 선명해진다",
+      "author": "박완서 (지은이), 호원숙 (엮은이)",
+      "publisher": "웅진지식하우스",
+      "description": "한국 문학의 거목 故 박완서 작가의 타계 15주기를 기리며, 그의 문학 세계에서 길어낸 낱말 사전 『박완서의 낱말들』이 웅진지식하우스에서 출간되었다. 박완서 작가의 수많은 명작 속에서 오래도록 기억하고 싶은 낱말 120개를 엄선해 수록한 책으로, 맏딸 호원숙 작가가 직접 엮어 그 의미를 더했다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=401813692&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/40181/36/cover500/8901300702_1.jpg",
+      "categoryName": "국내도서>에세이>한국에세이",
+      "updatedAt": "2026-10-01T10:26:33.436Z"
+    },
+    {
+      "isbn": "9791194891178",
+      "title": "빵충 사육 준수 사항",
+      "author": "김혜영 (지은이)",
+      "publisher": "안전가옥",
+      "description": "주인공 정한은 무명 트럼펫터로 살다 빚에 쫓겨 귀농한다. 바닥까지 내려간 그에게 찾아온 마지막 기회가 신종 식용 애벌레 ‘빵충’ 사육 사업이다. 갓 구운 소금빵과 외형도 맛도 똑같은 빵충은 NO 밀가루, 고단백 식품으로 전국적인 디저트 열풍을 타고 정한을 고수익자 반열에 앉힌다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398726639&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39872/66/cover500/k242130313_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>호러.공포소설>한국 호러.공포소설",
+      "updatedAt": "2026-10-01T10:26:34.210Z"
     },
     {
       "isbn": "9791141548612",
@@ -62,83 +95,6 @@
       "updatedAt": "2026-09-01T08:42:29.300Z"
     },
     {
-      "isbn": "9788936439996",
-      "title": "찌니주의보",
-      "author": "정지아 (지은이)",
-      "publisher": "창비",
-      "description": "한국현대사의 굵은 상흔을 남도의 구수한 입말과 뜨거운 인간애로 풀어내며 40만 독자의 마음을 사로잡은 『아버지의 해방일지』(창비 2022). 그 신드롬의 주인공 정지아가 4년 만의 신작 장편소설 『찌니주의보』로 돌아왔다.",
-      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=400137507&partner=openAPI&start=api",
-      "cover": "https://image.aladin.co.kr/product/40013/75/cover500/8936439995_1.jpg",
-      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
-      "updatedAt": "2026-08-26T01:56:16.110Z"
-    },
-    {
-      "isbn": "9791141602451",
-      "title": "절창 (20만 부 기념 화이트 에디션)",
-      "author": "구병모 (지은이)",
-      "publisher": "문학동네",
-      "description": "더이상의 수식이 필요치 않은 작가, 그 이름이 하나의 브랜드가 된 구병모의 장편소설 『절창』. 누구보다 드넓은 문학적 영토를 지닌 구병모의 그 어떤 작품을 좋아하는 독자라도 만족시킬 작품이라 할 만하다....",
-      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=401104412&partner=openAPI&start=api",
-      "cover": "https://image.aladin.co.kr/product/40110/44/cover500/k712130552_3.jpg",
-      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
-      "updatedAt": "2026-08-26T01:56:20.753Z"
-    },
-    {
-      "isbn": "9791130682709",
-      "title": "어제의 세계",
-      "author": "슈테판 츠바이크 (지은이), 이노은 (옮긴이)",
-      "publisher": "다산초당",
-      "description": "인문과 고전을 사랑하는 독자라면 책장에 꽂아둬야 할 고전 『어제의 세계』가 30여 년 만의 새로운 번역으로 찾아왔다. 1995년 곽복록 교수의 번역판이 출간된 이후, 인천대학교 독어독문학과 이노은 교수가 원문을 새롭게 완역했다.",
-      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398750859&partner=openAPI&start=api",
-      "cover": "https://image.aladin.co.kr/product/39875/8/cover500/k182130410_2.jpg",
-      "categoryName": "국내도서>인문학>교양 인문학",
-      "updatedAt": "2026-09-01T08:42:29.806Z"
-    },
-    {
-      "isbn": "9791199669093",
-      "title": "응답의 시 (표지 3종 중 랜덤) - (팔레스타인을 위한/향한)",
-      "author": "김혜순, 나희덕, 김소연, 김숨, 신해욱, 진은영, 송경동, 오은, 강성은, 유현아, 서효인, 임경섭, 김현, 박소란, 지현아, 송승언, 임승유, 김영미, 임솔아, 안태운, 권창섭, 한연희, 희음, 윤은성, 배시은, 장혜령, 나하늘, 강상헌, 박은지, 권누리, 정재율, 한여진, 김리윤, 김선오, 송정원, 윤유나, 장미도, 임유영, 박규현, 하미나, 계미현, 한영원, 이새해, 맹재범, 이실비, 이혜목, 해초 (지은이)",
-      "publisher": "얼굴들",
-      "description": "시 쓰는 47인이 팔레스타인을 위한, 팔레스타인을 향한 ‘응답’으로서 쓴 시들을 모았다. 제목은 『응답의 시』. 김혜순 나희덕 김소연 김숨 신해욱 진은영부터 계미현 한영원 이새해 맹재범 이실비 이혜목 해초까지, 오랜 시간 많은 작품을 발표해 온 한국의 대표 시인들부터 문단이라는 테두리만으로 포괄되지 않는 안팎의 시인들까지....",
-      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=399848251&partner=openAPI&start=api",
-      "cover": "https://image.aladin.co.kr/product/39984/82/cover500/k962130735_3.jpg",
-      "categoryName": "국내도서>소설/시/희곡>시>한국시",
-      "updatedAt": "2026-08-26T01:56:18.688Z"
-    },
-    {
-      "isbn": "9791198547514",
-      "title": "수족관",
-      "author": "유래혁 (지은이)",
-      "publisher": "포스터샵",
-      "description": "유래혁 소설. 보육 시설에서 자라난 인물 ‘류이치’가, 먼저 보육 시설에서 도망쳐나온 인물 ‘아카리’를 만나 겪게 되는 일들을 그려낸다. 이 두 인물은 자신들이 가진 뿌리 깊은 과거와 상처, 그 이야기가 만들어낸 수족관에서 만나 입을 맞추고, 서로의 숨을 훔쳐가면서도 언젠가 오키나와의 너른 바다에 도착하는 꿈을 나눈다.",
-      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=330811810&partner=openAPI&start=api",
-      "cover": "https://image.aladin.co.kr/product/33081/18/cover500/k582937507_1.jpg",
-      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
-      "updatedAt": "2026-08-26T01:56:19.055Z"
-    },
-    {
-      "isbn": "9791130682556",
-      "title": "칵테일을 마시는 철학자들 - 삶의 자유를 포기하지 않았던 실존주의자들의 살아 있는 철학 이야기",
-      "author": "세라 베이크웰 (지은이), 조영 (옮긴이)",
-      "publisher": "다산초당",
-      "description": "전미도서비평가협회상·더프 쿠퍼상 수상 작가 세라 베이크웰은 카뮈, 사르트르, 보부아르, 하이데거 등 이 탁월한 철학자들의 사유와 삶이 어떻게 서로를 빚어냈는지, 그리고 지금도 우리 인생의 가장 중요한 질문들에 응답하는지 흥미진진하게 펼쳐낸다.",
-      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=399460405&partner=openAPI&start=api",
-      "cover": "https://image.aladin.co.kr/product/39946/4/cover500/k832130322_1.jpg",
-      "categoryName": "국내도서>인문학>교양 인문학",
-      "updatedAt": "2026-09-01T08:42:30.539Z"
-    },
-    {
-      "isbn": "9788991290150",
-      "title": "오뒷세이아 (알라딘 리커버 특별판) - (영화 <오디세이> 원작) 그리스어 원전 완역본",
-      "author": "호메로스 (지은이), 천병희 (옮긴이)",
-      "publisher": "도서출판 숲",
-      "description": "3천 년의 시간을 건너온 고전의 품격을 오늘의 책으로 재현한 특별한 에디션이다. 호메로스의 장대한 세계에 어울리는 디자인으로 고전의 깊이와 아름다움을 담아냈으며, 국내 그리스어 원전 번역의 권위자인 천병희 교수가 평생에 걸쳐 다듬어온 번역본에 새로운 옷을 입혔다.",
-      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=400990175&partner=openAPI&start=api",
-      "cover": "https://image.aladin.co.kr/product/40099/1/cover500/k492130359_1.jpg",
-      "categoryName": "국내도서>인문학>신화/종교학>세계의 신화와 전설>서양의 신화와 전설",
-      "updatedAt": "2026-09-01T08:42:30.772Z"
-    },
-    {
       "isbn": "9788998441012",
       "title": "모순 - 개정판",
       "author": "양귀자 (지은이)",
@@ -148,6 +104,127 @@
       "cover": "https://image.aladin.co.kr/product/2584/37/cover500/s392131969_1.jpg",
       "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이전 한국소설",
       "updatedAt": "2026-09-15T08:44:17.721Z"
+    },
+    {
+      "isbn": "9791199920828",
+      "title": "키아로스타미의 영화 수업",
+      "author": "압바스 키아로스타미 (지은이), 폴 크로닌 (엮은이), 강탄우 (옮긴이)",
+      "publisher": "코프키노",
+      "description": "‘리얼리즘의 거장’, 이란 영화 감독 압바스 키아로스타미의 강의록이 한국에 출간된다. 영화 제작에 필요한 기술과 전략이 아닌, 세계와 타인을 대하는 태도와 시선에 관해 가르친다. 키아로스타미의 영화와 예술을 대하는 겸손하고도 진심어린 태도는 곧 삶을 대하는 그의 태도와도 이어진다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=400989427&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/40098/94/cover500/k942130359_2.jpg",
+      "categoryName": "국내도서>예술/대중문화>영화/드라마>영화이론/비평",
+      "updatedAt": "2026-10-01T10:26:34.663Z"
+    },
+    {
+      "isbn": "9788937461798",
+      "title": "브람스를 좋아하세요...",
+      "author": "프랑수아즈 사강 (지은이), 김남주 (옮긴이)",
+      "publisher": "민음사",
+      "description": "<슬픔이여 안녕>의 작가 프랑수아즈 사강의 장편소설. 기쁨과 슬픔, 행복과 불행이 교묘하게 뒤섞여 있는 일상을 배경으로 사랑의 덧없음을 이야기한다. 전혀 다른 두 사랑 앞에서 방황하는 폴을 중심으로 로제와 시몽의 심리를 섬세하게 묘사하고 있다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=2156605&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/215/66/cover500/s252137206_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>프랑스소설",
+      "updatedAt": "2026-10-01T10:26:35.132Z"
+    },
+    {
+      "isbn": "9788936434120",
+      "title": "소년이 온다 - 2024 노벨문학상 수상작가",
+      "author": "한강 (지은이)",
+      "publisher": "창비",
+      "description": "섬세한 감수성과 치밀한 문장으로 인간 존재의 본질을 탐구해온 작가 한강의 여섯번째 장편소설. '상처의 구조에 대한 투시와 천착의 서사'를 통해 한강만이 풀어낼 수 있는 방식으로 1980년 5월을 새롭게 조명한다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=40869703&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/4086/97/cover500/8936434128_2.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-10-01T10:26:35.610Z"
+    },
+    {
+      "isbn": "9788954620147",
+      "title": "데미안 (무선)",
+      "author": "헤르만 헤세 (지은이), 안인희 (옮긴이)",
+      "publisher": "문학동네",
+      "description": "헤르만 헤세 소설. 토마스 만이 말한 바 있듯이 1차 세계대전 이후의 젊은 세대에게 \"감전되는 듯한 충격을 주면서 이루 말할 수 없는 정교함으로 시대의 신경을 건드린\" 이 작품은 그 영향력 면에서 괴테의 <젊은 베르테르의 슬픔>과 비교될 만하다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=21742142&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/2174/21/cover500/8954620140_3.jpg",
+      "categoryName": "국내도서>소설/시/희곡>독일소설",
+      "updatedAt": "2026-10-01T10:26:36.099Z"
+    },
+    {
+      "isbn": "9791167372864",
+      "title": "구의 증명",
+      "author": "최진영 (지은이)",
+      "publisher": "은행나무",
+      "description": "사랑하는 연인의 갑작스러운 죽음 이후 겪게 되는 상실과 애도의 과정을 통해 삶의 의미 혹은 죽음의 의미를 되묻는 소설이다. 이 작품에서 최진영은 퇴색하지 않는 사랑의 가치를 전면에 내세우고 아름다운 문장과 감성적이며 애절한 감수성을 통해 젊고 아름다운 남녀의 열정적인 사랑과 냉정한 죽음에 대해 세련된 감성과 탁월한 문체로...",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=315614621&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/31561/46/cover500/k782832854_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-10-01T10:26:36.077Z"
+    },
+    {
+      "isbn": "9788936439743",
+      "title": "혼모노",
+      "author": "성해나 (지은이)",
+      "publisher": "창비",
+      "description": "작품마다 치밀한 취재와 정교한 구성을 바탕으로 한 개성적인 캐릭터와 강렬하고도 서늘한 서사로 평단과 독자의 주목을 고루 받으며 새로운 세대의 리얼리즘을 열어가고 있다 평가받는 작가 성해나가 두번째 소설집 『혼모노』를 선보인다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=361016676&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/36101/66/cover500/s762137381_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-10-01T10:26:36.824Z"
+    },
+    {
+      "isbn": "9788972756125",
+      "title": "매스커레이드 호텔",
+      "author": "히가시노 게이고 (지은이), 양윤옥 (옮긴이)",
+      "publisher": "현대문학",
+      "description": "히가시노 게이고의 작가 생활 25주년 기념작. 새로운 캐릭터 닛타 고스케가 이번 작품에서 새롭게 등장한다. 범죄 해결의 실마리를 풀어가는 수사 과정이 호텔이란 특정 공간에서 일어나는 예측 불가능한 사건들과 교차하면서 숨 가쁘게 이어지는 소설이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=18491101&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/1849/11/cover500/8972756121_2.jpg",
+      "categoryName": "국내도서>소설/시/희곡>추리/미스터리소설>일본 추리/미스터리소설",
+      "updatedAt": "2026-10-01T10:26:36.557Z"
+    },
+    {
+      "isbn": "9791162203392",
+      "title": "아가미 (애니메이션 더블 커버)",
+      "author": "구병모 (지은이)",
+      "publisher": "위즈덤하우스",
+      "description": "구병모 작가가 그려낸 가장 비밀스럽고 신비로운 세계 《아가미》가 애니메이션으로 탄생한다. 《아가미》는 죽음의 문턱에서 아가미를 갖게 된 소년의 슬픈 운명을 그린 아름다운 잔혹동화다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=401298693&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/40129/86/cover500/k322131864_2.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-10-01T10:26:37.297Z"
+    },
+    {
+      "isbn": "9791160200485",
+      "title": "국수 1",
+      "author": "김성동 (지은이)",
+      "publisher": "솔출판사",
+      "description": "한국문학의 살아 있는 거장, 김성동 작가의 장편소설. 1991년 11월 1일 「문화일보」 창간호에 연재를 시작한 이후 27년 만에 완간한 <국수>는 오랜 시간 김성동 작가의 집념과 혼으로 완결시킨 작품으로, 벽초 홍명희의 <임꺽정>, 박경리의 <토지>를 잇는 대서사시이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=154651693&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/15465/16/cover500/k882533526_2.jpg",
+      "categoryName": "국내도서>소설/시/희곡>역사소설>한국 역사소설",
+      "updatedAt": "2026-10-01T10:26:37.319Z"
+    },
+    {
+      "isbn": "9791187119845",
+      "title": "나는 나로 살기로 했다 (100만 부 기념 클래식 에디션)",
+      "author": "김수현 (지은이)",
+      "publisher": "마음의숲",
+      "description": "우리가 온전한 '나'로 살아가기 위해 무엇이 필요한지 말해주는 책이다. 돈 많고 잘나가는 타인의 SNS를 훔쳐보며 비참해질 필요 없고, 스스로에게 변명하고 모두에게 이해받으려 애쓰지 말라고 이야기한다. 불안하다고 무작정 열심히 할 필요 없고, 세상의 정답에 굴복하지 말라고 응원한다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=235696342&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/23569/63/cover500/k162638125_1.jpg",
+      "categoryName": "국내도서>에세이>한국에세이",
+      "updatedAt": "2026-10-01T10:26:37.791Z"
+    },
+    {
+      "isbn": "9788931011623",
+      "title": "사랑의 기술",
+      "author": "에리히 프롬 (지은이), 황문수 (옮긴이)",
+      "publisher": "문예출판사",
+      "description": "프롬은 가장 능동적으로 자신의 퍼스낼리티 전체를 발달시켜 생산적 방향으로 나아가지 않는 한, 아무리 사랑하려고 노력해도 반드시 실패하기 마련이며, 이웃을 사랑하는 능력이 없는 한, 또한 참된 겸손, 용기, 신념, 훈련이 없는 한 개인적인 사랑도 성공할 수 없다고 말한다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=203299303&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/20329/93/cover500/8931011628_1.jpg",
+      "categoryName": "국내도서>인문학>인문 에세이",
+      "updatedAt": "2026-10-01T10:26:38.525Z"
     },
     {
       "isbn": "9791175773141",
@@ -172,6 +249,50 @@
       "updatedAt": "2026-09-01T08:42:36.275Z"
     },
     {
+      "isbn": "9788962627169",
+      "title": "사랑의 열역학",
+      "author": "김민준 (지은이)",
+      "publisher": "동아시아",
+      "description": "서던메소디스트대학교 기계공학과 석좌교수로 재직 중인 저자 김민준이 열역학으로 사랑을 논한다. 『사랑의 열역학』은 저자가 2016년부터 맡고 있는 기계공학 전공필수 열역학 강의를 토대로 한 책으로, 이 강의는 “사랑과 에너지의 유사성을 다룬다”라는 입소문이 퍼지며 학생들, 특히 여학생들에게 인기를 끌었다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=397599637&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39759/96/cover500/8962627167_1.jpg",
+      "categoryName": "국내도서>과학>기초과학/교양과학",
+      "updatedAt": "2026-10-01T10:26:38.994Z"
+    },
+    {
+      "isbn": "9791190263405",
+      "title": "탈주하는 사피엔스 - 이기적 유전자와 함께 찾는 행복의 미로",
+      "author": "권행백 (지은이)",
+      "publisher": "아마존의나비",
+      "description": "이기적 유전자의 오래된 명령에서 벗어나 ‘자기다운 삶’으로의 행복 찾기 여정, 진화생물학에서 찾는 행복론. 저자는 우리가 유전자의 명령에 복종하는 숙주에 머무르지 않고, 지성의 힘으로 본능을 이해하고 활용하며 마침내 ‘자기다운 삶’으로 탈주해야 한다고 주장한다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398347962&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39834/79/cover500/k332130813_1.jpg",
+      "categoryName": "국내도서>인문학>인문 에세이",
+      "updatedAt": "2026-10-01T10:26:39.696Z"
+    },
+    {
+      "isbn": "9788936439989",
+      "title": "행복한 소설가",
+      "author": "임현 (지은이)",
+      "publisher": "창비",
+      "description": "젊은작가상 대상 수상(2017)으로 평단의 호평과 독자들의 주목을 받은 이래 선의와 호의의 이면에 도사린 자기기만을 집요하게 응시하며 인간 마음의 복잡한 결을 탐구해온 임현이 4년 만에 세번째 소설집 『행복한 소설가』로 돌아왔다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398201009&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39820/10/cover500/8936439987_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-10-01T10:26:39.491Z"
+    },
+    {
+      "isbn": "9791167375797",
+      "title": "고전의 사계",
+      "author": "손정수 (지은이)",
+      "publisher": "은행나무",
+      "description": "‘고전 읽기’는 작품에 고스란히 담긴 당대 사회상을 있는 그대로 받아들임과 동시에 현재의 시선으로 다시 한번 재독하는 일이다. 인간으로 살아감으로써 맞닥뜨리게 되는 고뇌와 번민은 시대가 변함에 따라 매번 다른 형태로 우리 삶에 밀고 들어온다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=370428940&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/37042/89/cover500/k892030033_2.jpg",
+      "categoryName": "국내도서>소설/시/희곡>문학의 이해>비평론",
+      "updatedAt": "2026-10-01T10:26:40.608Z"
+    },
+    {
       "isbn": "9791199054424",
       "title": "괜찮지 않아도 괜찮아 :임여진의 마음소통 레시피",
       "author": "임여진",
@@ -181,6 +302,17 @@
       "cover": "https://image.aladin.co.kr/product/39402/89/cover500/k412139977_1.jpg",
       "categoryName": "국내도서>인문학>심리학/정신분석학>교양 심리학",
       "updatedAt": "2026-08-26T01:56:25.933Z"
+    },
+    {
+      "isbn": "9788964363027",
+      "title": "과감한 행복",
+      "author": "이정아 (지은이)",
+      "publisher": "삼인",
+      "description": "세연대학병원 응급실 인턴 구정하는 어느 날 자신의 후두엽과 측두엽에 손쓸 수 없는 종양이 자리 잡고 있다는 사실을 통보받는다. 남은 시간은 6개월. 보육원에서 자라 홀로 의대까지 온 그에게 처음으로 '미래가 없다'는 사실은 절망이 아니라 자유가 되는데….",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=399289511&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39928/95/cover500/8964363027_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-10-01T10:26:41.079Z"
     },
     {
       "isbn": "9791164849024",
@@ -249,6 +381,61 @@
       "updatedAt": "2026-09-01T08:42:38.015Z"
     },
     {
+      "isbn": "9791143404909",
+      "title": "7일속성 취업 일반상식 - 공기업·일반기업체·언론사 대비",
+      "author": "시사상식연구소 (엮은이)",
+      "publisher": "시대에듀(시대고시기획)",
+      "description": "공기업·일반기업체·언론사 취업 등 상식이 필요한 모든 시험 및 면접을 빠르게 마스터할 수 있도록 빈출상식 및 중요개념만을 선별해 수록하였다. 7일 동안 하루에 한 분야씩 최신상식, 핵심상식, 기출문제를 단계적으로 공부하여 학습의 효율성을 높이고자 하였다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=378769019&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/37876/90/cover500/k422033807_1.jpg",
+      "categoryName": "국내도서>수험서/자격증>취업/상식/적성>시사/상식",
+      "updatedAt": "2026-10-01T10:26:42.297Z"
+    },
+    {
+      "isbn": "9791124205501",
+      "title": "AI를 이기는 개발자 커리어 관리 가이드 - 이력서, 코딩 테스트, 면접, 연봉 협상에 이르는 개발자 성장 가속 전략",
+      "author": "강승현 (지은이)",
+      "publisher": "제이펍",
+      "description": "수백 건의 이력서 피드백과 합격 사례를 바탕으로 ‘왜 떨어지는지’에 대한 근본적인 원인과 해결 방법을 짚어주는 책이다. 속성 결과보다 판단력과 기본에 집중하며 이력서 작성부터 면접, 이직과 퇴사에 이르는 커리어 관리의 전 과정을 다룬다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=393768673&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39376/86/cover500/k722139771_1.jpg",
+      "categoryName": "국내도서>컴퓨터/모바일>프로그래밍 개발/방법론>프로그래밍 기초/개발 방법론",
+      "updatedAt": "2026-10-01T10:26:42.763Z"
+    },
+    {
+      "isbn": "9791194051084",
+      "title": "AI시대 취업전략서 - AI 평가를 뛰어넘는 4인의 전문가 밀착 채용 가이드",
+      "author": "전은지, 한보라, 이아람, 정지연 (지은이)",
+      "publisher": "브레인레오(brainLEO)",
+      "description": "AI 시대에 변화하는 채용의 기준을 이해하고, 기업이 원하는 역량이 무엇인지 파악하며, 자신만의 강점을 발견하고 증명하는 방법을 알려준다. 당신이 AI와 경쟁하는 사람이 아니라, AI를 활용해 더 강력한 경쟁력을 만드는 사람이 되도록 돕는 안내서다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=396577464&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39657/74/cover500/k852130193_1.jpg",
+      "categoryName": "국내도서>자기계발>취업/진로/유망직업>국내 진학/취업",
+      "updatedAt": "2026-10-01T10:26:42.757Z"
+    },
+    {
+      "isbn": "9791169213523",
+      "title": "개발자를 위한 IT 영어 온보딩 가이드 : 커리어의 가치를 높이는 글로벌 경쟁력의 KICK - 요점 정리 노트, 원어민 발음 영상, AI 튜터 학습 지원 프로그램 제공",
+      "author": "장진호 (지은이)",
+      "publisher": "한빛미디어",
+      "description": "코드 리뷰, 기술 문서, 협업 커뮤니케이션, 영어 면접, 해외 취업 준비 등 실무에서 마주치는 영어 상황을 생생하게 다루는 실전형 영어 가이드다. 국내 개발자가 자주 틀리는 표현부터 원어민의 사고방식, 자주 쓰는 업무용 표현까지 친절하게 풀어냈다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=366388005&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/36638/80/cover500/k322030883_1.jpg",
+      "categoryName": "국내도서>컴퓨터/모바일>e비즈니스/창업>e-비즈니스/온라인 창업",
+      "updatedAt": "2026-10-01T10:26:43.236Z"
+    },
+    {
+      "isbn": "9791164162789",
+      "title": "부자는 역사를 공부한다 - 돈의 숨겨진 패턴에 눈뜨는 가장 확실한 방법",
+      "author": "이형준 (지은이)",
+      "publisher": "책들의정원",
+      "description": "송나라의 종이돈부터 대항해시대, 산업혁명, 세계대전, 브레턴우즈 체제, AI 혁명까지 천 년에 걸친 부와 패권의 흐름을 추적한다. 단순히 과거를 설명하는 책이 아니다. 돈이 어디로 이동하는지, 부가 어떻게 탄생하는지, 그리고 왜 세계의 주인이 끊임없이 바뀌는지를 보여주는 책이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=396057583&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39605/75/cover500/k642130878_1.jpg",
+      "categoryName": "국내도서>경제경영>경제학/경제일반>경제이야기",
+      "updatedAt": "2026-10-01T10:26:43.909Z"
+    },
+    {
       "isbn": "9791193667255",
       "title": "위험사회와 위기관리 :PR커뮤니케이션의 이론과 실천",
       "author": "김영욱",
@@ -258,6 +445,72 @@
       "cover": "https://image.aladin.co.kr/product/38788/51/cover500/k522137163_1.jpg",
       "categoryName": "국내도서>대학교재/전문서적>사회과학계열>언론정보학",
       "updatedAt": "2026-08-26T01:56:30.662Z"
+    },
+    {
+      "isbn": "9788962465754",
+      "title": "모자 인문학 - 모자를 보면 시대가 보인다",
+      "author": "고호성 (지은이)",
+      "publisher": "주류성",
+      "description": "어떤 시대는 우리의 어깨를 무겁게 짓누른다. 어둠이 짙게 내려앉은 2024년 12월 초겨울 밤, 멀리서 들려오는 헬리콥터 소리를 들으며 저자는 집필을 결심하였다. 소란스러운 세상일들로 불면에 시달리던 저자에게는 무언가 몰두할 것이 절실하였고, 오랫동안 미뤄두었던 일을 해야 할 때라는 생각이 찾아왔다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=396656409&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39665/64/cover500/8962465752_1.jpg",
+      "categoryName": "국내도서>인문학>교양 인문학",
+      "updatedAt": "2026-10-01T10:26:44.393Z"
+    },
+    {
+      "isbn": "9791130317625",
+      "title": "지역사회교정론",
+      "author": "박철현 (지은이)",
+      "publisher": "박영사",
+      "description": "시대적 흐름을 반영하여 지역사회교정의 다양한 프로그램들과 그 쟁점들을 소개하고, 이들과 관련된 다양한 동영상자료를 소개하는 책이다. 경찰행정학과나 교정학과에서 지역사회교정론이나 교정학 등의 주교재 또는 부교재로 활용할 수 있다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=317989065&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/31798/90/cover500/k842833318_1.jpg",
+      "categoryName": "국내도서>대학교재/전문서적>사회과학계열>행정학",
+      "updatedAt": "2026-10-01T10:26:44.836Z"
+    },
+    {
+      "isbn": "9791140719136",
+      "title": "반경 5미터 세계사 - 방구석에 누워만 있었는데 역사 천재가 되어버렸다",
+      "author": "히스토리카 (지은이), 김효진 (옮긴이)",
+      "publisher": "더퀘스트",
+      "description": "우리 주변의 평범한 물건에서 출발해 인류 문명의 흐름을 읽어내는 역사 교양서다. 침대 옆의 유리잔, 책상 위 종이 한 장, 옷장 속 셔츠를 따라가다 보면 어느새 로마 제국과 실크로드, 산업혁명과 대항해 시대, 그리고 오늘날의 글로벌 경제까지 연결된다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=397024426&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39702/44/cover500/k142130493_1.jpg",
+      "categoryName": "국내도서>역사>세계사 일반",
+      "updatedAt": "2026-10-01T10:26:45.567Z"
+    },
+    {
+      "isbn": "9791199490826",
+      "title": "블러디 머더 - 추리 소설에서 범죄 소설로의 역사",
+      "author": "줄리안 시먼스 (지은이), 김명남 (옮긴이)",
+      "publisher": "우연한지식",
+      "description": "지금까지 추리 소설을 주제로 쓰인 책 중 아마도 가장 중요한 책, 줄리언 시먼스의 『블러디 머더』가 출간되었다. 이 책은 현재까지도 추리 소설에 관한 논의에서 가장 자주 인용되는 명저이다. 에드거상 특별상 및 그랜드 마스터상, 카르티에 다이아몬드 대거상을 수상했다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=397045887&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39704/58/cover500/k042130598_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>추리/미스터리소설>영미 추리/미스터리소설",
+      "updatedAt": "2026-10-01T10:26:45.306Z"
+    },
+    {
+      "isbn": "9791194847076",
+      "title": "곤충 인문학 - 비늘과 딱지, 날개맥이 누설하는",
+      "author": "이상헌 (지은이)",
+      "publisher": "초봄책방",
+      "description": "인간과 곤충은 태곳적부터 함께 살아오며 인류의 역사를 일구어왔고, 현대의 역사는 이들이 공존을 통해 빚은 다양한 이야기와 일화들이 켜켜이 쌓여 이룬 퇴적층이다. 이 책의 저자 이상헌은 바로 이 같은 인간과 곤충이 함께 살아가면서 빚어내는 다양한 이야기에 귀 기울인다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398000410&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39800/4/cover500/k322130509_1.jpg",
+      "categoryName": "국내도서>과학>동물과 식물>곤충",
+      "updatedAt": "2026-10-01T10:26:46.289Z"
+    },
+    {
+      "isbn": "9791194627289",
+      "title": "잠들기 전 마지막 생각이 내일을 결정한다",
+      "author": "김범준 (지은이)",
+      "publisher": "웨일북",
+      "description": "잠들기 직전에 무의미하고 중독적인 콘텐츠를 소비하며 심신의 건강한 리듬과 안녕을 해치는 대신 몸과 마음의 제대로 된 회복을 통해 내일을 위한 새로운 루틴을 제시한다. 그것은 바로 잠들기 전 고요함 속에서 나의 하루를 가만히 되돌아보며 철학자들의 문장과 만나는 것이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=397819469&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39781/94/cover500/k212130201_1.jpg",
+      "categoryName": "국내도서>인문학>교양 인문학",
+      "updatedAt": "2026-10-01T10:26:46.060Z"
     },
     {
       "isbn": "9788935215157",
@@ -271,6 +524,17 @@
       "updatedAt": "2026-09-01T08:42:40.104Z"
     },
     {
+      "isbn": "9791166572364",
+      "title": "나를 지키는 뇌과학 - 도파민에서 불안, 관계까지 뇌과학 명저 33",
+      "author": "여르미 (지은이)",
+      "publisher": "센시오",
+      "description": "우리 뇌의 작동 원리와 특성을 들여다봄으로써, 끝없이 소모되고 흔들리는 시대에 나를 지키는 법을 제시하는 책이다. 전작 《마흔에 읽는 인문학 필독서 50》으로 많은 사랑을 받은 여르미 작가는, ‘뇌과학’이라는 새로운 주제로 다시 독자들을 찾아왔다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398208665&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39820/86/cover500/k622130605_1.jpg",
+      "categoryName": "국내도서>인문학>심리학/정신분석학>교양 심리학",
+      "updatedAt": "2026-10-01T10:26:46.765Z"
+    },
+    {
       "isbn": "9788901300283",
       "title": "독성 인간 :그들의 다크 심리를 무력화하는 7가지 심리 전략",
       "author": "Brinke, Leanne ten",
@@ -280,6 +544,39 @@
       "cover": "https://image.aladin.co.kr/product/39887/68/cover500/8901300281_1.jpg",
       "categoryName": "국내도서>인문학>심리학/정신분석학>교양 심리학",
       "updatedAt": "2026-09-01T08:42:40.937Z"
+    },
+    {
+      "isbn": "9791194522454",
+      "title": "왕의 심리학 : 영조·사도세자·정조 편 - 심리학자의 눈으로 본 조선왕조 심리 실록",
+      "author": "한민 (지은이)",
+      "publisher": "시크릿하우스",
+      "description": "영조와 사도세자, 정조를 더 이상 권력의 주인공이나 정치사의 인물이 아니라, 가족 안에서 성장하고 관계 속에서 성격을 형성한 인간으로 바라본다. 왕조의 역사 대신 가족의 역사를, 정치적 사건 대신 인간의 심리를 들여다보는 것이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398882337&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39888/23/cover500/k252130722_1.jpg",
+      "categoryName": "국내도서>역사>조선사>조선후기(영조~순종)",
+      "updatedAt": "2026-10-01T10:26:47.239Z"
+    },
+    {
+      "isbn": "9788965968450",
+      "title": "왜 우리는 멈추지 못할까 - 애착으로 읽는 중독의 심리학",
+      "author": "주세진 (지은이)",
+      "publisher": "흐름출판",
+      "description": "서울대병원 정신전문간호사로 28년, 중독 전문가로 16년을 현장에서 보낸 주세진 교수는 채워지지 않는 내면을 다른 대상으로 채우는 사람을 수없이 만났다. 이 책은 과거의 외로움이 어떻게 오늘의 괴로움이 되는지를 보여주고, 그 괴로움에서 벗어나는 방법을 애착으로 설명한다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=399456028&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39945/60/cover500/8965968453_1.jpg",
+      "categoryName": "국내도서>인문학>심리학/정신분석학>교양 심리학",
+      "updatedAt": "2026-10-01T10:26:47.953Z"
+    },
+    {
+      "isbn": "9791193282878",
+      "title": "멘헤라를 위한 책 - 우울과 불안을 다스리는 마음 처방전",
+      "author": "하루네 (지은이)",
+      "publisher": "다크인사이트스튜디오",
+      "description": "멘헤라 또는 유리멘탈이라 불리는, 남들보다 쉽게 불안해하고 상처받는 사람들을 위해 쓰였다. 상처받는 것만 해도 억울한데, 그런 나 자신마저 미워하며 두 번 상처받지 않도록 쓰였다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=399798089&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39979/80/cover500/k682130738_1.jpg",
+      "categoryName": "국내도서>에세이>한국에세이",
+      "updatedAt": "2026-10-01T10:26:47.704Z"
     },
     {
       "isbn": "9791176610513",
@@ -348,6 +645,94 @@
       "updatedAt": "2026-09-01T08:42:43.026Z"
     },
     {
+      "isbn": "9791160736885",
+      "title": "대학수학 (박상원 외) - 제5판",
+      "author": "박상원, 윤정한, 권영삼, 황경원, 설영수 (지은이)",
+      "publisher": "경문사(경문북스)",
+      "description": "공학계열과 자연계열 학생들에게 필요한 수학의 내용을 수록하고 있으며 앞으로 배울 전공 공부에 기초가 되면서 응용에 필요한 내용을 담았다. 특히 공대생들이 필요한 내용들을 우선적으로 배울 수 있도록 구성하였다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=334963370&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/33496/33/cover500/k592938454_1.jpg",
+      "categoryName": "국내도서>대학교재/전문서적>자연과학계열>수학",
+      "updatedAt": "2026-10-01T10:26:50.796Z"
+    },
+    {
+      "isbn": "9791194534839",
+      "title": "무기와 전략의 진화로 읽는 전쟁의 세계사 - 고대 전차와 등자에서 화약, 대포, 항공기, 핵무기, 드론, 인공지능까지!",
+      "author": "강건작 (지은이)",
+      "publisher": "클라우드나인",
+      "description": "고대 전차와 등자, 화약과 대포, 항공기와 핵무기, 드론과 인공지능에 이르기까지 전장의 판도를 바꾼 무기들의 등장을 따라가며 그 무기들이 군대의 조직, 교리, 전술, 국가 전략을 어떻게 바꾸었는지를 살핀다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398209545&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39820/95/cover500/k142130606_1.jpg",
+      "categoryName": "국내도서>역사>세계사 일반",
+      "updatedAt": "2026-10-01T10:26:52.005Z"
+    },
+    {
+      "isbn": "9791130685113",
+      "title": "일이 사라진 세상 - 인공지능은 인간의 쓸모를 어떻게 위협하는가",
+      "author": "이진우 (지은이)",
+      "publisher": "다산북스",
+      "description": "아리스토텔레스, 한나 아렌트, 니체 등 위대한 철학자들의 사유와 신화, 소설, 실제 사례를 교차하며, AI 시대가 불러온 ‘인간 실존의 위기’에 대한 단단한 해답을 제시한다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398287204&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39828/72/cover500/k772130713_1.jpg",
+      "categoryName": "국내도서>사회과학>미래학",
+      "updatedAt": "2026-10-01T10:26:51.760Z"
+    },
+    {
+      "isbn": "9791172134433",
+      "title": "비주얼 의과학사 - 그림으로 읽는 의과학 혁명의 순간들",
+      "author": "유임주 (지은이)",
+      "publisher": "한겨레출판",
+      "description": "클림트를 비롯해 에드바르 뭉크, 에곤 실레, 프리다 칼로 등 당대 최고 예술가들이 자기 작품 속에 감춰 둔 해부학 코드를 소개하는데, 국내 독자들은 물론이고 특히 해외 학계와 학자들로부터 큰 호응을 얻었다. 덕분에 저자는 의학·예술 융합 연구 분야에서 세계적인 권위자 중 한 명으로 자리매김했다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398004532&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39800/45/cover500/k002130502_1.jpg",
+      "categoryName": "국내도서>과학>의학",
+      "updatedAt": "2026-10-01T10:26:52.522Z"
+    },
+    {
+      "isbn": "9791199096998",
+      "title": "생각을 외주화한 사람들",
+      "author": "정재민, 김영주 (지은이)",
+      "publisher": "더스퀘어",
+      "description": "현대인이 일상에서 마주하는 원인 모를 공허함, 만성적인 브레인 포그, 주의력 결핍, 자녀들의 스마트폰 중독이 결코 개인의 의지력 부족이나 나약함 때문이 아니라고 진단한다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=397602381&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39760/23/cover500/k522130009_1.jpg",
+      "categoryName": "국내도서>인문학>교양 인문학",
+      "updatedAt": "2026-10-01T10:26:52.472Z"
+    },
+    {
+      "isbn": "9791130307190",
+      "title": "정치학의 이해 (서울대학교 정치학과 교수진) - 제2판",
+      "author": "서울대학교 정치외교학부 정치학 전공 교수진 (지은이)",
+      "publisher": "박영사",
+      "description": "서울대학교 정치외교학부 정치학 전공 교수들이 새롭게 고쳐 쓴 정치학 개론서이다. 2002년에 발간된 <정치학의 이해>를 수정, 보완 하고 또 새로운 주제를 포함하여 개정판으로 내놓게 되었다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=185830632&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/18583/6/cover500/k012635867_1.jpg",
+      "categoryName": "국내도서>대학교재/전문서적>사회과학계열>정치외교학>정치학일반",
+      "updatedAt": "2026-10-01T10:26:53.269Z"
+    },
+    {
+      "isbn": "9791191959475",
+      "title": "읽고 싶은 소설이 생겼다 - 두근두근 K-문학 읽기",
+      "author": "문화라 (지은이)",
+      "publisher": "바틀비",
+      "description": "한국소설의 최신 경향을 정리하고 독자들의 ‘최애 작품’으로 꼽히는 추천 도서 42권을 소개하는 가이드북이다. 한국문학을 둘러싼 오해와 편견을 해소하고 한국소설이 지닌 다채로운 매력과 오늘날 한국소설이 이룩한 문학적 성취를 설명하는 인문 교양서이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=397264136&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39726/41/cover500/k372130705_1.jpg",
+      "categoryName": "국내도서>인문학>교양 인문학",
+      "updatedAt": "2026-10-01T10:26:53.720Z"
+    },
+    {
+      "isbn": "9788946076518",
+      "title": "선거제도 - 글로벌 시각에서의 이해",
+      "author": "엘리자베스 카터, 데이비드 파렐, 제마 룸스 (지은이), 전용주 (옮긴이)",
+      "publisher": "한울(한울아카데미)",
+      "description": "『선거제도의 이해』(2012), 『선거제도의 이해』(수정판, 2017)의 개정판이다. 앞의 두 책은 2001년 최초 출판된 Electoral Systems: A Comparative Introduction을 2011년 개정해 발간한 제2개정판을 번역한 것이었다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=396694090&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39669/40/cover500/8946076518_1.jpg",
+      "categoryName": "국내도서>사회과학>정치학/외교학/행정학>정치학 일반",
+      "updatedAt": "2026-10-01T10:26:53.748Z"
+    },
+    {
       "isbn": "9791168625075",
       "title": "(세계 문화 여행) 조지아 :세계의 풍습과 문화가 궁금한 이들을 위한 필수 안내서",
       "author": "Abramia, Natia",
@@ -357,6 +742,94 @@
       "cover": "https://image.aladin.co.kr/product/39790/63/cover500/k152130306_1.jpg",
       "categoryName": "국내도서>역사>문화/역사기행>동서양 문화/역사기행",
       "updatedAt": "2026-08-26T01:56:31.811Z"
+    },
+    {
+      "isbn": "9791175780354",
+      "title": "초식 공무원 생존기 - 30년 공직 사회 생태 보고서",
+      "author": "김인태 (지은이)",
+      "publisher": "부키",
+      "description": "30년간 공직 사회에서 일한 저자가 권력과 책임, 계급 구조, 어공과 늘공의 대립 등 조직의 생태를 기록했다. 기린형, 토끼형, 사슴형, 코뿔소형 등 공무원과 직장인이 소신과 원칙을 지키며 살아가는 생존 전략도 함께 담았다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398290366&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39829/3/cover500/k272130715_1.jpg",
+      "categoryName": "국내도서>사회과학>비평/칼럼>정치비평/칼럼",
+      "updatedAt": "2026-10-01T10:26:54.217Z"
+    },
+    {
+      "isbn": "9791194877233",
+      "title": "음악가의 일 - 음표가 음악이 되기까지",
+      "author": "손일훈, 조하정 (지은이)",
+      "publisher": "앤의서재",
+      "description": "모차르트, 베토벤… 오랜 시간 사랑받았고 의식해 듣지 않아도 늘 우리 곁에서 영감과 위로를 주는 음악, 클래식. 그럼에도 클래식 음악을 어렵다고 느끼거나 지루하다고 생각하는 사람들이 여전히 많다. 그 장벽을 허물고 쉽게 소개하려는 노력은 꾸준히 있어 왔으나, 『음악가의 일』은 색다른 방법으로 보다 친근하게 다가가는 책이다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=396413021&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39641/30/cover500/k442130177_1.jpg",
+      "categoryName": "국내도서>예술/대중문화>음악>서양음악(클래식)",
+      "updatedAt": "2026-10-01T10:26:55.218Z"
+    },
+    {
+      "isbn": "9788947502887",
+      "title": "선 넘는 미술사",
+      "author": "이지호 (지은이)",
+      "publisher": "한경arte",
+      "description": "19세기 후반 모더니즘 시대 누드화를 놓고 벌어진 예술과 검열의 세계, 그 현장을 되짚으며 아슬아슬한 경계에 있는 ‘선 넘는 미술사’의 현장을 제대로 들여다보기 위해 쓰였다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=397168377&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39716/83/cover500/894750288x_1.jpg",
+      "categoryName": "국내도서>예술/대중문화>미술>미술 이야기",
+      "updatedAt": "2026-10-01T10:26:54.707Z"
+    },
+    {
+      "isbn": "9791193388396",
+      "title": "진짜 예술, 가짜 예술 - 우리를 조종하는 것들, 우리를 자유롭게 하는 것들",
+      "author": "장 프랑수아 마르텔 (지은이), 김기상 (옮긴이)",
+      "publisher": "서스테인",
+      "description": "클릭 한 번에 AI가 글과 그림을 쏟아내는 요즘, 점점 더 빠른 속도로 자극적인 콘텐츠가 양산되며 사람들의 시선을 끌려고 아우성친다. 《진짜 예술, 가짜 예술》은 우리의 감각과 사고를 마비시키는 ‘가짜 예술’이 범람하는 오늘날, 과연 진짜 예술이 생존할 수 있을지 절박한 질문을 던진다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=396382923&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39638/29/cover500/k042130171_1.jpg",
+      "categoryName": "국내도서>인문학>교양 인문학",
+      "updatedAt": "2026-10-01T10:26:56.138Z"
+    },
+    {
+      "isbn": "9788961964692",
+      "title": "구름들 - 미술과 과학, 그리고 하늘",
+      "author": "에드워드 그레이엄 (지은이), 서정아 (옮긴이)",
+      "publisher": "아트북스",
+      "description": "구름을 단순한 기상 현상이 아닌 과학과 예술, 자연사와 문화사를 함께 읽는 대상으로 바라보는 책이다. 이를 통해 독자는 하늘을 보는 새로운 시선을 얻는다. 이 책을 쓴 에드워드 그레이엄은 대기과학자로, 현대 기상학의 성과를 바탕으로 구름의 생성과 소멸, 물의 순환, 분류 체계와 명명법의 역사를 쉽고 흥미롭게 설명한다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=398882221&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39888/22/cover500/8961964690_1.jpg",
+      "categoryName": "국내도서>과학>지구과학>기상학/기후",
+      "updatedAt": "2026-10-01T10:26:55.924Z"
+    },
+    {
+      "isbn": "9791192410630",
+      "title": "나를 지키고 싶을 때 미술관에 갑니다 - 돌봄을 살아낸 우리에게 쉼이 되는 그림들",
+      "author": "오희승 (지은이)",
+      "publisher": "그래도봄",
+      "description": "엄마와 주부, 환자라는 무거운 이름 뒤에서 마음이 무너지던 날마다 저자 오희승이 미술관을 찾아 그림과 마주하며 스스로를 지켜낸 다정한 회복의 기록이다. 19세기 후반에서 20세기 초반에 걸쳐 그려진 28점의 그림 앞에서 저자는 그림을 해설하거나 화가의 생애를 나열하는 대신 떠오른 자신의 감각과 기억을 써 내려간다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=396103522&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39610/35/cover500/k902130876_2.jpg",
+      "categoryName": "국내도서>에세이>한국에세이",
+      "updatedAt": "2026-10-01T10:26:56.897Z"
+    },
+    {
+      "isbn": "9788973435944",
+      "title": "다락방 미술관 - 그 그림엔 사연이 있다, 개정판",
+      "author": "문하연 (지은이)",
+      "publisher": "평단(평단문화사)",
+      "description": "르네상스부터 현대까지 각 시대를 대표하는 미술 작품들을 누구나 쉽고 즐겁게 감상할 수 있도록 안내하는 미술 에세이로, 초판 출간 이후 꾸준한 사랑을 보내준 독자들의 성원에 힘입어 다시 펴냈다. 그림 앞에 서면 왠지 주눅이 들고, 미술관에서는 무엇을 봐야 할지 몰라 망설였던 사람들에게 이 책은 가장 먼저 손을 내민다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=395946600&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39594/66/cover500/8973435949_1.jpg",
+      "categoryName": "국내도서>예술/대중문화>미술>미술 이야기",
+      "updatedAt": "2026-10-01T10:26:56.608Z"
+    },
+    {
+      "isbn": "9788990982612",
+      "title": "백야행 1 - 하얀 어둠 속을 걷다",
+      "author": "히가시노 게이고 (지은이), 김난주 (옮긴이)",
+      "publisher": "재인",
+      "description": "히가시노 게이고의 대표작 <백야행>이 김난주 번역으로 새롭게 출간됐다. 김난주 번역가의 매끄러운 번역으로 새롭게 탄생한 <백야행>은 섬세한 뉘앙스와 은밀한 복선, 시적인 암시 등 원작의 문학적 특징을 고스란히 살려냈다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=80801844&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/8080/18/cover500/8990982618_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>추리/미스터리소설>일본 추리/미스터리소설",
+      "updatedAt": "2026-10-01T10:26:57.369Z"
     },
     {
       "isbn": "9788961095761",
@@ -392,6 +865,28 @@
       "updatedAt": "2026-09-01T08:42:49.075Z"
     },
     {
+      "isbn": "9791194600688",
+      "title": "나는 오늘도 공간을 판다",
+      "author": "당근자판기(김진옥) (지은이)",
+      "publisher": "모티브",
+      "description": "한때 서울의 대학병원 간호사이자 두 아이를 키우는 평범한 워킹맘이었던 저자가, 1억 원의 빚에서 시작해 불과 9년 만에 100억 원 자산가로 성장한 과정을 담고 있다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=373228767&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/37322/87/cover500/k442031856_2.jpg",
+      "categoryName": "국내도서>경제경영>기업/경영자 스토리>벤처/인터넷 기업/경영자",
+      "updatedAt": "2026-10-01T10:26:58.093Z"
+    },
+    {
+      "isbn": "9791124307090",
+      "title": "우리는 목적지를 묻지 않기로 했다 - 여행서 출판사 사람들의 유럽 소도시 여행기",
+      "author": "이정기 (지은이)",
+      "publisher": "타블라라사",
+      "description": "벨기에, 네덜란드 등의 플랑드르 지역과 신성 로마 제국의 역사를 품은 소도시 여행기를 바탕으로, 한 사람이 자신의 삶의 기반을 다시 세워 가는 과정을 그린 여행 에세이다. 작은 회사의 대표로서 지난 10년간 걸어왔던 길을 되새기며, 불안정한 오늘을 버티는 사람들에게 위로를 전한다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=397688905&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39768/89/cover500/k152130108_1.jpg",
+      "categoryName": "국내도서>여행>유럽여행>유럽여행 에세이",
+      "updatedAt": "2026-10-01T10:26:58.335Z"
+    },
+    {
       "isbn": "899223502X",
       "title": "이야기를 걷다 :소설 속을 걸어 부산을 보다",
       "author": "조갑상",
@@ -412,6 +907,281 @@
       "cover": "https://bimage.interpark.com/goods_image/2/8/2/2/213212822s.jpg",
       "categoryName": "국내도서>소설/시/희곡>우리나라 옛글>산문",
       "updatedAt": "2026-08-26T01:56:32.165Z"
+    },
+    {
+      "isbn": "9788973814725",
+      "title": "멋진 신세계",
+      "author": "올더스 헉슬리 (지은이), 안정효 (옮긴이)",
+      "publisher": "(주)태일소담출판사",
+      "description": "올더스 헉슬리는 명문 집안 출신의 영국 작가로서 광범위한 지식뿐 아니라 예리한 지성과 우아한 문체, 그리고 때로는 냉소적인 유머 감각으로 유명하다. 그가 1932년에 발표한 작품 <멋진 신세계>는 금세기에 미래를 가장 깊이 있고 날카롭게 파헤친 작품 중의 하나로 평가받는다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=60836103&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/6083/61/cover500/8973814729_2.jpg",
+      "categoryName": "국내도서>소설/시/희곡>과학소설(SF)>외국 과학소설",
+      "updatedAt": "2026-10-01T10:26:59.288Z"
+    },
+    {
+      "isbn": "9791162881255",
+      "title": "사용자 중심의 Smart 원가회계 - 제4판 수정판",
+      "author": "서강관리회계연구회 (지은이)",
+      "publisher": "유원북스",
+      "description": "제4판에서는 기본예제를 강화하여 원가회계의 체계를 정확하게 이해시키는 데 중점을 두었다. 각 장마다 기본적인 문제에서부터 응용문제에 이르기까지 해설을 곁들인 다양한 형태의 연습문제들 즉, 그동안 각종 자격시험에서 최근 기출된 문제들을 수록하였다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=370810436&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/37081/4/cover500/k492030058_1.jpg",
+      "categoryName": "국내도서>대학교재/전문서적>경상계열>세무/회계",
+      "updatedAt": "2026-10-01T10:26:59.052Z"
+    },
+    {
+      "isbn": "8949190028",
+      "title": "모모",
+      "author": "미하엘 엔데 (지은이), 한미희 (옮긴이)",
+      "publisher": "비룡소",
+      "description": "사람들에게서 행복과 풍요로움을 주는 시간을 빼앗아간 회색 신사들과 여자 아이 모모, 호라 박사 등이 벌이는 모험을 다룬 소설. 꿈 속에서 벌어질 법한 갖은 이야기들이 줄줄이 펼쳐진다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=191015&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/19/10/cover500/8949190028_2.jpg",
+      "categoryName": "국내도서>어린이>동화/명작/고전>세계명작",
+      "updatedAt": "2026-10-01T10:26:59.997Z"
+    },
+    {
+      "isbn": "9788925588735",
+      "title": "프로젝트 헤일메리",
+      "author": "앤디 위어 (지은이), 강동혁 (옮긴이)",
+      "publisher": "알에이치코리아(RHK)",
+      "description": "데뷔작 《마션》과 후속작 《아르테미스》가 연달아 대성공을 거두며 뉴욕 타임스와 아마존 베스트셀러에 이름을 올린 명실상부 최고의 SF 작가, 앤디 위어의 신작. 지구를 구하기 위해서 정작 스스로는 지구로 돌아오지 못할 헤일메리호에 오른 ‘좋은 사람’인 주인공의 이야기가 펼쳐진다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=270454373&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/27045/43/cover500/k692135851_3.jpg",
+      "categoryName": "국내도서>소설/시/희곡>과학소설(SF)>외국 과학소설",
+      "updatedAt": "2026-10-01T10:26:59.736Z"
+    },
+    {
+      "isbn": "9791130399881",
+      "title": "형사소송법 (이주원) - 제7판",
+      "author": "이주원 (지은이)",
+      "publisher": "박영사",
+      "description": "죄형법정주의에 대응하는 형사소송법의 기본원칙을 적법절차 원칙에서 풀어낸다. 제6판 이후 4차례 개정과 피해자 참여권 강화, 전자정보 보전요청 제도 도입 등 최신 입법을 반영하고, 2025.12.31.까지 주요 판례를 충실히 담은 형사소송법 개정판이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=386001348&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/38600/13/cover500/k762136479_1.jpg",
+      "categoryName": "국내도서>대학교재/전문서적>법학계열>형법",
+      "updatedAt": "2026-10-01T10:27:00.460Z"
+    },
+    {
+      "isbn": "9788990982704",
+      "title": "용의자 X의 헌신 - 제134회 나오키상 수상작",
+      "author": "히가시노 게이고 (지은이), 양억관 (옮긴이)",
+      "publisher": "재인",
+      "description": "히가시노 게이고 문학의 정수로 일컬어지는 <용의자 X의 헌신>이 새롭게 번역되어 출간됐다. 일본 문학 전문 번역가 양억관이 자신의 번역을 대폭 손질해 원작이 지닌 문학적 향기와 감동을 오롯이 되살려 냈다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=116498287&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/11649/82/cover500/8990982707_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>추리/미스터리소설>일본 추리/미스터리소설",
+      "updatedAt": "2026-10-01T10:27:00.445Z"
+    },
+    {
+      "isbn": "9791199305304",
+      "title": "자몽살구클럽",
+      "author": "한로로 (HANRORO) (지은이)",
+      "publisher": "어센틱",
+      "description": "싱어송라이터 한로로가 발매할 세 번째 EP 음악 앨범과 연결된 동명의 소설이다. 죽고 싶은 네명의 아이들이 비밀 클럽 '자몽살구클럽'에서 만나 서로를 살리기로 한다. 각자의 모진 삶을 견디기 힘들어 모인 '소하', '태수', '유민', '보현'의 에피소드는 생존이라는 목표 아래 처절하게 전개된다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=368083714&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/36808/37/cover500/k082030009_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-10-01T10:27:01.145Z"
+    },
+    {
+      "isbn": "9791124264461",
+      "title": "2027 한글 변호사시험용 법전 - 제16회 변호사시험 대비, 공법.민사법.형사법",
+      "author": "법조문연구회 (지은이)",
+      "publisher": "법학사",
+      "description": "법무부 변호사시험장 제공 법전과 동일한 체계·판형 및 법령 수록, 제15회 변호사시험 법전을 따르고 동일한 판형으로 제작하였다. 법제처 온라인 한글 법령 서비스를 바탕으로 한글화하고 2026년 4월 2일 현재 공포된 법령 개정사항을 반영하였다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=390011409&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39001/14/cover500/k882137229_1.jpg",
+      "categoryName": "국내도서>수험서/자격증>인문/사회/법(고등고시)>수험법전",
+      "updatedAt": "2026-10-01T10:27:01.113Z"
+    },
+    {
+      "isbn": "9788918916750",
+      "title": "2026 낭독 형법판례",
+      "author": "하태영 (지은이)",
+      "publisher": "법문사",
+      "description": "대법원이 2025년 대법원 판례공보가 선정한 중요한 형법 판결집이다 형법 분야 50개를 형법전 편제 순으로 정리하고 총론 20개, 각론 22개, 특별형법 8개를 담았다 판결문을 읽기 쉽게 끊어 정리해 문장 공부와 형법 이론 이해에 도움이 된다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=390315806&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39031/58/cover500/8918916752_1.jpg",
+      "categoryName": "국내도서>대학교재/전문서적>법학계열>형법",
+      "updatedAt": "2026-10-01T10:27:01.608Z"
+    },
+    {
+      "isbn": "9788964212936",
+      "title": "최적설계입문 - 제4판",
+      "author": "Jasbir S. Arora (지은이), 류연선, 임오강, 이권희, 이두호, 이태희, 조선호 (옮긴이)",
+      "publisher": "한티미디어",
+      "description": "최근 인공지능에 의한 다양한 활용 방법에서 보듯이 최적설계는 실제적인 설계 문제를 해결하기 위하여 모사 풀림과 자연 영감 탐색법과 같은 확률론적 방법에 의한 연구가 이루어져 왔다. 이러한 자연 영감 탐색의 다양한 알고리즘을 포함하고 있는 제4개정판이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=107261686&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/10726/16/cover500/8964212932_1.jpg",
+      "categoryName": "국내도서>대학교재/전문서적>공학계열>기계공학>기계설계/공작",
+      "updatedAt": "2026-10-01T10:27:01.620Z"
+    },
+    {
+      "isbn": "9788931010831",
+      "title": "멋진 신세계",
+      "author": "올더스 헉슬리 (지은이), 이덕형 (옮긴이)",
+      "publisher": "문예출판사",
+      "description": "시의성이 있는 책, 오래 사랑받은 고전 작품을 선정하여 출간하는 '에디터스 컬렉션'의 2권으로 <멋진 신세계>가 출간되었다. 올더스 헉슬리의 대표작으로 20세기 기계문명의 발달과 과학의 진보가 전체주의 사상과 밀착될 때 어떤 비극이 초래될 수 있는가를 보여주는 작품이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=138211835&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/13821/18/cover500/8931010834_2.jpg",
+      "categoryName": "국내도서>소설/시/희곡>과학소설(SF)>외국 과학소설",
+      "updatedAt": "2026-10-01T10:27:02.336Z"
+    },
+    {
+      "isbn": "9788979292039",
+      "title": "어반 스케치 핸드북 : 건물과 도시풍경 (리커버 버전)",
+      "author": "가브리엘 캄파나리오 (지은이)",
+      "publisher": "EJONG(이종문화사)",
+      "description": "건물들과 도시들을 그리는데 필요한 주요 요소들이 담겨 있다. 전세계 각국의 어반 스케처들의 작품들과 코멘트들도 담겨 있어 작은 핸드북을 통해 여러 도시를 여행하다 보면 당신도 어반 스케처가 되고 싶은 마음이 들 것이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=188343468&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/18834/34/cover500/k892635988_1.jpg",
+      "categoryName": "국내도서>예술/대중문화>미술>미술 실기",
+      "updatedAt": "2026-10-01T10:27:02.338Z"
+    },
+    {
+      "isbn": "9791156751519",
+      "title": "멋진 신세계",
+      "author": "올더스 헉슬리 (지은이), 이혜인 (옮긴이)",
+      "publisher": "푸른숲주니어",
+      "description": "디스토피아를 그린 20세기 최고의 예언적 소설 중 하나”로 꼽히며, <가디언> <옵저버> BBC가 영미권의 100대 소설. 지금으로부터 500여 년 뒤, 26세기 지구가 무대로, 아이들은 더 이상 여자의 몸에서 태어나지 않고, 컨베이어 벨트 생산라인을 따라 완성된다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=122215338&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/12221/53/cover500/k782531541_2.jpg",
+      "categoryName": "국내도서>청소년>청소년 문학>청소년 소설",
+      "updatedAt": "2026-10-01T10:27:02.877Z"
+    },
+    {
+      "isbn": "9788937473401",
+      "title": "급류",
+      "author": "정대건 (지은이)",
+      "publisher": "민음사",
+      "description": "2020년 《한경신춘문예》에 장편소설 <GV 빌런 고태경>이 당선되어 작품 활동을 시작한 소설가 정대건의 두 번째 장편소설 <급류>가 오늘의 젊은 작가 시리즈 40번으로 출간되었다. <급류>는 저수지와 계곡이 유명한 지방도시 ‘진평’을 배경으로, 열일곱 살 동갑내기인 ‘도담’과 ‘해솔’의 만남과 사랑을 그린 소설이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=307692409&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/30769/24/cover500/8937473402_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-10-01T10:27:02.846Z"
+    },
+    {
+      "isbn": "9791130346557",
+      "title": "행정쟁송법 - 제7판",
+      "author": "하명호 (지은이)",
+      "publisher": "박영사",
+      "description": "지난해에도 행정소송규칙이 제정되는 등 행정쟁송법 분야의 기본적인 법령이 제정되거나 개정되었고, 행정쟁송법 영역에서 중요한 의미를 지니는 새로운 판례들이 다수 선고되었으며, 행정쟁송에 관한 법리를 밝힌 개인적인 연구성과들도 있었다. 제7판에서는 이러한 점들을 반영하려고 노력하였다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=334595116&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/33459/51/cover500/k862938744_1.jpg",
+      "categoryName": "국내도서>대학교재/전문서적>법학계열>행정법",
+      "updatedAt": "2026-10-01T10:27:03.600Z"
+    },
+    {
+      "isbn": "9791157309498",
+      "title": "행정법 사례연습",
+      "author": "최우용 (지은이)",
+      "publisher": "피앤씨미디어",
+      "description": "지난 10여 년간 로스쿨 3학년생을 대상으로 공법 종합과목을 가르치면서 축적된 기록을 담았다. 모든 사례는 가능한 주요 판례를 베이스로 하여 출제하였다. 그리고 사례와 관련된 주요 판례는 해설 마지막에 부가해 두었다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=345731662&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/34573/16/cover500/k742933368_1.jpg",
+      "categoryName": "국내도서>대학교재/전문서적>법학계열>행정법",
+      "updatedAt": "2026-10-01T10:27:03.590Z"
+    },
+    {
+      "isbn": "9791141602451",
+      "title": "절창 :구병모 장편소설",
+      "author": "구병모",
+      "publisher": "문학동네",
+      "description": "더이상의 수식이 필요치 않은 작가, 그 이름이 하나의 브랜드가 된 구병모의 장편소설 『절창』. 누구보다 드넓은 문학적 영토를 지닌 구병모의 그 어떤 작품을 좋아하는 독자라도 만족시킬 작품이라 할 만하다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=401104412&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/40110/44/cover500/k712130552_3.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-08-26T01:56:20.753Z"
+    },
+    {
+      "isbn": "9788937464720",
+      "title": "사람은 무엇으로 사는가",
+      "author": "레프 니콜라예비치 톨스토이 (지은이), 연진희 (옮긴이)",
+      "publisher": "민음사",
+      "description": "레프 톨스토이 단편선 『사람은 무엇으로 사는가』가 민음사 세계문학전집으로 출간되었다. 『전쟁과 평화』, 『안나 카레니나』 등 대문호의 명성을 뒤로하고, 그가 ‘죽음’이라는 실존적 공포와 마주한 오십 대 이후에 써 내려간 ‘작은 이야기’들 여섯 편을 엮은 것이다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=376867245&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/37686/72/cover500/8937464721_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>러시아소설",
+      "updatedAt": "2026-10-01T10:27:04.069Z"
+    },
+    {
+      "isbn": "9791167922960",
+      "title": "2026 SIGNATURE 공법기록 1 : 이론편 - 전2권 - 제12판",
+      "author": "강성민 (지은이)",
+      "publisher": "필통북스",
+      "description": "공법적 분쟁 유형에 따른 구제수단을 찾아가는 방식으로 서술하고 다양한 서식과 기재례로 공법기록 작성방법을 알기 쉽게 담았다. 기재례 핸드북과 변호사시험 답안 수록, 개정 법 반영으로 선택형·사례형·기록형 대비가 가능하다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=390391048&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/39039/10/cover500/k392137641_2.jpg",
+      "categoryName": "국내도서>수험서/자격증>인문/사회/법(고등고시)>변호사시험>헌법",
+      "updatedAt": "2026-10-01T10:27:04.555Z"
+    },
+    {
+      "isbn": "8937460777",
+      "title": "1984",
+      "author": "조지 오웰 (지은이), 정회성 (옮긴이)",
+      "publisher": "민음사",
+      "description": "민음사에서 조지 오웰 탄생 100주년을 맞아 그의 대표작 를 새롭게 펴냈다. 는 널리 알려진 바와 같이 전체주의를 비판하는 디스토피아 소설로, 날카로운 풍자와 정치적 함의로 유명하다. '절대 권력은 절대 부패한다'는 명언을 탁월하게 형상화한 작품.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=418906&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/41/89/cover500/s122531356_2.jpg",
+      "categoryName": "국내도서>소설/시/희곡>영미소설",
+      "updatedAt": "2026-10-01T10:27:05.035Z"
+    },
+    {
+      "isbn": "893746053X",
+      "title": "오셀로",
+      "author": "윌리엄 셰익스피어 (지은이), 최종철 (옮긴이)",
+      "publisher": "민음사",
+      "description": "베니스의 흑인 장군 오셀로는 공국의 원로 브라반쇼의 딸 데스데모나와 사랑에 빠진다. 그녀의 아버지는 오셀로가 흑인이라는 이유로 두 사람의 관계를 반대하지만, 둘은 끝내 결혼한다. 때마침 투르크 함대가 사이프러스 섬을 침공하고, 오셀로는 섬을 지키러 아내와 함께 떠나는데...",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=295159&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/29/51/cover500/s982934786_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>세계의 문학>영국문학",
+      "updatedAt": "2026-10-01T10:27:05.033Z"
+    },
+    {
+      "isbn": "9788926709948",
+      "title": "왕은 웃었다 1",
+      "author": "류재빈 (지은이)",
+      "publisher": "파피루스(디앤씨미디어)",
+      "description": "비를 내릴 수 있는 단 한 사람인 왕과, 그 왕을 지키는 군위를 꿈꾸는 소년 라야의 이야기. 이 책은 작가가 관찰한 사람의 이야기에서 출발한다. 새로운 세계를 설득력 있게 그려 낸 이 작품은 작가의 자연에 대한, 환경에 대한 관심을 담고 있다....",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=13034406&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/1303/44/cover500/8926709949_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>판타지/환상문학>한국판타지/환상소설",
+      "updatedAt": "2026-10-01T10:27:05.546Z"
+    },
+    {
+      "isbn": "9788997336579",
+      "title": "그리스사",
+      "author": "맥세계사편찬위원회 (지은이), 송은진 (옮긴이), 박희영 (감수), 강치원 (추천)",
+      "publisher": "느낌이있는책",
+      "description": "'맥을 잡아주는 세계사' 시리즈 첫 번째 책. 문학과 연극, 조각과 건축, 철학을 화려하게 꽃피우며 유럽 문명의 시작을 알린 고대 그리스의 역사를 압축적인 정보와 흥미로운 에피소드로 생생하게 담았다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=38336893&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/3833/68/cover500/8997336576_1.jpg",
+      "categoryName": "국내도서>역사>서양사>서양고대사",
+      "updatedAt": "2026-10-01T10:27:05.515Z"
+    },
+    {
+      "isbn": "9788937473166",
+      "title": "해가 지는 곳으로",
+      "author": "최진영 (지은이)",
+      "publisher": "민음사",
+      "description": "작가 최진영의 다섯 번째 장편소설 는 최진영이 최초로 선보이는 아포칼립스 소설로 정체 모를 바이러스가 전 세계를 뒤덮은 혼란의 시기. 감염된 사람들은 삽시간에 죽어 가고, 살아남은 이들은 안전한 곳을 찾아 끝 모르는 여정을 떠난다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=112811885&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/11281/18/cover500/893747316x_1.jpg",
+      "categoryName": "국내도서>소설/시/희곡>한국소설>2000년대 이후 한국소설",
+      "updatedAt": "2026-10-01T10:27:06.044Z"
+    },
+    {
+      "isbn": "9788970509679",
+      "title": "신호와 시스템의 이해",
+      "author": "김명진 (지은이)",
+      "publisher": "생능",
+      "description": "각 장의 뒷부분에 단원 정리 예제와 풀이를 넣었다. 각 절에서 다룬 내용들을 종합하여 예제를 만들었으며, 풀이도 여러 해법이 가능한 경우 다른 풀이법도 제시하여 다양한 관점으로 더 넓게 문제를 바라보는 안목을 기르도록 하였다.",
+      "link": "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=179643320&partner=openAPI&start=api",
+      "cover": "https://image.aladin.co.kr/product/17964/33/cover500/8970509674_1.jpg",
+      "categoryName": "국내도서>대학교재/전문서적>공학계열>전기전자공학>신호처리/제어",
+      "updatedAt": "2026-10-01T10:27:06.588Z"
     }
   ]
 }
